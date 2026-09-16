@@ -68,6 +68,10 @@
   --map-grid: #3a3835;
   --map-col-tint: rgba(255,255,255,0.02);
 }
+.sd-catalog {
+  position: relative;
+  min-height: calc(100vh - 48px);
+}
 .sd-catalog,
 .sd-catalog *,
 .sd-catalog *::before,
