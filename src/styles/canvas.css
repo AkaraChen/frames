@@ -1,0 +1,334 @@
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff;
+  --surface: #f8f7f4;
+  --surface2: #f0ede8;
+  --border: #e8e4de;
+  --border-dark: #d4cfc8;
+  --text: #1a1916;
+  --text-secondary: #6b6660;
+  --text-muted: #9b9590;
+
+  --cat-discovery: #e8f5ee;
+  --cat-discovery-text: #1a5c38;
+  --cat-discovery-border: #b8dfc8;
+  --cat-define: #e8eef8;
+  --cat-define-text: #1a3a6b;
+  --cat-define-border: #b8cce8;
+  --cat-ideation: #fdf3e3;
+  --cat-ideation-text: #7a4a0a;
+  --cat-ideation-border: #f0d4a0;
+  --cat-validation: #fce8e8;
+  --cat-validation-text: #7a1a1a;
+  --cat-validation-border: #f0b8b8;
+  --cat-execution: #ede8f8;
+  --cat-execution-text: #3a1a6b;
+  --cat-execution-border: #c8b8e8;
+  --cat-growth: #e8f8e8;
+  --cat-growth-text: #1a5a1a;
+  --cat-growth-border: #b8dbb8;
+  --cat-system: #f8e8f3;
+  --cat-system-text: #6b1a52;
+  --cat-system-border: #e8b8d8;
+}
+
+html { scroll-behavior: smooth; }
+
+html:has(.pmf-canvas-root), html:has(.pmf-canvas-root) body, .pmf-canvas-root {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* PAGE MAX WIDTH */
+nav, .canvas-controls {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── NAV ── */
+nav {
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  z-index: 50;
+}
+.nav-back {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-muted);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--text); }
+.nav-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: var(--text);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── CONTROLS — match index.html filter-btn style ── */
+.canvas-controls {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.canvas-controls::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.legend-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border-dark);
+  background: var(--bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.legend-btn .dot-icon {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.legend-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+.legend-btn.active {
+  background: var(--text);
+  color: #ffffff;
+  border-color: var(--text);
+}
+.legend-btn.active .dot-icon {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+}
+.legend-btn.dimmed {
+  opacity: 0.4;
+  background: var(--bg);
+}
+.legend-btn.dimmed:hover { opacity: 0.7; }
+
+.controls-right {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── CANVAS ── */
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: calc(100vh - 52px - 44px);
+  overflow: hidden;
+  background: var(--bg);
+}
+.canvas-area {
+  position: absolute;
+  top: 32px;
+  left: 72px;
+  right: 24px;
+  bottom: 80px;
+  /* very subtle grid */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 10% 10%;
+  background-position: 0 0;
+  border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Axis labels */
+.axis-x {
+  position: absolute;
+  bottom: 10px;
+  left: 72px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+.axis-y-top, .axis-y-bottom {
+  position: absolute;
+  left: 76px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.axis-y-top { top: 18px; }
+.axis-y-bottom { bottom: 56px; }
+
+/* Quadrant labels */
+.quadrant-label {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--border-dark);
+  pointer-events: none;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+.q-tl { top: 12px; left: 12px; }
+.q-tr { top: 12px; right: 12px; text-align: right; }
+.q-bl { bottom: 12px; left: 12px; }
+.q-br { bottom: 12px; right: 12px; text-align: right; }
+
+/* ── DOTS ── */
+.fw-dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+  border: 1.5px solid;
+  text-decoration: none;
+}
+.fw-dot:hover {
+  transform: translate(-50%, 50%) scale(1.8);
+  z-index: 10;
+  opacity: 1 !important;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+.fw-dot.is-fav {
+  box-shadow: 0 0 0 3px rgba(200, 150, 10, 0.3);
+  opacity: 0.85 !important;
+}
+.fw-dot.is-fav:hover {
+  opacity: 1 !important;
+}
+.fw-dot.cat-dimmed {
+  opacity: 0.08 !important;
+  transform: translate(-50%, 50%) scale(0.7);
+}
+.fw-dot.cat-dimmed:hover {
+  opacity: 0.4 !important;
+  transform: translate(-50%, 50%) scale(1.2);
+}
+
+/* dot name label (shown on hover via JS) */
+.fw-dot .dot-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.fw-dot:hover .dot-label {
+  opacity: 1;
+}
+
+/* ── TOOLTIP ── */
+.tooltip {
+  position: fixed;
+  z-index: 100;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  max-width: 280px;
+}
+.tooltip.visible { opacity: 1; }
+.tooltip-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.tooltip-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.tooltip-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.tooltip-fav {
+  font-size: 11px;
+  color: #b88010;
+  margin-top: 4px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .canvas-controls { padding: 0 24px; overflow-x: auto; }
+  .canvas-area { left: 56px; right: 16px; top: 28px; bottom: 56px; }
+  .axis-x { left: 56px; right: 16px; bottom: 8px; }
+  .axis-y-top { top: 14px; }
+  .axis-y-bottom { bottom: 60px; }
+  .quadrant-label { font-size: 9px; }
+}
+
+.nav-logo{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--text-secondary);user-select:none;}
+.nav-logo .domain-pmf{color:#1a7a4a;font-weight:500;cursor:default;transition:all 0.4s ease;display:inline-block;}
+.nav-logo .domain-pmf:hover{
+  background:linear-gradient(90deg,#1a7a4a,#2a9d5c,#f5a623,#e8734a,#d94f8c,#7b61ff,#1a7a4a);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:pmf-logo-grad 2s linear infinite;
+  transform:scale(1.08);letter-spacing:0.08em;
+}
+@keyframes pmf-logo-grad{0%{background-position:0% center}100%{background-position:200% center}}
+nav { position: relative; }
