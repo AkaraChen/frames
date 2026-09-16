@@ -149,7 +149,7 @@ nav {
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
-  height: calc(100vh - 52px - 44px);
+  height: calc(100vh - 48px - 52px - 44px);
   overflow: hidden;
   background: var(--bg);
 }
