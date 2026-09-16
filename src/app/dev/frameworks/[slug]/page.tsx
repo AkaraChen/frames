@@ -1,5 +1,5 @@
-import { SdFrameworkArticle } from "@/components/sd-framework-article";
-import "@/styles/sd-article.css";
+import { SdShadowRoot } from "@/components/sd-shadow-root";
+import { SdFrameworkDetailApp } from "@/sdframe/detail-app";
 import { getAllFrameworks, getFrameworkFull } from "@/sdframe/data/loader";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -27,5 +27,9 @@ export default async function SdFrameworkPage({
   const { slug } = await params;
   const fw = await getFrameworkFull(slug);
   if (!fw) notFound();
-  return <SdFrameworkArticle fw={fw} />;
+  return (
+    <SdShadowRoot>
+      <SdFrameworkDetailApp />
+    </SdShadowRoot>
+  );
 }

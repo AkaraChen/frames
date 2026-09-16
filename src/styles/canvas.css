@@ -47,14 +47,14 @@ html:has(.pmf-canvas-root), html:has(.pmf-canvas-root) body, .pmf-canvas-root {
 }
 
 /* PAGE MAX WIDTH */
-nav, .canvas-controls {
+.pmf-canvas-root nav, .pmf-canvas-root .canvas-controls {
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* ── NAV ── */
-nav {
+.pmf-canvas-root nav {
   height: 52px;
   border-bottom: 1px solid var(--border);
   padding: 0 48px;
@@ -312,7 +312,7 @@ nav {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  nav { padding: 0 24px; }
+  .pmf-canvas-root nav { padding: 0 24px; }
   .canvas-controls { padding: 0 24px; overflow-x: auto; }
   .canvas-area { left: 56px; right: 16px; top: 28px; bottom: 56px; }
   .axis-x { left: 56px; right: 16px; bottom: 8px; }
@@ -331,4 +331,4 @@ nav {
   transform:scale(1.08);letter-spacing:0.08em;
 }
 @keyframes pmf-logo-grad{0%{background-position:0% center}100%{background-position:200% center}}
-nav { position: relative; }
+.pmf-canvas-root nav { position: relative; }

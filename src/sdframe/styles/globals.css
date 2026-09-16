@@ -1,4 +1,4 @@
-:root {
+:root, :host {
   --bg: #faf9f6;
   --text: #1a1916;
   --surface: #f8f7f4;
@@ -35,7 +35,7 @@
   --map-col-tint: rgba(0,0,0,0.015);
 }
 
-[data-theme="dark"] {
+[data-theme="dark"], :host([data-theme="dark"]) {
   --bg: #1a1917;
   --text: #e8e5df;
   --surface: #23221f;
@@ -68,6 +68,16 @@
   --map-grid: #3a3835;
   --map-col-tint: rgba(255,255,255,0.02);
 }
+:host {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
 .sd-catalog {
   position: relative;
   min-height: calc(100vh - 48px);
