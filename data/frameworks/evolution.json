@@ -1,0 +1,4030 @@
+[
+  {
+    "id": 73,
+    "name": "Strangler Fig Pattern",
+    "name_zh": "绞杀榕模式",
+    "slug": "strangler-fig-pattern",
+    "category": "evolution",
+    "desc": "Incrementally replace a legacy system by routing traffic to new modules",
+    "desc_zh": "通过逐步将流量路由至新模块，渐进式替换遗留系统",
+    "steps": [
+      "Identify the legacy system boundary and map all entry points (APIs, events, UI routes)",
+      "Build a facade or proxy layer that intercepts all requests to the legacy system",
+      "Incrementally implement new functionality behind the facade, feature by feature",
+      "Redirect traffic from the facade to the new implementation one slice at a time",
+      "Retire legacy code once all traffic has been migrated and verified stable"
+    ],
+    "steps_zh": [
+      "识别遗留系统边界，映射所有入口点（API、事件、UI 路由）",
+      "构建外观层或代理层，拦截所有流向遗留系统的请求",
+      "在外观层后面逐项功能地增量实现新功能",
+      "逐片将流量从外观层重定向至新实现",
+      "所有流量迁移并验证稳定后，退役遗留代码"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Legacy",
+      "Facade",
+      "New Service",
+      "Decommission"
+    ],
+    "viz_labels_zh": [
+      "遗留系统",
+      "外观层",
+      "新服务",
+      "下线旧系统"
+    ],
+    "related": [
+      "branch-by-abstraction",
+      "parallel-run",
+      "microservices-decomposition"
+    ],
+    "tags": [
+      "migration",
+      "legacy",
+      "incremental",
+      "strangler-fig"
+    ],
+    "origin_author": "Martin Fowler, 2004",
+    "origin_source": "StranglerFigApplication (martinfowler.com)",
+    "origin_source_zh": "《绞杀榕应用》（martinfowler.com 博文）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Migrating a monolithic legacy system to microservices without a full rewrite",
+      "Replacing an aging e-commerce platform while keeping it live for customers",
+      "Gradually moving from an on-premises system to cloud-native services",
+      "Modernizing a mainframe backend one domain at a time"
+    ],
+    "when_to_use_zh": [
+      "将单体遗留系统迁移到微服务架构，而无需全面重写",
+      "在保持客户正常使用的同时替换老化的电商平台",
+      "从本地部署系统逐步迁移至云原生服务",
+      "按业务领域逐步现代化大型机后端"
+    ],
+    "core_concepts": [
+      "Facade/Proxy: An interception layer that sits between consumers and the legacy system, enabling transparent traffic routing",
+      "Incremental migration: Replace one vertical slice of functionality at a time rather than attempting a big-bang rewrite",
+      "Traffic routing: Gradually shift requests from old to new implementation using load balancers, API gateways, or URL rewrites",
+      "Asset capture: Each migrated slice permanently removes a piece of legacy code, like a strangler fig enveloping its host tree",
+      "Rollback safety: The facade can instantly revert traffic to the legacy path if the new implementation exhibits issues"
+    ],
+    "core_concepts_zh": [
+      "外观/代理层：位于消费者与遗留系统之间的拦截层，实现透明的流量路由",
+      "增量迁移：每次替换一个纵向功能切片，而非尝试一次性大爆炸重写",
+      "流量路由：通过负载均衡器、API 网关或 URL 重写，逐步将请求从旧实现转移至新实现",
+      "资产蚕食：每个已迁移的切片永久移除一段遗留代码，如同绞杀榕逐渐包裹宿主树",
+      "回滚安全性：当新实现出现问题时，外观层可立即将流量恢复至遗留路径"
+    ],
+    "timeline": [
+      [
+        "2004",
+        "Martin Fowler publishes the original Strangler Fig Application article"
+      ],
+      [
+        "2012",
+        "Pattern gains traction with the rise of microservices at companies like Netflix"
+      ],
+      [
+        "2015",
+        "Sam Newman highlights Strangler Fig in 'Building Microservices' as a key migration strategy"
+      ],
+      [
+        "2019",
+        "AWS and Azure publish official cloud migration guides featuring the Strangler Fig pattern"
+      ],
+      [
+        "2023",
+        "Pattern adopted for AI system migrations, replacing legacy ML pipelines with LLM-based services"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2004",
+        "Martin Fowler 发表原始的绞杀榕应用文章"
+      ],
+      [
+        "2012",
+        "随着 Netflix 等公司推行微服务，该模式获得广泛关注"
+      ],
+      [
+        "2015",
+        "Sam Newman 在《构建微服务》中将绞杀榕作为核心迁移策略加以强调"
+      ],
+      [
+        "2019",
+        "AWS 和 Azure 在官方云迁移指南中正式纳入绞杀榕模式"
+      ],
+      [
+        "2023",
+        "该模式被应用于 AI 系统迁移，用基于 LLM 的服务替换遗留 ML 管线"
+      ]
+    ],
+    "dos": [
+      "Start with the highest-value, most well-understood slice to build team confidence early",
+      "Invest in comprehensive monitoring and diff-comparison between old and new paths",
+      "Keep the facade layer thin and stateless so it does not become a bottleneck itself",
+      "Celebrate each retired legacy module to maintain team momentum"
+    ],
+    "dos_zh": [
+      "从价值最高、最易理解的切片开始，尽早建立团队信心",
+      "在新旧路径之间建立全面的监控和差异比对机制",
+      "保持外观层轻薄且无状态，避免其自身成为瓶颈",
+      "每退役一个遗留模块都值得庆祝，以维持团队动力"
+    ],
+    "donts": [
+      "Don't attempt to migrate everything at once — the whole point is incremental progress",
+      "Don't let the facade grow into a 'smart' middleware with business logic",
+      "Don't neglect the legacy system's maintenance during migration — it's still serving live traffic",
+      "Don't skip writing tests for the new implementation just because the legacy system 'already works'"
+    ],
+    "donts_zh": [
+      "不要试图一次性迁移所有内容——增量推进是该模式的核心要义",
+      "不要让外观层演变为包含业务逻辑的「智能」中间件",
+      "在迁移期间不要忽视遗留系统的维护——它仍在处理线上流量",
+      "不要因为遗留系统「已经能用」就跳过为新实现编写测试"
+    ],
+    "case_study_company": "The Guardian",
+    "case_study": "The Guardian newspaper migrated its website from a legacy Java CMS to a modern Scala/Node.js stack between 2011 and 2014 using the Strangler Fig pattern. They placed an Nginx proxy in front of the old system and routed one section at a time (sports, then news, then opinion) to the new stack. The migration was invisible to readers, and the legacy CMS was fully decommissioned without a single day of downtime.",
+    "case_study_zh": "《卫报》在 2011 年至 2014 年间使用绞杀榕模式将其网站从遗留 Java CMS 迁移至现代 Scala/Node.js 技术栈。他们在旧系统前部署 Nginx 代理，依次将各版块（先体育、再新闻、后评论）的流量切换至新系统。整个迁移对读者完全透明，遗留 CMS 在零停机的情况下被彻底退役。",
+    "when_not_to_use": [
+      "The legacy system is small enough that a clean rewrite can be completed in a single sprint",
+      "There is no clear boundary or API surface to intercept between consumers and the legacy system",
+      "The legacy system has no automated tests and its behavior cannot be reliably verified against the new system",
+      "Organizational urgency demands an immediate cutover rather than gradual migration"
+    ],
+    "when_not_to_use_zh": [
+      "遗留系统足够小，可以在单个迭代内完成干净的重写",
+      "消费者与遗留系统之间没有清晰的边界或可拦截的 API 接口",
+      "遗留系统没有自动化测试，其行为无法与新系统进行可靠比对",
+      "组织紧迫性要求立即切换，而非渐进式迁移"
+    ],
+    "adopters": [
+      "The Guardian",
+      "Netflix",
+      "Shopify",
+      "GOV.UK",
+      "Amazon"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Martin Fowler (2004). \"StranglerFigApplication\". martinfowler.com.",
+    "secondary_sources": [
+      "Sam Newman (2019). \"Monolith to Microservices: Evolutionary Patterns to Transform Your Monolith\". O'Reilly Media.",
+      "Michael Feathers (2004). \"Working Effectively with Legacy Code\". Prentice Hall."
+    ],
+    "typed_relations": [
+      {
+        "slug": "branch-by-abstraction",
+        "type": "complement"
+      },
+      {
+        "slug": "parallel-run",
+        "type": "complement"
+      },
+      {
+        "slug": "microservices-decomposition",
+        "type": "related"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Branch by Abstraction",
+    "name_zh": "抽象分支法",
+    "slug": "branch-by-abstraction",
+    "category": "evolution",
+    "desc": "Replace a component in-place via an abstraction layer without feature branches",
+    "desc_zh": "通过抽象层原地替换组件，无需功能分支",
+    "steps": [
+      "Introduce an abstraction (interface or adapter) over the component to be replaced",
+      "Make all callers depend on the abstraction rather than the concrete implementation",
+      "Build the new implementation behind the same abstraction, deploying it to production dark",
+      "Toggle traffic gradually from the old implementation to the new one using feature flags",
+      "Remove the old implementation and the abstraction layer once migration is complete"
+    ],
+    "steps_zh": [
+      "在待替换组件上引入抽象层（接口或适配器）",
+      "使所有调用方依赖抽象而非具体实现",
+      "在相同抽象后构建新实现，以暗部署方式发布到生产环境",
+      "使用功能开关将流量从旧实现逐步切换至新实现",
+      "迁移完成后移除旧实现与抽象层"
+    ],
+    "ai_relevant": false,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Abstraction",
+      "Old Impl",
+      "New Impl",
+      "Switch"
+    ],
+    "viz_labels_zh": [
+      "抽象层",
+      "旧实现",
+      "新实现",
+      "切换"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "feature-flags",
+      "hexagonal-architecture"
+    ],
+    "tags": [
+      "abstraction",
+      "migration",
+      "refactoring",
+      "trunk-based"
+    ],
+    "origin_author": "Paul Hammant, 2007",
+    "origin_source": "Branch by Abstraction (paulhammant.com)",
+    "origin_source_zh": "《抽象分支法》（paulhammant.com 博文）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Replacing a core library or framework dependency (e.g., ORM, logging, HTTP client) without long-lived branches",
+      "Migrating from one database vendor to another while keeping the application deployable",
+      "Swapping out a payment gateway while both old and new providers must remain operational",
+      "Trunk-based development teams that cannot afford long-running feature branches"
+    ],
+    "when_to_use_zh": [
+      "替换核心库或框架依赖（如 ORM、日志、HTTP 客户端）而无需长期分支",
+      "在保持应用可部署的同时从一个数据库供应商迁移到另一个",
+      "在新旧支付网关都必须保持运行的情况下进行切换",
+      "采用主干开发的团队无法承担长期运行的功能分支"
+    ],
+    "core_concepts": [
+      "Abstraction layer: A thin interface or adapter inserted between callers and the component being replaced",
+      "Dark deployment: The new implementation is deployed to production but not yet serving live traffic",
+      "Feature flags: Runtime toggles that control which implementation receives requests",
+      "Trunk-based development: All work happens on the main branch, avoiding merge conflicts from long-lived branches",
+      "Incremental switchover: Traffic shifts gradually, enabling safe rollback at any point"
+    ],
+    "core_concepts_zh": [
+      "抽象层：在调用方与待替换组件之间插入的薄接口或适配器",
+      "暗部署：新实现已部署至生产环境，但尚未处理线上流量",
+      "功能开关：控制哪个实现接收请求的运行时开关",
+      "主干开发：所有工作在主分支上进行，避免长期分支带来的合并冲突",
+      "增量切换：流量逐步转移，在任何时刻都可安全回滚"
+    ],
+    "timeline": [
+      [
+        "2007",
+        "Paul Hammant coins the term 'Branch by Abstraction' on his blog"
+      ],
+      [
+        "2010",
+        "Jez Humble and David Farley reference the technique in 'Continuous Delivery'"
+      ],
+      [
+        "2013",
+        "Facebook engineering adopts the pattern for their Mercurial-to-Git migration tooling"
+      ],
+      [
+        "2016",
+        "ThoughtWorks Technology Radar recommends it as a standard migration practice"
+      ],
+      [
+        "2020",
+        "Pattern becomes a staple of trunk-based development guides and CI/CD best practices"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2007",
+        "Paul Hammant 在博客上提出「抽象分支法」概念"
+      ],
+      [
+        "2010",
+        "Jez Humble 和 David Farley 在《持续交付》中引用该技术"
+      ],
+      [
+        "2013",
+        "Facebook 工程团队在 Mercurial 到 Git 的迁移工具中采用该模式"
+      ],
+      [
+        "2016",
+        "ThoughtWorks 技术雷达将其推荐为标准迁移实践"
+      ],
+      [
+        "2020",
+        "该模式成为主干开发指南和 CI/CD 最佳实践的核心内容"
+      ]
+    ],
+    "dos": [
+      "Keep the abstraction layer as thin as possible — it should only delegate, not contain logic",
+      "Write adapter tests that run against both old and new implementations to ensure behavioral parity",
+      "Use feature flags with kill-switch capability for instant rollback in production",
+      "Communicate the migration timeline clearly so the team doesn't leave both implementations running indefinitely"
+    ],
+    "dos_zh": [
+      "保持抽象层尽可能薄——它只应委派调用，不应包含逻辑",
+      "编写适配器测试，同时运行新旧实现以确保行为一致性",
+      "使用带有熔断功能的功能开关，以便在生产中即时回滚",
+      "清晰传达迁移时间线，避免团队无限期地保留两套实现"
+    ],
+    "donts": [
+      "Don't let the abstraction layer accumulate business logic — it should remain a pure delegation boundary",
+      "Don't skip the step of migrating all callers to the abstraction before building the new implementation",
+      "Don't leave the old implementation in the codebase after migration — dead code breeds confusion",
+      "Don't use this pattern for UI-layer changes where a simple feature flag would suffice"
+    ],
+    "donts_zh": [
+      "不要让抽象层积累业务逻辑——它应始终是纯粹的委派边界",
+      "在构建新实现之前，不要跳过将所有调用方迁移到抽象层的步骤",
+      "迁移完成后不要将旧实现留在代码库中——死代码会造成混乱",
+      "不要将此模式用于简单功能开关即可解决的 UI 层变更"
+    ],
+    "case_study_company": "Flickr",
+    "case_study": "Flickr used Branch by Abstraction to migrate from their original PHP-based image processing pipeline to a new Java-based service. They introduced an abstraction interface for image transformations, deployed the Java service dark alongside the existing PHP code, and gradually shifted traffic over several weeks. The migration completed with zero user-facing outages and eliminated their long-standing deployment bottleneck.",
+    "case_study_zh": "Flickr 使用抽象分支法将原始的 PHP 图像处理管线迁移至新的 Java 服务。他们引入了图像变换的抽象接口，将 Java 服务以暗部署方式与现有 PHP 代码并行部署，并在数周内逐步切换流量。迁移过程中零用户可见故障，并消除了长期存在的部署瓶颈。",
+    "when_not_to_use": [
+      "The component has no clear API boundary and is deeply entangled with other modules",
+      "The replacement will be done in a single commit with trivial scope",
+      "The team is not practicing trunk-based development and prefers long-lived feature branches",
+      "Performance-critical code paths where even a thin abstraction layer introduces unacceptable latency"
+    ],
+    "when_not_to_use_zh": [
+      "待替换组件没有清晰的 API 边界，与其他模块深度耦合",
+      "替换范围很小，可以在单次提交中完成",
+      "团队未采用主干开发，而是偏好长期功能分支",
+      "性能关键的代码路径中，即使薄抽象层也会引入不可接受的延迟"
+    ],
+    "adopters": [
+      "Flickr",
+      "Facebook",
+      "Google",
+      "ThoughtWorks",
+      "Atlassian"
+    ],
+    "abstraction_level": "component",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Paul Hammant (2007). \"Branch by Abstraction\". paulhammant.com.",
+    "secondary_sources": [
+      "Jez Humble and David Farley (2010). \"Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation\". Addison-Wesley.",
+      "Martin Fowler (2014). \"BranchByAbstraction\". martinfowler.com."
+    ],
+    "typed_relations": [
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "feature-flags",
+        "type": "complement"
+      },
+      {
+        "slug": "hexagonal-architecture",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Parallel Run",
+    "name_zh": "并行运行模式",
+    "slug": "parallel-run",
+    "category": "evolution",
+    "desc": "Run old and new implementations simultaneously and compare outputs for safety",
+    "desc_zh": "同时运行新旧实现并对比输出，确保迁移安全性",
+    "steps": [
+      "Deploy both the legacy and new implementations into the same production environment",
+      "Route all live requests to both systems simultaneously without exposing new results to users",
+      "Capture and compare outputs from both systems, logging all discrepancies",
+      "Investigate and resolve every discrepancy until the new system output matches the legacy",
+      "Decommission the legacy system and promote the new implementation as the sole handler"
+    ],
+    "steps_zh": [
+      "将遗留系统与新实现同时部署到同一生产环境",
+      "将所有线上请求同时路由至两个系统，不向用户暴露新结果",
+      "捕获并比对两系统的输出，记录所有差异",
+      "排查并修复每一处差异，直到新系统输出与遗留系统一致",
+      "下线遗留系统，将新实现晋升为唯一处理方"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Input",
+      "Old Path",
+      "New Path",
+      "Compare"
+    ],
+    "viz_labels_zh": [
+      "输入",
+      "旧路径",
+      "新路径",
+      "结果对比"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "canary-deployment",
+      "blue-green-deployment"
+    ],
+    "tags": [
+      "parallel-run",
+      "migration",
+      "comparison",
+      "verification"
+    ],
+    "origin_author": "Michael Feathers, 2004",
+    "origin_source": "Working Effectively with Legacy Code (Prentice Hall)",
+    "origin_source_zh": "《修改代码的艺术》（Prentice Hall 出版）",
+    "complexity": "advanced",
+    "when_to_use": [
+      "Migrating a financial calculation engine where correctness must be formally verified",
+      "Replacing a fraud detection system where even small discrepancies have major consequences",
+      "Switching to an AI/ML-based recommendation engine and validating it against rule-based logic",
+      "Migrating critical data processing pipelines that must produce bit-identical results"
+    ],
+    "when_to_use_zh": [
+      "迁移金融计算引擎，必须对正确性进行形式化验证",
+      "替换欺诈检测系统，即使微小差异也会造成重大后果",
+      "切换至基于 AI/ML 的推荐引擎，并与基于规则的逻辑进行对比验证",
+      "迁移关键数据处理管线，要求产出完全一致的结果"
+    ],
+    "core_concepts": [
+      "Dual execution: Every request is processed by both old and new systems simultaneously in production",
+      "Shadow mode: The new system's output is captured but never shown to users during verification",
+      "Output comparison: Automated diff tooling detects semantic or numeric discrepancies between the two outputs",
+      "Discrepancy resolution: Every mismatch is investigated, categorized, and fixed before cutover",
+      "Confidence threshold: A quantitative bar (e.g., 99.99% match rate) that must be met before decommissioning the old system"
+    ],
+    "core_concepts_zh": [
+      "双重执行：每个请求在生产中同时由新旧两个系统处理",
+      "影子模式：在验证期间捕获新系统的输出但不展示给用户",
+      "输出比对：自动化差异工具检测两个输出之间的语义或数值差异",
+      "差异消解：每一处不匹配都经过调查、分类和修复，然后才进行切换",
+      "置信度阈值：在下线旧系统之前必须达到的量化标准（如 99.99% 匹配率）"
+    ],
+    "timeline": [
+      [
+        "2004",
+        "Michael Feathers describes parallel testing techniques in 'Working Effectively with Legacy Code'"
+      ],
+      [
+        "2013",
+        "GitHub develops the Scientist library in Ruby to formalize parallel run experiments"
+      ],
+      [
+        "2016",
+        "GitHub open-sources Scientist, popularizing the pattern across the industry"
+      ],
+      [
+        "2018",
+        "Stripe adopts parallel runs for migrating their core payment processing engine"
+      ],
+      [
+        "2023",
+        "Pattern extended to AI model validation — running legacy rules alongside new LLM-based systems"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2004",
+        "Michael Feathers 在《修改代码的艺术》中描述并行测试技术"
+      ],
+      [
+        "2013",
+        "GitHub 开发 Ruby 版 Scientist 库，将并行运行实验规范化"
+      ],
+      [
+        "2016",
+        "GitHub 开源 Scientist 库，推动该模式在行业内广泛传播"
+      ],
+      [
+        "2018",
+        "Stripe 在核心支付处理引擎迁移中采用并行运行模式"
+      ],
+      [
+        "2023",
+        "该模式扩展至 AI 模型验证——将遗留规则与新的 LLM 系统并行运行"
+      ]
+    ],
+    "dos": [
+      "Use a library like GitHub Scientist to standardize experiment setup, comparison, and reporting",
+      "Log every discrepancy with full request context so root-cause analysis is efficient",
+      "Set a clear quantitative threshold for cutover confidence before starting the parallel run",
+      "Run the parallel comparison long enough to capture edge cases across business cycles"
+    ],
+    "dos_zh": [
+      "使用 GitHub Scientist 等库来标准化实验设置、比对和报告",
+      "记录每一处差异及完整的请求上下文，以便高效进行根因分析",
+      "在开始并行运行之前，明确设定切换信心的量化阈值",
+      "运行并行比对的时间足够长，以覆盖各业务周期中的边缘情况"
+    ],
+    "donts": [
+      "Don't expose the new system's results to users until the match rate meets the confidence threshold",
+      "Don't ignore low-frequency discrepancies — they often represent critical edge cases",
+      "Don't underestimate the infrastructure cost of running two systems in parallel at production scale",
+      "Don't skip performance testing — the new system may match functionally but degrade latency"
+    ],
+    "donts_zh": [
+      "在匹配率达到置信阈值之前，不要将新系统的结果展示给用户",
+      "不要忽略低频差异——它们往往代表关键的边缘情况",
+      "不要低估在生产规模下并行运行两个系统的基础设施成本",
+      "不要跳过性能测试——新系统功能匹配但可能导致延迟恶化"
+    ],
+    "case_study_company": "GitHub",
+    "case_study": "GitHub created the Scientist library in 2013 to safely migrate their core merge algorithm. They ran the old and new merge code paths in parallel on every pull request merge, comparing results without exposing the new output to users. Over several months, they identified and fixed dozens of edge-case discrepancies, ultimately achieving a 100% match rate before switching over. The library was open-sourced in 2016 and has been adopted by hundreds of companies.",
+    "case_study_zh": "GitHub 于 2013 年创建了 Scientist 库，以安全地迁移其核心合并算法。他们在每次拉取请求合并时并行运行新旧合并代码路径，在不向用户暴露新输出的情况下比对结果。经过数月时间，他们发现并修复了数十个边缘情况差异，最终在切换前达到了 100% 匹配率。该库于 2016 年开源，已被数百家公司采用。",
+    "when_not_to_use": [
+      "The system under migration has side effects (e.g., sends emails, charges credit cards) that cannot be safely duplicated",
+      "Infrastructure budget cannot support double the compute and storage resources",
+      "Output comparison is meaningless because the new system intentionally produces different results",
+      "The migration scope is trivial and a simple A/B test or feature flag would suffice"
+    ],
+    "when_not_to_use_zh": [
+      "被迁移系统存在副作用（如发送邮件、信用卡扣款）且无法安全地重复执行",
+      "基础设施预算无法支撑双倍的计算和存储资源",
+      "输出比对无意义，因为新系统有意产出不同的结果",
+      "迁移范围很小，简单的 A/B 测试或功能开关即可满足需求"
+    ],
+    "adopters": [
+      "GitHub",
+      "Stripe",
+      "Intercom",
+      "Shopify",
+      "SoundCloud"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "reliability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Michael Feathers (2004). \"Working Effectively with Legacy Code\". Prentice Hall.",
+    "secondary_sources": [
+      "Sam Newman (2019). \"Monolith to Microservices: Evolutionary Patterns to Transform Your Monolith\". O'Reilly Media.",
+      "Martin Fowler (2011). \"ParallelChange\". martinfowler.com."
+    ],
+    "typed_relations": [
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "canary-deployment",
+        "type": "complement"
+      },
+      {
+        "slug": "blue-green-deployment",
+        "type": "alternative"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Technical Debt Quadrant",
+    "name_zh": "技术债务象限",
+    "slug": "technical-debt-quadrant",
+    "category": "evolution",
+    "desc": "Classify tech debt by deliberate/inadvertent and reckless/prudent axes",
+    "desc_zh": "按有意/无意与鲁莽/谨慎两轴对技术债务分类",
+    "steps": [
+      "Audit the codebase and collect all known shortcuts, workarounds, and design smells",
+      "Classify each item on two axes: deliberate vs. inadvertent and reckless vs. prudent",
+      "Prioritize reckless-inadvertent debt for immediate remediation as it carries highest risk",
+      "Schedule prudent-deliberate debt paydown as part of regular sprint capacity allocation",
+      "Document decisions to take on deliberate debt with explicit repayment plans and owners"
+    ],
+    "steps_zh": [
+      "审计代码库，收集所有已知的快捷方式、变通方案和设计异味",
+      "按两轴对每项进行分类：有意 vs. 无意，鲁莽 vs. 谨慎",
+      "优先修复「鲁莽-无意」象限的债务，因其风险最高",
+      "将「谨慎-有意」债务的偿还纳入常规迭代容量规划",
+      "记录主动承担技术债务的决策，明确偿还计划与负责人"
+    ],
+    "ai_relevant": false,
+    "viz_type": "quadrant",
+    "viz_labels": [
+      "Reckless",
+      "Prudent",
+      "Deliberate",
+      "Inadvertent"
+    ],
+    "viz_labels_zh": [
+      "鲁莽",
+      "谨慎",
+      "刻意",
+      "无意"
+    ],
+    "related": [
+      "mikado-method",
+      "continuous-architecture",
+      "architectural-fitness-functions"
+    ],
+    "tags": [
+      "tech-debt",
+      "classification",
+      "prioritization",
+      "risk-management"
+    ],
+    "origin_author": "Martin Fowler, 2009",
+    "origin_source": "TechnicalDebtQuadrant (martinfowler.com)",
+    "origin_source_zh": "《技术债务象限》（martinfowler.com 博文）",
+    "complexity": "beginner",
+    "when_to_use": [
+      "A team needs a shared language to discuss and prioritize different kinds of technical debt",
+      "Sprint retrospectives keep surfacing vague complaints about code quality without actionable categories",
+      "Engineering leadership needs to communicate the business impact of technical debt to non-technical stakeholders",
+      "Deciding whether to take on tactical shortcuts during a tight product deadline"
+    ],
+    "when_to_use_zh": [
+      "团队需要统一语言来讨论和排列不同类型技术债务的优先级",
+      "迭代回顾中反复出现关于代码质量的模糊抱怨，却缺乏可操作的分类",
+      "工程领导层需要向非技术干系人阐述技术债务的业务影响",
+      "在紧迫的产品交付期限内决定是否采取战术性快捷方式"
+    ],
+    "core_concepts": [
+      "Deliberate vs. Inadvertent: Whether the team knowingly took on the debt or stumbled into it through lack of knowledge",
+      "Reckless vs. Prudent: Whether the debt was taken carelessly or as a calculated trade-off with a repayment plan",
+      "Reckless-Deliberate: 'We know this is wrong but ship it anyway' — highest urgency to fix",
+      "Prudent-Inadvertent: 'Now we know how we should have done it' — natural learning, address when revisiting that area",
+      "Interest payments: The ongoing cost of working around technical debt — slower delivery, more bugs, higher onboarding time"
+    ],
+    "core_concepts_zh": [
+      "有意与无意：团队是明知故犯地承担债务，还是因知识不足而无意间产生的",
+      "鲁莽与谨慎：债务是粗心大意造成的，还是经过权衡并附带偿还计划的",
+      "鲁莽-有意：'我们知道这样做不对但还是发布了'——修复优先级最高",
+      "谨慎-无意：'现在我们知道本应怎么做了'——自然的学习过程，在重访该区域时处理",
+      "利息支出：绕过技术债务的持续成本——交付变慢、缺陷增多、新人上手时间延长"
+    ],
+    "timeline": [
+      [
+        "1992",
+        "Ward Cunningham introduces the technical debt metaphor at OOPSLA"
+      ],
+      [
+        "2003",
+        "Martin Fowler begins writing extensively about technical debt on his blog"
+      ],
+      [
+        "2009",
+        "Fowler publishes the Technical Debt Quadrant, adding the two-axis classification"
+      ],
+      [
+        "2014",
+        "The quadrant becomes a standard tool in agile coaching and sprint planning"
+      ],
+      [
+        "2021",
+        "McKinsey and Gartner report that tech debt consumes 20-40% of IT budgets, validating the framework's relevance"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "1992",
+        "Ward Cunningham 在 OOPSLA 大会上引入技术债务隐喻"
+      ],
+      [
+        "2003",
+        "Martin Fowler 开始在博客上大量撰写有关技术债务的文章"
+      ],
+      [
+        "2009",
+        "Fowler 发表技术债务象限，增加了两轴分类法"
+      ],
+      [
+        "2014",
+        "该象限成为敏捷教练和迭代规划中的标准工具"
+      ],
+      [
+        "2021",
+        "麦肯锡和 Gartner 报告技术债务消耗了 20-40% 的 IT 预算，验证了该框架的现实意义"
+      ]
+    ],
+    "dos": [
+      "Use the quadrant in sprint retros to categorize newly discovered debt and agree on priority",
+      "Track prudent-deliberate debt in a visible backlog with clear owners and target payoff dates",
+      "Allocate a fixed percentage (e.g., 15-20%) of sprint capacity to debt paydown every iteration",
+      "Connect debt items to business metrics (velocity, incident rate) to justify remediation investment"
+    ],
+    "dos_zh": [
+      "在迭代回顾中使用象限对新发现的债务进行分类并达成优先级共识",
+      "在可见的待办清单中追踪谨慎-有意债务，明确负责人和目标偿还日期",
+      "每个迭代固定分配一定比例（如 15-20%）的容量用于偿还债务",
+      "将债务项关联到业务指标（交付速度、故障率），以论证修复投入的合理性"
+    ],
+    "donts": [
+      "Don't treat all technical debt as equally urgent — the quadrant exists precisely to differentiate",
+      "Don't use 'technical debt' as a catch-all excuse without classifying the specific type and impact",
+      "Don't ignore inadvertent debt — it signals gaps in team knowledge that need coaching or training",
+      "Don't let prudent-deliberate debt accumulate without repayment — interest compounds over time"
+    ],
+    "donts_zh": [
+      "不要将所有技术债务视为同等紧迫——象限的存在正是为了区分优先级",
+      "不要将「技术债务」作为万能借口而不分类其具体类型和影响",
+      "不要忽视无意债务——它预示着团队知识的缺口，需要辅导或培训",
+      "不要让谨慎-有意债务无偿还计划地持续累积——利息会随时间复利增长"
+    ],
+    "case_study_company": "Spotify",
+    "case_study": "Spotify adopted the Technical Debt Quadrant in their squad-based engineering culture to give autonomous teams a shared vocabulary for debt prioritization. Each squad categorized their debt using the quadrant during quarterly planning, and reckless-inadvertent items were flagged for immediate attention. This approach reduced their mean incident recovery time by 30% over two years, as the most dangerous hidden debt was systematically surfaced and addressed.",
+    "case_study_zh": "Spotify 在其小队制工程文化中采用了技术债务象限，为自治团队提供统一的债务优先级词汇。每个小队在季度规划中使用象限对债务进行分类，鲁莽-无意类别的项目被标记为即刻关注。这一方法在两年内将平均故障恢复时间缩短了 30%，因为最危险的隐藏债务被系统性地识别和处理。",
+    "when_not_to_use": [
+      "The codebase is brand new with minimal accumulated shortcuts — classification overhead is unnecessary",
+      "The team is in pure prototype/exploration mode where debt is expected and intentionally disposable",
+      "A single monolithic debt item dominates everything — no need for a classification framework",
+      "Stakeholders only care about debt quantity, not debt type (though this itself is a problem to fix)"
+    ],
+    "when_not_to_use_zh": [
+      "代码库全新，几乎没有累积的快捷方式——分类开销不必要",
+      "团队处于纯原型/探索模式，债务是预期内且有意一次性使用的",
+      "单一的整体性债务项主导一切——不需要分类框架",
+      "干系人只关心债务数量而非类型（尽管这本身是需要解决的问题）"
+    ],
+    "adopters": [
+      "Spotify",
+      "ThoughtWorks",
+      "Atlassian",
+      "Pivotal Labs",
+      "Etsy"
+    ],
+    "abstraction_level": "organization",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Martin Fowler (2009). \"TechnicalDebtQuadrant\". martinfowler.com.",
+    "secondary_sources": [
+      "Ward Cunningham (1992). \"The WyCash Portfolio Management System\". OOPSLA 1992 Experience Report.",
+      "Steve McConnell (2007). \"Technical Debt\". Construx Software Blog."
+    ],
+    "typed_relations": [
+      {
+        "slug": "mikado-method",
+        "type": "complement"
+      },
+      {
+        "slug": "continuous-architecture",
+        "type": "complement"
+      },
+      {
+        "slug": "architectural-fitness-functions",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Architectural Fitness Functions",
+    "name_zh": "架构适应度函数",
+    "slug": "architectural-fitness-functions",
+    "category": "evolution",
+    "desc": "Automated tests that continuously verify architectural characteristics stay intact",
+    "desc_zh": "通过自动化测试持续验证架构特性保持完整",
+    "steps": [
+      "Identify the critical architectural characteristics to protect (coupling, latency, security)",
+      "Define measurable thresholds for each characteristic (e.g., max cyclic dependencies = 0)",
+      "Implement automated tests or tools (ArchUnit, chaos experiments, load tests) per characteristic",
+      "Integrate fitness function checks into the CI/CD pipeline as mandatory quality gates",
+      "Review and evolve the fitness function suite as architectural priorities shift over time"
+    ],
+    "steps_zh": [
+      "确定需要保护的关键架构特性（耦合度、延迟、安全性等）",
+      "为每项特性定义可量化阈值（如：最大循环依赖数 = 0）",
+      "针对每项特性实现自动化测试或工具（ArchUnit、混沌实验、负载测试）",
+      "将适应度函数检查集成到 CI/CD 流水线作为强制质量门禁",
+      "随架构优先级的变化，持续审视和演进适应度函数套件"
+    ],
+    "ai_relevant": true,
+    "viz_type": "radar",
+    "viz_labels": [
+      "Scalability",
+      "Security",
+      "Reliability",
+      "Performance",
+      "Maintainability"
+    ],
+    "viz_labels_zh": [
+      "可扩展性",
+      "安全性",
+      "可靠性",
+      "性能",
+      "可维护性"
+    ],
+    "related": [
+      "continuous-architecture",
+      "technical-debt-quadrant",
+      "test-pyramid"
+    ],
+    "tags": [
+      "fitness-functions",
+      "automated-testing",
+      "architecture-governance",
+      "ci-cd"
+    ],
+    "origin_author": "Neal Ford, Rebecca Parsons & Patrick Kua, 2017",
+    "origin_source": "Building Evolutionary Architectures (O'Reilly)",
+    "origin_source_zh": "《演进式架构》（O'Reilly 出版）",
+    "complexity": "advanced",
+    "when_to_use": [
+      "Protecting performance SLAs as a growing team continuously ships code changes",
+      "Enforcing module boundaries in a monorepo to prevent creeping coupling between domains",
+      "Validating security compliance rules (e.g., no direct DB access from the API layer) automatically in CI",
+      "Ensuring that migration to microservices doesn't inadvertently introduce circular dependencies"
+    ],
+    "when_to_use_zh": [
+      "在团队持续交付代码变更时保护性能 SLA",
+      "在单仓库中强制模块边界，防止领域间的耦合蔓延",
+      "在 CI 中自动验证安全合规规则（如禁止 API 层直接访问数据库）",
+      "确保向微服务迁移的过程中不会无意引入循环依赖"
+    ],
+    "core_concepts": [
+      "Fitness function: An objective function that assesses how well the architecture exhibits a desired characteristic",
+      "Architectural characteristic: A quality attribute (performance, modularity, security) the system must maintain",
+      "Atomic fitness function: Tests a single characteristic in isolation (e.g., no cyclic dependencies)",
+      "Holistic fitness function: Tests emergent behavior across multiple characteristics (e.g., chaos experiments)",
+      "Continuous verification: Fitness functions run automatically in CI/CD, catching architectural drift before it reaches production"
+    ],
+    "core_concepts_zh": [
+      "适应度函数：评估架构在某一期望特性上表现如何的目标函数",
+      "架构特性：系统必须维持的质量属性（性能、模块化、安全性）",
+      "原子适应度函数：独立测试单一特性（如无循环依赖）",
+      "整体适应度函数：测试跨多个特性的涌现行为（如混沌实验）",
+      "持续验证：适应度函数在 CI/CD 中自动运行，在架构漂移到达生产之前予以捕获"
+    ],
+    "timeline": [
+      [
+        "2017",
+        "Ford, Parsons & Kua introduce fitness functions in 'Building Evolutionary Architectures'"
+      ],
+      [
+        "2018",
+        "ArchUnit library gains popularity for implementing dependency fitness functions in Java"
+      ],
+      [
+        "2019",
+        "Netflix integrates fitness functions into their chaos engineering and deployment pipelines"
+      ],
+      [
+        "2021",
+        "The concept is extended to data architecture with data quality fitness functions"
+      ],
+      [
+        "2024",
+        "AI-powered fitness functions emerge, using LLMs to evaluate code quality and architectural conformance"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2017",
+        "Ford、Parsons 和 Kua 在《演进式架构》中引入适应度函数概念"
+      ],
+      [
+        "2018",
+        "ArchUnit 库在 Java 领域流行，用于实现依赖关系适应度函数"
+      ],
+      [
+        "2019",
+        "Netflix 将适应度函数集成到其混沌工程和部署流水线中"
+      ],
+      [
+        "2021",
+        "概念扩展至数据架构领域，出现数据质量适应度函数"
+      ],
+      [
+        "2024",
+        "AI 驱动的适应度函数出现，使用 LLM 评估代码质量和架构符合性"
+      ]
+    ],
+    "dos": [
+      "Start with the most critical characteristic first — typically the one causing production incidents",
+      "Make fitness functions fast enough to run on every commit, not just nightly builds",
+      "Version your fitness function thresholds alongside the code so they evolve together",
+      "Use ArchUnit or similar tools for structural checks and chaos tests for runtime characteristics"
+    ],
+    "dos_zh": [
+      "从最关键的特性开始——通常是导致生产事故的那个",
+      "确保适应度函数运行速度足够快，能在每次提交时执行，而非仅在夜间构建",
+      "将适应度函数的阈值与代码一起版本管理，使其协同演进",
+      "使用 ArchUnit 等工具进行结构检查，使用混沌测试检验运行时特性"
+    ],
+    "donts": [
+      "Don't create fitness functions for every possible characteristic — focus on the ones with real risk",
+      "Don't set thresholds too loosely or too tightly — calibrate against current baseline data",
+      "Don't treat fitness functions as static — they must evolve as the architecture's priorities change",
+      "Don't rely only on compile-time checks — runtime characteristics like latency need production-like tests"
+    ],
+    "donts_zh": [
+      "不要为每个可能的特性都创建适应度函数——聚焦于真正有风险的特性",
+      "阈值不要设得太松或太紧——根据当前基线数据进行校准",
+      "不要将适应度函数视为静态的——它们必须随着架构优先级的变化而演进",
+      "不要仅依赖编译时检查——延迟等运行时特性需要类生产环境的测试"
+    ],
+    "case_study_company": "Netflix",
+    "case_study": "Netflix integrated architectural fitness functions into their deployment pipeline to safeguard their microservices architecture. They combined ArchUnit-style dependency checks with chaos engineering experiments (Chaos Monkey, Chaos Kong) to continuously validate both structural and runtime characteristics. This approach caught architectural drift early — for example, detecting when a new service inadvertently created a synchronous dependency chain that violated their latency budget.",
+    "case_study_zh": "Netflix 将架构适应度函数集成到部署流水线中，以保护其微服务架构。他们将 ArchUnit 风格的依赖检查与混沌工程实验（Chaos Monkey、Chaos Kong）相结合，持续验证结构和运行时特性。这一方法及早捕获了架构漂移——例如，检测到某个新服务无意中创建了违反延迟预算的同步依赖链。",
+    "when_not_to_use": [
+      "A small startup with a simple codebase where manual code review is sufficient",
+      "Purely experimental or throwaway prototypes where architectural integrity is not a priority",
+      "The team lacks CI/CD infrastructure to run automated checks consistently",
+      "Architecture is frozen and no new changes are planned — fitness functions protect evolving systems"
+    ],
+    "when_not_to_use_zh": [
+      "小型初创公司代码库简单，人工代码评审即可满足需求",
+      "纯实验性或一次性原型，架构完整性不是优先事项",
+      "团队缺乏 CI/CD 基础设施来一致地运行自动化检查",
+      "架构已冻结且无新变更计划——适应度函数保护的是演进中的系统"
+    ],
+    "adopters": [
+      "Netflix",
+      "ThoughtWorks",
+      "Zalando",
+      "Intuit",
+      "N26"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "maintainability",
+      "reliability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Neal Ford, Rebecca Parsons, and Patrick Kua (2017). \"Building Evolutionary Architectures: Support Constant Change\". O'Reilly Media.",
+    "secondary_sources": [
+      "Neal Ford, Rebecca Parsons, and Patrick Kua (2023). \"Building Evolutionary Architectures, 2nd Edition\". O'Reilly Media.",
+      "ThoughtWorks (2017). \"Fitness Functions\". thoughtworks.com/radar/techniques."
+    ],
+    "typed_relations": [
+      {
+        "slug": "continuous-architecture",
+        "type": "complement"
+      },
+      {
+        "slug": "technical-debt-quadrant",
+        "type": "complement"
+      },
+      {
+        "slug": "test-pyramid",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Conway's Law",
+    "name_zh": "康威定律",
+    "slug": "conways-law",
+    "category": "evolution",
+    "desc": "Systems mirror the communication structure of the organizations that build them",
+    "desc_zh": "系统的结构反映构建它的组织的沟通结构",
+    "steps": [
+      "Map current team communication patterns and organizational boundaries explicitly",
+      "Audit the existing system architecture and identify how it mirrors team boundaries",
+      "Detect misalignments where architecture crosses team lines, causing friction and bottlenecks",
+      "Use the law prescriptively: redesign team structures to match the desired target architecture",
+      "Iterate on both org design and system design together, treating them as co-evolving artifacts"
+    ],
+    "steps_zh": [
+      "明确梳理当前团队沟通模式和组织边界",
+      "审计现有系统架构，识别其如何映射团队边界",
+      "检测架构跨越团队边界导致摩擦和瓶颈的错位之处",
+      "将该定律用于规范性指导：重新设计团队结构以匹配目标架构",
+      "将组织设计与系统设计作为协同演进的制品，一并持续迭代"
+    ],
+    "ai_relevant": false,
+    "viz_type": "venn",
+    "viz_labels": [
+      "Team Structure",
+      "System Design"
+    ],
+    "viz_labels_zh": [
+      "团队结构",
+      "系统设计"
+    ],
+    "related": [
+      "inverse-conway-maneuver",
+      "team-topologies",
+      "microservices-decomposition"
+    ],
+    "tags": [
+      "conways-law",
+      "org-structure",
+      "architecture-alignment",
+      "communication"
+    ],
+    "origin_author": "Melvin Conway, 1967",
+    "origin_source": "How Do Committees Invent? (Datamation, April 1968)",
+    "origin_source_zh": "《委员会如何发明？》（Datamation 杂志，1968年4月）",
+    "complexity": "beginner",
+    "when_to_use": [
+      "Diagnosing why a microservices architecture ended up as a distributed monolith",
+      "Planning an organizational restructuring in tandem with a system redesign",
+      "Explaining to leadership why cross-team dependencies are slowing delivery velocity",
+      "Evaluating whether to split a monolith — the answer depends on whether teams can be split too"
+    ],
+    "when_to_use_zh": [
+      "诊断为何微服务架构最终演变成分布式单体",
+      "规划与系统重设计同步进行的组织重组",
+      "向领导层解释为何跨团队依赖在拖慢交付速度",
+      "评估是否拆分单体——答案取决于团队是否也能同步拆分"
+    ],
+    "core_concepts": [
+      "Organizational isomorphism: Software architecture inevitably mirrors the organization's communication graph",
+      "Communication paths: Module boundaries form along the lines of least communication resistance between teams",
+      "Prescriptive application: Instead of observing the law passively, use it actively to shape team structures for desired architecture",
+      "Sociotechnical coupling: Technical decisions and organizational decisions are inseparable — changing one without the other creates friction",
+      "Coordination cost: Cross-team interfaces tend to become the system's most brittle integration points"
+    ],
+    "core_concepts_zh": [
+      "组织同构：软件架构不可避免地映射组织的沟通图谱",
+      "沟通路径：模块边界沿团队间沟通阻力最小的路径形成",
+      "规范性应用：不是被动观察该定律，而是主动利用它来塑造团队结构以获得期望的架构",
+      "社会技术耦合：技术决策与组织决策不可分割——只改其一而不改另一会产生摩擦",
+      "协调成本：跨团队接口往往成为系统中最脆弱的集成点"
+    ],
+    "timeline": [
+      [
+        "1967",
+        "Melvin Conway submits 'How Do Committees Invent?' (published in Datamation, 1968)"
+      ],
+      [
+        "1975",
+        "Fred Brooks references Conway's insight in 'The Mythical Man-Month'"
+      ],
+      [
+        "2010",
+        "The 'Inverse Conway Maneuver' is coined by Jonny LeRoy and Matt Simons at ThoughtWorks"
+      ],
+      [
+        "2015",
+        "Microservices movement explicitly leverages Conway's Law for service boundary design"
+      ],
+      [
+        "2019",
+        "Team Topologies codifies Conway's Law into four team types and three interaction modes"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "1967",
+        "Melvin Conway 提交《委员会如何发明？》论文（1968年在 Datamation 发表）"
+      ],
+      [
+        "1975",
+        "Fred Brooks 在《人月神话》中引用康威的洞见"
+      ],
+      [
+        "2010",
+        "Jonny LeRoy 和 Matt Simons 在 ThoughtWorks 提出「逆康威策略」"
+      ],
+      [
+        "2015",
+        "微服务运动明确利用康威定律进行服务边界设计"
+      ],
+      [
+        "2019",
+        "《团队拓扑》将康威定律编纂为四种团队类型和三种交互模式"
+      ]
+    ],
+    "dos": [
+      "Map your organization chart and your system architecture side-by-side to reveal hidden coupling",
+      "Align team ownership with service/module boundaries for faster, more autonomous delivery",
+      "Use Conway's Law diagnostically first before attempting prescriptive reorganization",
+      "Educate non-engineering leadership on the law so they understand the architectural impact of org changes"
+    ],
+    "dos_zh": [
+      "将组织结构图与系统架构图并排对比，揭示隐藏的耦合",
+      "将团队所有权与服务/模块边界对齐，以实现更快更自治的交付",
+      "在尝试规范性重组之前，先诊断性地运用康威定律",
+      "向非工程领导层普及该定律，使其理解组织变动对架构的影响"
+    ],
+    "donts": [
+      "Don't reorganize teams without simultaneously considering the impact on software architecture",
+      "Don't ignore Conway's Law and assume you can build any architecture with any org structure",
+      "Don't apply it mechanically — team talent, culture, and domain complexity also matter",
+      "Don't use it to justify architectural stagnation — 'our org can't support microservices' is often a solvable problem"
+    ],
+    "donts_zh": [
+      "不要在不考虑对软件架构影响的情况下重组团队",
+      "不要无视康威定律，假设任何组织结构都能构建出任何架构",
+      "不要机械地套用——团队能力、文化和领域复杂度同样重要",
+      "不要用它来为架构停滞辩护——'我们的组织不支持微服务'往往是可以解决的问题"
+    ],
+    "case_study_company": "Microsoft",
+    "case_study": "A 2008 study by Microsoft Research (Nagappan, Murphy & Basili) empirically validated Conway's Law by analyzing Windows Vista. They found that organizational metrics — such as the number of engineers touching a module and the organizational distance between them — were stronger predictors of software defects than code metrics like complexity or coverage. Modules owned by distributed, loosely coordinated teams had significantly higher defect rates.",
+    "case_study_zh": "微软研究院在 2008 年的一项研究（Nagappan、Murphy 和 Basili）通过分析 Windows Vista 实证验证了康威定律。他们发现，组织指标——如接触某模块的工程师数量及其组织距离——比代码复杂度或覆盖率等代码指标更能预测软件缺陷。由分布式、松散协调团队拥有的模块缺陷率显著更高。",
+    "when_not_to_use": [
+      "Very small teams (fewer than 8 people) where everyone communicates with everyone directly",
+      "Temporary hackathon or prototype projects where organizational structure is intentionally fluid",
+      "Outsourced or contract development where you have no control over team organization",
+      "Highly regulated industries where architecture must follow compliance mandates regardless of org structure"
+    ],
+    "when_not_to_use_zh": [
+      "非常小的团队（少于 8 人），每个人都能直接与所有人沟通",
+      "临时的黑客马拉松或原型项目，组织结构有意保持流动",
+      "外包或合同开发，无法控制团队组织方式",
+      "高度监管的行业，架构必须遵循合规要求而非组织结构"
+    ],
+    "adopters": [
+      "Microsoft",
+      "Amazon",
+      "Spotify",
+      "Netflix",
+      "ThoughtWorks"
+    ],
+    "abstraction_level": "organization",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "foundational",
+    "primary_source": "Melvin Conway (1968). \"How Do Committees Invent?\". Datamation, 14(4).",
+    "secondary_sources": [
+      "Fred Brooks (1975). \"The Mythical Man-Month: Essays on Software Engineering\". Addison-Wesley.",
+      "Matthew Skelton and Manuel Pais (2019). \"Team Topologies: Organizing Business and Technology Teams for Fast Flow\". IT Revolution Press."
+    ],
+    "typed_relations": [
+      {
+        "slug": "inverse-conway-maneuver",
+        "type": "complement"
+      },
+      {
+        "slug": "team-topologies",
+        "type": "complement"
+      },
+      {
+        "slug": "microservices-decomposition",
+        "type": "related"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Inverse Conway Maneuver",
+    "name_zh": "逆康威策略",
+    "slug": "inverse-conway-maneuver",
+    "category": "evolution",
+    "desc": "Deliberately restructure teams to produce the desired system architecture",
+    "desc_zh": "主动重组团队结构，以引导产出期望的系统架构",
+    "steps": [
+      "Define the target software architecture (e.g., bounded microservices, platform layers)",
+      "Model teams around the desired architecture boundaries before writing any new code",
+      "Establish clear team APIs: explicit ownership, stable interfaces, and interaction modes",
+      "Spin up new teams or reorganize existing ones to align with the architecture blueprint",
+      "Monitor whether the emerging code structure matches the intended architecture over 2-3 quarters"
+    ],
+    "steps_zh": [
+      "定义目标软件架构（如：有界微服务、平台层次）",
+      "在编写任何新代码之前，围绕期望的架构边界进行团队建模",
+      "建立清晰的团队 API：明确所有权、稳定接口和交互模式",
+      "新建团队或重组现有团队，使其与架构蓝图对齐",
+      "在 2-3 个季度内监控涌现的代码结构是否符合预期架构"
+    ],
+    "ai_relevant": false,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Target Arch",
+      "Org Design",
+      "Team Align",
+      "System"
+    ],
+    "viz_labels_zh": [
+      "目标架构",
+      "组织设计",
+      "团队对齐",
+      "系统演进"
+    ],
+    "related": [
+      "conways-law",
+      "team-topologies",
+      "microservices-decomposition"
+    ],
+    "tags": [
+      "inverse-conway",
+      "team-design",
+      "org-restructuring",
+      "architecture"
+    ],
+    "origin_author": "Jonny LeRoy & Matt Simons, 2010",
+    "origin_source": "Inverse Conway Maneuver (ThoughtWorks Technology Radar)",
+    "origin_source_zh": "《逆康威策略》（ThoughtWorks 技术雷达）",
+    "complexity": "advanced",
+    "when_to_use": [
+      "Transitioning from a monolith to microservices and needing teams aligned to service boundaries",
+      "Building a new platform layer and forming a dedicated platform team before writing platform code",
+      "Merging two acquired companies and designing a unified architecture through deliberate team composition",
+      "Preparing for a major scale-up where the current org structure will produce the wrong architecture"
+    ],
+    "when_to_use_zh": [
+      "从单体向微服务转型，需要团队与服务边界对齐",
+      "构建新的平台层，在编写平台代码之前组建专属平台团队",
+      "合并两家被收购公司，通过有意的团队组合设计统一架构",
+      "为重大规模扩展做准备，当前组织结构会产生错误的架构"
+    ],
+    "core_concepts": [
+      "Prescriptive org design: Intentionally shape team structure to produce the desired software architecture",
+      "Team-first architecture: Design teams before designing systems — the org chart is the first architecture diagram",
+      "Bounded ownership: Each team owns a well-defined architectural component with clear API boundaries",
+      "Architecture blueprint: The target architecture serves as the template for team structure, not the other way around",
+      "Feedback loop: Continuously verify that the code structure emerging from team interactions matches the target architecture"
+    ],
+    "core_concepts_zh": [
+      "规范性组织设计：有意塑造团队结构以产出期望的软件架构",
+      "团队优先架构：先设计团队，再设计系统——组织结构图是第一张架构图",
+      "有界所有权：每个团队拥有定义明确、具有清晰 API 边界的架构组件",
+      "架构蓝图：目标架构作为团队结构的模板，而非反过来",
+      "反馈循环：持续验证团队交互中涌现的代码结构是否与目标架构匹配"
+    ],
+    "timeline": [
+      [
+        "2010",
+        "Jonny LeRoy and Matt Simons coin 'Inverse Conway Maneuver' at ThoughtWorks"
+      ],
+      [
+        "2014",
+        "ThoughtWorks Technology Radar features the maneuver as a recommended technique"
+      ],
+      [
+        "2015",
+        "Sam Newman discusses it extensively in the context of microservice team design"
+      ],
+      [
+        "2019",
+        "Team Topologies formalizes the maneuver with four team types and three interaction modes"
+      ],
+      [
+        "2022",
+        "Large enterprises (ING, Adidas) report successful large-scale application of the maneuver"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2010",
+        "Jonny LeRoy 和 Matt Simons 在 ThoughtWorks 提出「逆康威策略」"
+      ],
+      [
+        "2014",
+        "ThoughtWorks 技术雷达将该策略作为推荐技术加以收录"
+      ],
+      [
+        "2015",
+        "Sam Newman 在微服务团队设计的背景下详细讨论该策略"
+      ],
+      [
+        "2019",
+        "《团队拓扑》通过四种团队类型和三种交互模式将该策略形式化"
+      ],
+      [
+        "2022",
+        "大型企业（ING、Adidas）报告了该策略的大规模成功应用"
+      ]
+    ],
+    "dos": [
+      "Start with a clear target architecture diagram before touching the org chart",
+      "Get executive sponsorship — org restructuring requires top-down support to succeed",
+      "Pair the maneuver with Team Topologies to provide a concrete vocabulary for team types and interactions",
+      "Monitor team health and delivery metrics for 2-3 quarters after restructuring to verify results"
+    ],
+    "dos_zh": [
+      "在调整组织结构之前，先确定清晰的目标架构图",
+      "获得高管支持——组织重组需要自上而下的支持才能成功",
+      "将该策略与团队拓扑结合使用，为团队类型和交互提供具体词汇",
+      "重组后连续 2-3 个季度监控团队健康度和交付指标以验证效果"
+    ],
+    "donts": [
+      "Don't restructure teams without a clearly defined target architecture — you'll just create different chaos",
+      "Don't ignore the human impact — frequent reorgs destroy morale if not handled with empathy and clarity",
+      "Don't expect instant results — it takes 2-3 quarters for the new structure to produce architectural change",
+      "Don't forget to also change tooling and processes — team structure alone won't fix misaligned CI/CD pipelines"
+    ],
+    "donts_zh": [
+      "不要在没有明确目标架构的情况下重组团队——否则只会制造不同的混乱",
+      "不要忽视人的因素——频繁重组如果不以同理心和透明度处理会摧毁士气",
+      "不要期望立竿见影——新结构需要 2-3 个季度才能产生架构变化",
+      "不要忘记同时变更工具和流程——仅靠团队结构无法修复不对齐的 CI/CD 流水线"
+    ],
+    "case_study_company": "ING Bank",
+    "case_study": "ING Bank Netherlands applied the Inverse Conway Maneuver in 2015 when they restructured their IT organization from project-based teams into autonomous squads and tribes aligned with customer journeys. Each squad owned a specific microservice domain end-to-end. Within two years, their deployment frequency increased from quarterly releases to multiple deployments per day, and their architecture naturally evolved from a tangled monolith into well-bounded services.",
+    "case_study_zh": "荷兰 ING 银行在 2015 年应用了逆康威策略，将 IT 组织从基于项目的团队重组为与客户旅程对齐的自治小队和部落。每个小队端到端地拥有特定的微服务领域。两年内，他们的部署频率从季度发布提升到每天多次部署，架构自然从纠缠的单体演进为边界清晰的服务。",
+    "when_not_to_use": [
+      "The organization is too small for team structure to meaningfully constrain architecture",
+      "Leadership is unwilling to make organizational changes — the maneuver requires real restructuring",
+      "The target architecture is not yet well understood — restructuring teams around a vague blueprint is wasteful",
+      "The existing architecture is working well and there is no strategic need to change it"
+    ],
+    "when_not_to_use_zh": [
+      "组织太小，团队结构不会对架构产生有意义的约束",
+      "领导层不愿做出组织变革——该策略需要真正的重组",
+      "目标架构尚未被充分理解——围绕模糊蓝图重组团队是浪费",
+      "现有架构运行良好，没有战略性变更需求"
+    ],
+    "adopters": [
+      "ING Bank",
+      "Adidas",
+      "Spotify",
+      "Zalando",
+      "Sky UK"
+    ],
+    "abstraction_level": "organization",
+    "quality_concerns": [
+      "maintainability",
+      "scalability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Jonny LeRoy and Matt Simons (2010). \"Inverse Conway Maneuver\". ThoughtWorks Technology Radar.",
+    "secondary_sources": [
+      "Matthew Skelton and Manuel Pais (2019). \"Team Topologies: Organizing Business and Technology Teams for Fast Flow\". IT Revolution Press.",
+      "James Lewis and Martin Fowler (2014). \"Microservices: A Definition of This New Architectural Term\". martinfowler.com."
+    ],
+    "typed_relations": [
+      {
+        "slug": "conways-law",
+        "type": "extends"
+      },
+      {
+        "slug": "team-topologies",
+        "type": "complement"
+      },
+      {
+        "slug": "microservices-decomposition",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Team Topologies",
+    "name_zh": "团队拓扑",
+    "slug": "team-topologies",
+    "category": "evolution",
+    "desc": "Four team types and three interaction modes for fast, sustainable software delivery",
+    "desc_zh": "通过四种团队类型与三种交互模式实现快速可持续的软件交付",
+    "steps": [
+      "Classify all existing teams into the four types: Stream-aligned, Platform, Enabling, Complicated-subsystem",
+      "Identify current interaction modes: Collaboration, X-as-a-Service, or Facilitating",
+      "Detect anti-patterns such as overloaded stream-aligned teams or absent platform teams",
+      "Redesign team interactions to minimize cognitive load and maximize flow for stream-aligned teams",
+      "Set trigger conditions (team size, cognitive load signals) for evolving team topology over time"
+    ],
+    "steps_zh": [
+      "将现有团队分类为四种类型：流式对齐团队、平台团队、赋能团队、复杂子系统团队",
+      "识别当前交互模式：协作、X即服务或促进",
+      "检测反模式，如过载的流式对齐团队或缺失的平台团队",
+      "重新设计团队交互方式，最小化认知负荷，最大化流式对齐团队的交付流",
+      "设定触发条件（团队规模、认知负荷信号），驱动团队拓扑随时间持续演进"
+    ],
+    "ai_relevant": false,
+    "viz_type": "tree",
+    "viz_labels": [
+      "Stream-Aligned",
+      "Platform",
+      "Enabling",
+      "Subsystem"
+    ],
+    "viz_labels_zh": [
+      "流动对齐团队",
+      "平台团队",
+      "赋能团队",
+      "复杂子系统"
+    ],
+    "related": [
+      "conways-law",
+      "inverse-conway-maneuver",
+      "calms-framework",
+      "spotify-model",
+      "amazon-two-pizza-teams"
+    ],
+    "tags": [
+      "team-topologies",
+      "cognitive-load",
+      "org-design",
+      "stream-aligned"
+    ],
+    "origin_author": "Matthew Skelton & Manuel Pais, 2019",
+    "origin_source": "Team Topologies: Organizing Business and Technology Teams for Fast Flow (IT Revolution Press)",
+    "origin_source_zh": "《团队拓扑：以业务与技术团队组织实现快速流动》（IT Revolution 出版）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Scaling engineering from 3-5 teams to 10+ teams and needing a coherent organizational model",
+      "Reducing cross-team dependencies that are slowing down delivery across multiple product streams",
+      "Designing a platform engineering organization to support self-service developer experience",
+      "Diagnosing cognitive overload in teams that own too many domains or too much infrastructure"
+    ],
+    "when_to_use_zh": [
+      "工程团队从 3-5 个扩展到 10+ 个，需要连贯的组织模型",
+      "减少跨团队依赖，这些依赖正在拖慢多个产品流的交付",
+      "设计平台工程组织以支撑自助式开发者体验",
+      "诊断因拥有过多领域或过多基础设施而导致的团队认知过载"
+    ],
+    "core_concepts": [
+      "Stream-aligned team: The primary team type, organized around a flow of work from a business domain or user journey",
+      "Platform team: Provides self-service internal capabilities that reduce cognitive load for stream-aligned teams",
+      "Enabling team: Helps stream-aligned teams adopt new technologies or practices, then steps back",
+      "Complicated-subsystem team: Owns components requiring deep specialist knowledge that would overload a stream-aligned team",
+      "Cognitive load: The core constraint — team topology must be designed to keep each team's cognitive load manageable"
+    ],
+    "core_concepts_zh": [
+      "流式对齐团队：主要团队类型，围绕业务领域或用户旅程的工作流组织",
+      "平台团队：提供自助式内部能力，减轻流式对齐团队的认知负荷",
+      "赋能团队：帮助流式对齐团队采用新技术或实践，然后退出",
+      "复杂子系统团队：拥有需要深度专业知识的组件，这些知识会过载流式对齐团队",
+      "认知负荷：核心约束——团队拓扑必须设计为使每个团队的认知负荷保持在可控范围"
+    ],
+    "timeline": [
+      [
+        "2013",
+        "Skelton and Pais begin writing about DevOps team patterns on their blog"
+      ],
+      [
+        "2016",
+        "The term 'Team Topologies' appears in conference talks and early publications"
+      ],
+      [
+        "2019",
+        "The book 'Team Topologies' is published by IT Revolution Press and becomes an instant bestseller"
+      ],
+      [
+        "2021",
+        "Team Topologies Academy launches, offering certified training and workshops"
+      ],
+      [
+        "2023",
+        "The framework is widely adopted by enterprises worldwide, with translations into 10+ languages"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2013",
+        "Skelton 和 Pais 开始在博客上撰写关于 DevOps 团队模式的文章"
+      ],
+      [
+        "2016",
+        "「团队拓扑」一词出现在会议演讲和早期出版物中"
+      ],
+      [
+        "2019",
+        "《团队拓扑》由 IT Revolution 出版，迅速成为畅销书"
+      ],
+      [
+        "2021",
+        "团队拓扑学院成立，提供认证培训和工作坊"
+      ],
+      [
+        "2023",
+        "该框架被全球企业广泛采用，已翻译成 10 多种语言"
+      ]
+    ],
+    "dos": [
+      "Start by assessing each team's cognitive load — this is the fundamental constraint to optimize for",
+      "Ensure most teams are stream-aligned — platform and enabling teams exist to support them, not the reverse",
+      "Define explicit interaction modes between every pair of teams and review them quarterly",
+      "Use team topology evolution triggers (growing team size, rising lead time) to know when to restructure"
+    ],
+    "dos_zh": [
+      "从评估每个团队的认知负荷开始——这是需要优化的根本约束",
+      "确保大多数团队是流式对齐的——平台和赋能团队的存在是为了支持它们，而非反过来",
+      "为每对团队之间定义明确的交互模式，并每季度审查",
+      "使用团队拓扑演进触发条件（团队规模增长、前置时间上升）来判断何时重组"
+    ],
+    "donts": [
+      "Don't create platform teams too early — wait until the need is clear from cognitive load signals",
+      "Don't let enabling teams become permanent dependencies — they should upskill and move on",
+      "Don't force-fit every team into one of four types — some teams may be transitioning between types",
+      "Don't apply the framework without executive buy-in — team topology changes require organizational authority"
+    ],
+    "donts_zh": [
+      "不要过早创建平台团队——等到认知负荷信号明确显示需要时再行动",
+      "不要让赋能团队成为永久依赖——他们应该赋能后撤出",
+      "不要强行将每个团队归入四种类型之一——有些团队可能正在类型之间过渡",
+      "不要在没有高管支持的情况下应用该框架——团队拓扑变更需要组织层面的授权"
+    ],
+    "case_study_company": "Adidas",
+    "case_study": "Adidas adopted Team Topologies to restructure their engineering organization during their digital transformation in 2020. They reorganized over 30 teams into stream-aligned squads mapped to customer journeys (browse, purchase, returns), supported by a platform team providing a shared Kubernetes-based developer platform. The restructuring reduced their average lead time for changes from weeks to days and eliminated most cross-team handoffs that had been blocking releases.",
+    "case_study_zh": "Adidas 在 2020 年数字化转型期间采用团队拓扑重组其工程组织。他们将 30 多个团队重组为映射到客户旅程（浏览、购买、退货）的流式对齐小队，并由一个提供共享 Kubernetes 开发者平台的平台团队提供支撑。重组将变更的平均前置时间从数周缩短到数天，并消除了大部分阻碍发布的跨团队交接。",
+    "when_not_to_use": [
+      "Organizations with fewer than 3 teams — the overhead of formal topology classification is not justified",
+      "Teams that are fully cross-functional and self-sufficient with no cognitive load issues",
+      "Short-term project-based work where teams disband after delivery",
+      "The organizational culture resists any form of team classification or prescribed interaction modes"
+    ],
+    "when_not_to_use_zh": [
+      "少于 3 个团队的组织——正式拓扑分类的开销不合理",
+      "团队已完全跨职能且自给自足，没有认知负荷问题",
+      "短期项目制工作，交付后团队即解散",
+      "组织文化抵制任何形式的团队分类或规定的交互模式"
+    ],
+    "adopters": [
+      "Adidas",
+      "PureGym",
+      "uSwitch",
+      "Nationwide Building Society",
+      "Condé Nast"
+    ],
+    "abstraction_level": "organization",
+    "quality_concerns": [
+      "maintainability",
+      "scalability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Matthew Skelton and Manuel Pais (2019). \"Team Topologies: Organizing Business and Technology Teams for Fast Flow\". IT Revolution Press.",
+    "secondary_sources": [
+      "Melvin Conway (1968). \"How Do Committees Invent?\". Datamation, 14(4).",
+      "Nicole Forsgren, Jez Humble, and Gene Kim (2018). \"Accelerate: The Science of Lean Software and DevOps\". IT Revolution Press."
+    ],
+    "typed_relations": [
+      {
+        "slug": "conways-law",
+        "type": "complement"
+      },
+      {
+        "slug": "inverse-conway-maneuver",
+        "type": "complement"
+      },
+      {
+        "slug": "calms-framework",
+        "type": "complement"
+      },
+      {
+        "slug": "spotify-model",
+        "type": "alternative"
+      },
+      {
+        "slug": "amazon-two-pizza-teams",
+        "type": "alternative"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Database Migration Patterns",
+    "name_zh": "数据库迁移模式",
+    "slug": "database-migration-patterns",
+    "category": "evolution",
+    "desc": "Safe techniques for evolving database schemas without downtime or data loss",
+    "desc_zh": "无停机、无数据丢失地演进数据库模式的安全技术集合",
+    "steps": [
+      "Version-control all schema changes as incremental migration scripts (Flyway, Liquibase)",
+      "Apply expand-contract: add new columns/tables first, migrate data, then remove old structures",
+      "Use backward-compatible migrations so old and new application code can run simultaneously",
+      "Test migrations in a production-equivalent staging environment before applying to production",
+      "Automate rollback scripts for every migration and validate them in CI before merging"
+    ],
+    "steps_zh": [
+      "将所有模式变更以增量迁移脚本形式纳入版本控制（Flyway、Liquibase）",
+      "应用扩展-收缩模式：先新增列/表，迁移数据，再删除旧结构",
+      "保持向后兼容的迁移，使新旧应用代码可同时运行",
+      "在等同于生产环境的预发布环境中测试迁移，再应用至生产",
+      "为每次迁移自动化回滚脚本，并在合并前通过 CI 验证"
+    ],
+    "ai_relevant": false,
+    "viz_type": "timeline",
+    "viz_labels": [
+      "Schema v1",
+      "Expand",
+      "Migrate Data",
+      "Contract"
+    ],
+    "viz_labels_zh": [
+      "初始模式",
+      "扩展字段",
+      "迁移数据",
+      "收缩旧字段"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "branch-by-abstraction",
+      "api-versioning-strategies"
+    ],
+    "tags": [
+      "database",
+      "migration",
+      "schema-evolution",
+      "zero-downtime"
+    ],
+    "origin_author": "Pramod Sadalage & Scott Ambler, 2006",
+    "origin_source": "Refactoring Databases: Evolutionary Database Design (Addison-Wesley)",
+    "origin_source_zh": "《数据库重构：演进式数据库设计》（Addison-Wesley 出版）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Deploying schema changes in a zero-downtime production environment with rolling deployments",
+      "Splitting a shared database as part of a monolith-to-microservices decomposition",
+      "Migrating from one database vendor to another while keeping the application live",
+      "Renaming columns, changing data types, or restructuring tables in a system with multiple consuming applications"
+    ],
+    "when_to_use_zh": [
+      "在零停机的生产环境中通过滚动部署发布模式变更",
+      "作为单体到微服务拆分的一部分拆分共享数据库",
+      "在保持应用在线的同时从一个数据库供应商迁移到另一个",
+      "在有多个消费应用的系统中重命名列、更改数据类型或重构表"
+    ],
+    "core_concepts": [
+      "Expand-Contract (Parallel Change): Add new structures, migrate data, then remove old structures in separate deployments",
+      "Version-controlled migrations: Every schema change is a numbered, sequential, idempotent script stored in source control",
+      "Backward compatibility: Both old and new application code must work against the database during the migration window",
+      "Blue-green database: Maintaining two schema versions simultaneously so deployments can be rolled back safely",
+      "Data migration vs. schema migration: Separating structural changes from data transformation for clarity and safety"
+    ],
+    "core_concepts_zh": [
+      "扩展-收缩（并行变更）：先新增结构，迁移数据，再在独立部署中删除旧结构",
+      "版本控制迁移：每个模式变更都是存储在源代码控制中的编号、顺序、幂等脚本",
+      "向后兼容：在迁移窗口期间，新旧应用代码都必须能够操作数据库",
+      "蓝绿数据库：同时维护两个模式版本，以便可以安全回滚部署",
+      "数据迁移与模式迁移：将结构变更与数据转换分离，以提高清晰度和安全性"
+    ],
+    "timeline": [
+      [
+        "2003",
+        "Scott Ambler publishes early work on agile database techniques and evolutionary design"
+      ],
+      [
+        "2006",
+        "Sadalage and Ambler publish 'Refactoring Databases', codifying expand-contract and migration patterns"
+      ],
+      [
+        "2010",
+        "Flyway is released as an open-source database migration tool, popularizing version-controlled migrations"
+      ],
+      [
+        "2014",
+        "Zero-downtime migration becomes a standard requirement for cloud-native continuous deployment"
+      ],
+      [
+        "2020",
+        "Tools like gh-ost (GitHub) and pt-online-schema-change (Percona) handle large-scale online migrations at internet scale"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2003",
+        "Scott Ambler 发表关于敏捷数据库技术和演进式设计的早期作品"
+      ],
+      [
+        "2006",
+        "Sadalage 和 Ambler 出版《数据库重构》，将扩展-收缩和迁移模式编纂成书"
+      ],
+      [
+        "2010",
+        "Flyway 作为开源数据库迁移工具发布，推广了版本控制迁移"
+      ],
+      [
+        "2014",
+        "零停机迁移成为云原生持续部署的标准要求"
+      ],
+      [
+        "2020",
+        "gh-ost（GitHub）和 pt-online-schema-change（Percona）等工具在互联网规模下处理大规模在线迁移"
+      ]
+    ],
+    "dos": [
+      "Always use the expand-contract pattern for destructive changes (column drops, renames, type changes)",
+      "Test every migration on a production-sized dataset — small test databases hide performance problems",
+      "Include rollback scripts for every forward migration and test them automatically in CI",
+      "Separate data migrations from schema migrations to keep each change small and reviewable"
+    ],
+    "dos_zh": [
+      "对破坏性变更（删列、重命名、类型更改）始终使用扩展-收缩模式",
+      "在生产规模的数据集上测试每次迁移——小型测试数据库会隐藏性能问题",
+      "为每个正向迁移编写回滚脚本并在 CI 中自动测试",
+      "将数据迁移与模式迁移分离，使每个变更小巧且易于审查"
+    ],
+    "donts": [
+      "Don't apply destructive schema changes (DROP COLUMN, ALTER TYPE) in a single deployment step",
+      "Don't skip testing migrations against production-sized data — 'works on my laptop' is not enough",
+      "Don't mix application logic changes with schema migrations in the same deployment",
+      "Don't assume your ORM handles migrations safely — always review the generated SQL"
+    ],
+    "donts_zh": [
+      "不要在单次部署步骤中应用破坏性模式变更（DROP COLUMN、ALTER TYPE）",
+      "不要跳过在生产规模数据上测试迁移——「在我笔记本上能跑」远远不够",
+      "不要在同一次部署中混合应用逻辑变更和模式迁移",
+      "不要假设 ORM 能安全处理迁移——始终审查生成的 SQL"
+    ],
+    "case_study_company": "GitHub",
+    "case_study": "GitHub developed gh-ost (GitHub Online Schema Transmogrifier) to handle zero-downtime schema migrations on their massive MySQL databases. Traditional ALTER TABLE operations would lock tables for hours, causing outages. gh-ost creates a shadow table, streams changes via the binary log, and performs an atomic cutover. It has been used to migrate tables with billions of rows across GitHub's production infrastructure without any user-facing downtime.",
+    "case_study_zh": "GitHub 开发了 gh-ost（GitHub 在线模式变形器）来处理其大型 MySQL 数据库的零停机模式迁移。传统的 ALTER TABLE 操作会锁表数小时导致服务中断。gh-ost 创建影子表，通过二进制日志流式传输变更，并执行原子切换。它已被用于在 GitHub 生产基础设施中迁移拥有数十亿行的表，且无任何用户可见的停机。",
+    "when_not_to_use": [
+      "Development or test environments where downtime during migration is perfectly acceptable",
+      "Greenfield projects with no existing data — just create the schema directly",
+      "Embedded databases or single-user applications where concurrent access is not a concern",
+      "Schema changes are so trivial (e.g., adding a nullable column) that no special pattern is needed"
+    ],
+    "when_not_to_use_zh": [
+      "开发或测试环境中迁移期间停机完全可以接受",
+      "没有现有数据的全新项目——直接创建模式即可",
+      "嵌入式数据库或单用户应用，不存在并发访问问题",
+      "模式变更极其简单（如添加可空列），不需要特殊模式"
+    ],
+    "adopters": [
+      "GitHub",
+      "Shopify",
+      "Stripe",
+      "Airbnb",
+      "SoundCloud"
+    ],
+    "abstraction_level": "component",
+    "quality_concerns": [
+      "reliability",
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Pramod Sadalage and Scott Ambler (2006). \"Refactoring Databases: Evolutionary Database Design\". Addison-Wesley.",
+    "secondary_sources": [
+      "Martin Fowler and Pramod Sadalage (2003). \"Evolutionary Database Design\". martinfowler.com.",
+      "Scott Ambler and Pramod Sadalage (2006). \"Agile Database Techniques\". Wiley."
+    ],
+    "typed_relations": [
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "branch-by-abstraction",
+        "type": "complement"
+      },
+      {
+        "slug": "api-versioning-strategies",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "name": "AI-Assisted Refactoring",
+    "name_zh": "AI 辅助重构",
+    "slug": "ai-assisted-refactoring",
+    "category": "evolution",
+    "desc": "Use LLMs to identify, plan, and execute code refactoring at scale",
+    "desc_zh": "利用大语言模型规模化识别、规划和执行代码重构",
+    "steps": [
+      "Feed the target codebase to an LLM and prompt it to identify code smells, duplication, and anti-patterns",
+      "Generate a prioritized refactoring backlog with risk assessments and estimated effort from LLM output",
+      "Use LLM-generated diffs or code completions for each refactoring task, reviewed by engineers",
+      "Run the full test suite and fitness functions after each AI-generated change to catch regressions",
+      "Track refactoring velocity and code quality metrics over time to measure AI-assistance ROI"
+    ],
+    "steps_zh": [
+      "将目标代码库输入 LLM，提示其识别代码异味、重复和反模式",
+      "根据 LLM 输出，生成带有风险评估和工作量估算的优先级重构待办清单",
+      "使用 LLM 生成的差异或代码补全完成每项重构任务，并由工程师审查",
+      "每次 AI 生成变更后运行完整测试套件和适应度函数，捕捉回归问题",
+      "持续追踪重构速度和代码质量指标，量化 AI 辅助的投入产出比"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Analyze",
+      "Suggest",
+      "Apply",
+      "Verify"
+    ],
+    "viz_labels_zh": [
+      "分析代码",
+      "AI建议",
+      "应用变更",
+      "验证"
+    ],
+    "related": [
+      "mikado-method",
+      "technical-debt-quadrant",
+      "ai-pair-programming"
+    ],
+    "tags": [
+      "ai-refactoring",
+      "code-quality",
+      "llm",
+      "automation"
+    ],
+    "origin_author": "Industry practice, 2022",
+    "origin_source": "Emerged from GitHub Copilot, ChatGPT, and large-scale LLM adoption in software engineering",
+    "origin_source_zh": "源自 GitHub Copilot、ChatGPT 及大语言模型在软件工程中的大规模应用",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "A large legacy codebase with thousands of similar code smells that are tedious to fix manually",
+      "Migrating framework versions (e.g., React class components to hooks) across hundreds of files",
+      "Standardizing coding patterns across a monorepo with contributions from multiple teams",
+      "Identifying and eliminating dead code, unused imports, or deprecated API calls at scale"
+    ],
+    "when_to_use_zh": [
+      "大型遗留代码库中有数千个相似的代码异味，手动修复过于繁琐",
+      "跨数百个文件迁移框架版本（如 React 类组件迁移至 Hooks）",
+      "在多团队贡献的单仓库中标准化编码模式",
+      "规模化识别和消除死代码、未使用导入或已弃用 API 调用"
+    ],
+    "core_concepts": [
+      "LLM-driven code analysis: Using large language models to scan codebases for patterns, smells, and improvement opportunities",
+      "AI-generated diffs: LLMs produce specific code changes (diffs) that engineers review before merging",
+      "Human-in-the-loop: Every AI-generated change must be reviewed by a human engineer for correctness and intent",
+      "Test-guarded refactoring: The existing test suite and fitness functions serve as a safety net for AI-generated changes",
+      "Batch refactoring: Applying the same LLM-driven transformation across many files simultaneously for economies of scale"
+    ],
+    "core_concepts_zh": [
+      "LLM 驱动的代码分析：使用大语言模型扫描代码库，识别模式、异味和改进机会",
+      "AI 生成的差异：LLM 生成具体的代码变更（diff），由工程师审查后合并",
+      "人在回路中：每个 AI 生成的变更必须由人类工程师审查其正确性和意图",
+      "测试保障重构：现有测试套件和适应度函数作为 AI 生成变更的安全网",
+      "批量重构：将相同的 LLM 驱动转换同时应用于多个文件，实现规模效益"
+    ],
+    "timeline": [
+      [
+        "2021",
+        "GitHub Copilot technical preview launches, enabling AI-assisted code completion"
+      ],
+      [
+        "2022",
+        "ChatGPT release sparks widespread exploration of LLMs for code refactoring tasks"
+      ],
+      [
+        "2023",
+        "Tools like Sourcegraph Cody and Amazon CodeWhisperer add refactoring-specific capabilities"
+      ],
+      [
+        "2024",
+        "Large enterprises report using AI agents for automated codemod generation and tech debt reduction"
+      ],
+      [
+        "2025",
+        "Claude Code, Cursor, and similar tools enable agentic multi-file refactoring workflows"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2021",
+        "GitHub Copilot 技术预览版发布，实现 AI 辅助代码补全"
+      ],
+      [
+        "2022",
+        "ChatGPT 的发布引发了将 LLM 用于代码重构任务的广泛探索"
+      ],
+      [
+        "2023",
+        "Sourcegraph Cody 和 Amazon CodeWhisperer 等工具增加了重构专属功能"
+      ],
+      [
+        "2024",
+        "大型企业报告使用 AI 智能体进行自动化 codemod 生成和技术债务削减"
+      ],
+      [
+        "2025",
+        "Claude Code、Cursor 等工具实现了智能体式多文件重构工作流"
+      ]
+    ],
+    "dos": [
+      "Always run the full test suite after every AI-generated change — never merge untested AI output",
+      "Start with mechanical, pattern-based refactorings (renames, import updates) where LLMs are most reliable",
+      "Use AI to generate the initial diff, then have engineers refine it — not the other way around",
+      "Track before/after code quality metrics to quantify the ROI of AI-assisted refactoring"
+    ],
+    "dos_zh": [
+      "每次 AI 生成变更后始终运行完整测试套件——绝不合并未经测试的 AI 输出",
+      "从机械的、基于模式的重构（重命名、导入更新）开始，这是 LLM 最可靠的领域",
+      "用 AI 生成初始差异，再由工程师精修——而非反过来",
+      "追踪重构前后的代码质量指标，量化 AI 辅助重构的投入产出比"
+    ],
+    "donts": [
+      "Don't blindly merge AI-generated code without human review — LLMs can introduce subtle bugs",
+      "Don't use AI refactoring on code without test coverage — there's no safety net to catch regressions",
+      "Don't attempt complex architectural refactoring (e.g., extracting microservices) via AI alone",
+      "Don't ignore the context window limitation — LLMs may miss dependencies outside their visible scope"
+    ],
+    "donts_zh": [
+      "不要在没有人工审查的情况下盲目合并 AI 生成的代码——LLM 可能引入微妙的 bug",
+      "不要在没有测试覆盖的代码上使用 AI 重构——没有安全网来捕获回归",
+      "不要试图仅通过 AI 完成复杂的架构重构（如提取微服务）",
+      "不要忽视上下文窗口限制——LLM 可能遗漏其可见范围之外的依赖"
+    ],
+    "case_study_company": "Google",
+    "case_study": "Google has used large-scale automated refactoring tooling (Rosie, part of their internal code analysis system) for over a decade. With the advent of LLMs, they integrated AI-assisted code transformation into their internal toolchain to handle migrations like API deprecations and style standardizations across their multi-billion-line monorepo. AI-generated changelists are reviewed by engineers and must pass all automated tests before submission, enabling them to complete refactorings that would previously take months in a fraction of the time.",
+    "case_study_zh": "Google 十多年来一直使用大规模自动化重构工具（Rosie，其内部代码分析系统的一部分）。随着 LLM 的出现，他们将 AI 辅助代码转换集成到内部工具链中，用于处理数十亿行单仓库中的 API 弃用和风格标准化等迁移任务。AI 生成的变更列表由工程师审查，且必须通过所有自动化测试后才能提交，使他们能够在以前需要数月的时间内完成重构。",
+    "when_not_to_use": [
+      "Security-critical code where AI-introduced subtle bugs could have catastrophic consequences",
+      "Codebases with zero or near-zero test coverage — there is no safety net for AI changes",
+      "One-off refactorings that are faster to do manually than to set up an AI pipeline",
+      "Performance-critical hot paths where AI-generated code may not meet stringent optimization requirements"
+    ],
+    "when_not_to_use_zh": [
+      "安全关键代码，AI 引入的微妙 bug 可能造成灾难性后果",
+      "测试覆盖率为零或接近于零的代码库——AI 变更没有安全网",
+      "一次性的重构，手动完成比搭建 AI 管线更快",
+      "性能关键的热路径，AI 生成的代码可能无法满足严格的优化要求"
+    ],
+    "adopters": [
+      "Google",
+      "Meta",
+      "Shopify",
+      "Sourcegraph",
+      "Uber"
+    ],
+    "abstraction_level": "code",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "emerging",
+    "primary_source": "GitHub (2021). \"GitHub Copilot: Your AI Pair Programmer\". github.com/features/copilot.",
+    "secondary_sources": [
+      "Mark Chen et al. (2021). \"Evaluating Large Language Models Trained on Code (Codex)\". arXiv:2107.03374.",
+      "Martin Fowler (2018). \"Refactoring: Improving the Design of Existing Code, 2nd Edition\". Addison-Wesley."
+    ],
+    "typed_relations": [
+      {
+        "slug": "mikado-method",
+        "type": "complement"
+      },
+      {
+        "slug": "technical-debt-quadrant",
+        "type": "complement"
+      },
+      {
+        "slug": "ai-pair-programming",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Continuous Architecture",
+    "name_zh": "持续架构",
+    "slug": "continuous-architecture",
+    "category": "evolution",
+    "desc": "Evolve architecture incrementally in sync with delivery rather than big up-front design",
+    "desc_zh": "与交付节奏同步地增量演进架构，取代前期大设计",
+    "steps": [
+      "Establish lightweight Architecture Decision Records (ADRs) to capture decisions as they are made",
+      "Embed architectural reviews as a routine part of sprint planning and retrospectives",
+      "Define architectural runways: maintain just-enough design ahead of the development queue",
+      "Use fitness functions to monitor whether the live system still matches architectural intent",
+      "Revisit and update ADRs when new information, scale demands, or AI capabilities shift priorities"
+    ],
+    "steps_zh": [
+      "建立轻量级架构决策记录（ADR），在决策作出时即时捕获",
+      "将架构评审作为迭代计划和回顾会议的常规环节",
+      "定义架构跑道：在开发队列前方维持恰到好处的设计储备",
+      "使用适应度函数监控线上系统是否仍与架构意图保持一致",
+      "当新信息、规模需求或 AI 能力改变优先级时，及时重审和更新 ADR"
+    ],
+    "ai_relevant": true,
+    "viz_type": "cycle",
+    "viz_labels": [
+      "Decide",
+      "Implement",
+      "Evaluate",
+      "Adapt"
+    ],
+    "viz_labels_zh": [
+      "架构决策",
+      "实施",
+      "评估",
+      "适应演进"
+    ],
+    "related": [
+      "adr",
+      "architectural-fitness-functions",
+      "three-ways-devops"
+    ],
+    "tags": [
+      "continuous-architecture",
+      "evolutionary",
+      "agile",
+      "incremental"
+    ],
+    "origin_author": "Murat Erder & Pierre Pureur, 2015",
+    "origin_source": "Continuous Architecture: Sustainable Architecture in an Agile and Cloud-Centric World (Morgan Kaufmann)",
+    "origin_source_zh": "《持续架构：敏捷和云中心化世界中的可持续架构》（Morgan Kaufmann 出版）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "An agile organization that needs architectural guidance without reverting to waterfall-style big design up front",
+      "A rapidly growing system where requirements change faster than a fixed architecture can accommodate",
+      "Teams adopting cloud-native infrastructure and needing architecture that evolves with cloud capabilities",
+      "Organizations integrating AI/ML components where architectural assumptions shift as models and capabilities improve"
+    ],
+    "when_to_use_zh": [
+      "敏捷组织需要架构指导，但不想回归瀑布式大前期设计",
+      "快速增长的系统，需求变化速度超出固定架构的适应能力",
+      "团队采用云原生基础设施，需要随云能力演进的架构",
+      "整合 AI/ML 组件的组织，架构假设随模型和能力提升而变化"
+    ],
+    "core_concepts": [
+      "Architecture Decision Records (ADRs): Lightweight, version-controlled documents that capture the context, decision, and consequences of each architectural choice",
+      "Architectural runway: Just enough planned architecture to support the next few sprints, not a complete blueprint",
+      "Last responsible moment: Defer architectural decisions until the cost of not deciding outweighs the benefit of waiting for more information",
+      "Fitness functions: Automated checks that continuously verify the live system conforms to architectural intent",
+      "Architecture as code: Treating architectural constraints as executable specifications embedded in CI/CD pipelines"
+    ],
+    "core_concepts_zh": [
+      "架构决策记录（ADR）：轻量级、版本控制的文档，记录每个架构选择的上下文、决策和后果",
+      "架构跑道：仅规划足够支撑未来几个迭代的架构，而非完整蓝图",
+      "最后责任时刻：将架构决策推迟到不做决策的成本超过等待更多信息的收益时",
+      "适应度函数：持续验证线上系统符合架构意图的自动化检查",
+      "架构即代码：将架构约束视为嵌入 CI/CD 流水线的可执行规格说明"
+    ],
+    "timeline": [
+      [
+        "2010",
+        "SAFe introduces the concept of Architectural Runway for agile-at-scale"
+      ],
+      [
+        "2011",
+        "Michael Nygard proposes lightweight Architecture Decision Records (ADRs)"
+      ],
+      [
+        "2015",
+        "Erder and Pureur publish 'Continuous Architecture', codifying the approach"
+      ],
+      [
+        "2017",
+        "'Building Evolutionary Architectures' by Ford, Parsons & Kua adds fitness functions to continuous architecture"
+      ],
+      [
+        "2021",
+        "Erder, Pureur & Woods publish 'Continuous Architecture in Practice', updating the approach for cloud-native and AI"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2010",
+        "SAFe 引入架构跑道概念，用于规模化敏捷"
+      ],
+      [
+        "2011",
+        "Michael Nygard 提出轻量级架构决策记录（ADR）"
+      ],
+      [
+        "2015",
+        "Erder 和 Pureur 出版《持续架构》，将该方法编纂成书"
+      ],
+      [
+        "2017",
+        "Ford、Parsons 和 Kua 的《演进式架构》为持续架构增加了适应度函数"
+      ],
+      [
+        "2021",
+        "Erder、Pureur 和 Woods 出版《持续架构实践》，针对云原生和 AI 更新方法"
+      ]
+    ],
+    "dos": [
+      "Write ADRs for every significant architectural decision — even if the decision is 'we chose not to change'",
+      "Keep the architectural runway 1-2 sprints ahead, not 6 months ahead",
+      "Embed architects in delivery teams rather than isolating them in an ivory tower review board",
+      "Use fitness functions to make architectural constraints executable and automatically enforced"
+    ],
+    "dos_zh": [
+      "为每个重要架构决策编写 ADR——即使决策是「我们选择不变更」",
+      "将架构跑道保持在 1-2 个迭代之前，而非 6 个月之前",
+      "让架构师嵌入交付团队，而非将他们隔离在象牙塔评审委员会中",
+      "使用适应度函数使架构约束可执行并自动强制执行"
+    ],
+    "donts": [
+      "Don't fall back to big up-front design disguised as 'architectural planning' — keep it lightweight",
+      "Don't skip ADRs for 'obvious' decisions — they provide invaluable context for future team members",
+      "Don't treat architecture as a one-time activity — it must continuously evolve with the system",
+      "Don't let the architectural runway grow too far ahead of delivery — unused design becomes waste"
+    ],
+    "donts_zh": [
+      "不要回退到伪装成「架构规划」的大前期设计——保持轻量",
+      "不要跳过「显而易见」决策的 ADR——它们为未来团队成员提供宝贵上下文",
+      "不要将架构视为一次性活动——它必须与系统持续共同演进",
+      "不要让架构跑道远远领先于交付——未被使用的设计就是浪费"
+    ],
+    "case_study_company": "Spotify",
+    "case_study": "Spotify adopted continuous architecture principles as part of their famous squad/tribe/chapter model. Each squad makes its own architectural decisions, documented as lightweight ADRs in their repositories. A chapter of architects across squads ensures alignment on cross-cutting concerns. This approach allowed Spotify to evolve from a monolith to hundreds of microservices without ever pausing delivery for a 'big redesign', enabling them to scale from 10 million to over 500 million users.",
+    "case_study_zh": "Spotify 将持续架构原则作为其著名的小队/部落/分会模型的一部分加以采用。每个小队自主做出架构决策，以轻量级 ADR 形式记录在各自仓库中。跨小队的架构师分会确保在横切关注点上保持一致。这种方法使 Spotify 从单体演进到数百个微服务，而无需暂停交付进行「大重设计」，支撑其从 1000 万用户扩展到超过 5 亿用户。",
+    "when_not_to_use": [
+      "Safety-critical systems (medical devices, avionics) where regulatory compliance requires extensive up-front design documentation",
+      "Fixed-scope contract projects where the architecture is contractually specified before development begins",
+      "Very short-lived projects (under 3 months) where the overhead of ADRs and fitness functions exceeds their benefit",
+      "Teams with no agile delivery practices — continuous architecture assumes iterative, incremental delivery"
+    ],
+    "when_not_to_use_zh": [
+      "安全关键系统（医疗设备、航空电子），法规合规要求大量前期设计文档",
+      "固定范围的合同项目，架构在开发开始前已在合同中明确规定",
+      "非常短期的项目（3 个月以下），ADR 和适应度函数的开销超过收益",
+      "没有敏捷交付实践的团队——持续架构假设迭代、增量式交付"
+    ],
+    "adopters": [
+      "Spotify",
+      "Capital One",
+      "Netflix",
+      "ING Bank",
+      "ThoughtWorks"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Murat Erder and Pierre Pureur (2015). \"Continuous Architecture: Sustainable Architecture in an Agile and Cloud-Centric World\". Morgan Kaufmann.",
+    "secondary_sources": [
+      "Murat Erder, Pierre Pureur, and Eoin Woods (2021). \"Continuous Architecture in Practice\". Addison-Wesley.",
+      "Neal Ford, Rebecca Parsons, and Patrick Kua (2017). \"Building Evolutionary Architectures\". O'Reilly Media."
+    ],
+    "typed_relations": [
+      {
+        "slug": "adr",
+        "type": "complement"
+      },
+      {
+        "slug": "architectural-fitness-functions",
+        "type": "complement"
+      },
+      {
+        "slug": "three-ways-devops",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Evolutionary Agent Systems",
+    "name_zh": "演进式智能体系统",
+    "slug": "evolutionary-agent-systems",
+    "category": "evolution",
+    "desc": "Iteratively evolve AI agent architectures using feedback, eval, and capability staging",
+    "desc_zh": "通过反馈、评估和能力分级持续迭代演进 AI 智能体架构",
+    "steps": [
+      "Define agent capability tiers and establish eval suites that benchmark each capability level",
+      "Deploy agents in a shadow or canary mode, collecting traces, errors, and human feedback",
+      "Use evals and failure analysis to identify the next highest-value capability to add or fix",
+      "Introduce new tools, memory stores, or orchestration patterns behind feature flags",
+      "Promote changes incrementally using A/B testing on agent outputs, retiring deprecated behaviors"
+    ],
+    "steps_zh": [
+      "定义智能体能力层级，并建立对每个能力层级进行基准测试的评估套件",
+      "以影子模式或金丝雀模式部署智能体，收集调用链、错误和人工反馈",
+      "使用评估结果和失败分析，确定下一个最高价值的待新增或待修复能力",
+      "在功能开关后引入新工具、记忆存储或编排模式",
+      "通过对智能体输出进行 A/B 测试，增量晋升变更，退役已弃用的行为"
+    ],
+    "ai_relevant": true,
+    "viz_type": "cycle",
+    "viz_labels": [
+      "Deploy",
+      "Observe",
+      "Retrain",
+      "Evolve"
+    ],
+    "viz_labels_zh": [
+      "部署",
+      "观测",
+      "重训练",
+      "演化"
+    ],
+    "related": [
+      "agent-deployment-patterns",
+      "agent-reliability-patterns",
+      "continuous-architecture"
+    ],
+    "tags": [
+      "agent-evolution",
+      "capability-staging",
+      "evaluation",
+      "ai"
+    ],
+    "origin_author": "Industry practice, 2023",
+    "origin_source": "Emerged from production AI agent deployments at Anthropic, OpenAI, Google DeepMind, and applied AI companies",
+    "origin_source_zh": "源自 Anthropic、OpenAI、Google DeepMind 及应用 AI 公司的生产 AI 智能体部署实践",
+    "complexity": "advanced",
+    "when_to_use": [
+      "Deploying an AI coding assistant that needs to progressively gain access to more tools and repositories",
+      "Building a customer support agent that evolves from FAQ handling to complex issue resolution",
+      "Operating multi-agent systems where new agent roles must be introduced and validated incrementally",
+      "Evolving an AI data analyst from simple queries to complex multi-step reasoning workflows"
+    ],
+    "when_to_use_zh": [
+      "部署需要逐步获取更多工具和仓库访问权限的 AI 编码助手",
+      "构建从 FAQ 处理演进到复杂问题解决的客户支持智能体",
+      "运行多智能体系统，需要增量引入和验证新的智能体角色",
+      "将 AI 数据分析师从简单查询演进到复杂多步推理工作流"
+    ],
+    "core_concepts": [
+      "Capability tiers: A staged ladder of agent abilities, where each tier is unlocked after demonstrating reliability at the previous level",
+      "Eval-driven development: Agent evolution is guided by quantitative eval suites that benchmark quality, safety, and reliability",
+      "Shadow/canary deployment: New agent capabilities run alongside proven ones, with outputs compared but not exposed to users",
+      "Human feedback loop: User corrections, thumbs-up/down, and escalation patterns drive the prioritization of capability improvements",
+      "Graceful degradation: Agents must fall back to simpler, proven behaviors when newly introduced capabilities encounter edge cases"
+    ],
+    "core_concepts_zh": [
+      "能力分级：智能体能力的阶梯式分层，每个层级在证明前一层级的可靠性后解锁",
+      "评估驱动开发：智能体演进由量化评估套件引导，基准测试质量、安全性和可靠性",
+      "影子/金丝雀部署：新智能体能力与已验证能力并行运行，输出被比对但不暴露给用户",
+      "人类反馈循环：用户纠正、点赞/踩和升级模式驱动能力改进的优先排序",
+      "优雅降级：当新引入的能力遇到边缘情况时，智能体必须回退到更简单、已验证的行为"
+    ],
+    "timeline": [
+      [
+        "2022",
+        "Early LLM-based agents (AutoGPT, BabyAGI) demonstrate the need for structured agent evolution"
+      ],
+      [
+        "2023",
+        "Anthropic, OpenAI, and others publish best practices for safe, incremental AI agent deployment"
+      ],
+      [
+        "2024",
+        "Eval-driven agent development becomes standard practice with frameworks like Braintrust, Langsmith, and Weights & Biases"
+      ],
+      [
+        "2025",
+        "Multi-agent orchestration platforms mature, enabling teams to evolve complex agent systems with staged rollouts"
+      ],
+      [
+        "2025",
+        "Claude Code and similar agentic coding tools demonstrate practical evolutionary capability staging in production"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2022",
+        "早期 LLM 智能体（AutoGPT、BabyAGI）揭示了结构化智能体演进的必要性"
+      ],
+      [
+        "2023",
+        "Anthropic、OpenAI 等发布安全、增量 AI 智能体部署的最佳实践"
+      ],
+      [
+        "2024",
+        "评估驱动的智能体开发成为标准实践，出现 Braintrust、Langsmith、Weights & Biases 等框架"
+      ],
+      [
+        "2025",
+        "多智能体编排平台成熟，使团队能够通过分阶段发布演进复杂智能体系统"
+      ],
+      [
+        "2025",
+        "Claude Code 等智能体编码工具在生产中展示了实际的演进式能力分级"
+      ]
+    ],
+    "dos": [
+      "Build comprehensive eval suites before adding new capabilities — you cannot improve what you cannot measure",
+      "Deploy new capabilities in shadow mode first and compare outputs against the established baseline",
+      "Implement graceful degradation so agent failures fall back to simpler, proven behaviors",
+      "Collect structured human feedback on every agent interaction to guide capability prioritization"
+    ],
+    "dos_zh": [
+      "在添加新能力之前构建全面的评估套件——无法衡量就无法改进",
+      "先以影子模式部署新能力，将输出与已建立的基线进行比对",
+      "实现优雅降级，使智能体故障能回退到更简单、已验证的行为",
+      "在每次智能体交互中收集结构化的人类反馈，以指导能力优先级排序"
+    ],
+    "donts": [
+      "Don't grant agents full tool access from day one — stage capabilities and earn trust incrementally",
+      "Don't skip eval suites because 'the agent seems to work' — vibes-based evaluation misses critical failures",
+      "Don't evolve multiple agent capabilities simultaneously — isolate changes to understand their individual impact",
+      "Don't ignore safety boundaries — capability expansion must be accompanied by guardrails and monitoring"
+    ],
+    "donts_zh": [
+      "不要从第一天就赋予智能体完整工具访问权限——分阶段开放能力并逐步赢得信任",
+      "不要因为「智能体看起来能用」就跳过评估套件——凭感觉的评估会遗漏关键故障",
+      "不要同时演进多个智能体能力——隔离变更以理解各自的独立影响",
+      "不要忽视安全边界——能力扩展必须伴随护栏和监控"
+    ],
+    "case_study_company": "Anthropic",
+    "case_study": "Anthropic evolved Claude's agentic capabilities through a staged approach with Claude Code and the tool-use API. Initial releases supported simple single-tool calls, evaluated against safety and accuracy benchmarks. Subsequent capability tiers added multi-tool orchestration, file editing, and web browsing — each tier gated by eval suite performance. This evolutionary approach allowed Anthropic to ship agentic features to millions of developers while maintaining safety standards, with each capability tier building confidence from the reliability demonstrated at the previous level.",
+    "case_study_zh": "Anthropic 通过 Claude Code 和工具使用 API 以分阶段方式演进 Claude 的智能体能力。初始版本支持简单的单工具调用，根据安全性和准确性基准进行评估。后续能力层级增加了多工具编排、文件编辑和网页浏览——每个层级都以评估套件表现为门控。这种演进式方法使 Anthropic 能够在保持安全标准的同时向数百万开发者发布智能体功能，每个能力层级都建立在前一层级所展示的可靠性基础上。",
+    "when_not_to_use": [
+      "Simple, stateless AI completions (e.g., text summarization) that don't require agentic capabilities",
+      "Agents operating in fully sandboxed environments where safety risks are negligible",
+      "One-off demo or proof-of-concept agents that won't be deployed to production",
+      "Use cases where the full agent capability set is well-understood and thoroughly tested upfront"
+    ],
+    "when_not_to_use_zh": [
+      "简单的无状态 AI 补全（如文本摘要），不需要智能体能力",
+      "在完全沙箱化环境中运行的智能体，安全风险可忽略",
+      "不会部署到生产的一次性演示或概念验证智能体",
+      "完整智能体能力集已被充分理解并已提前彻底测试的场景"
+    ],
+    "adopters": [
+      "Anthropic",
+      "OpenAI",
+      "Google DeepMind",
+      "Microsoft",
+      "Replit"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "reliability",
+      "scalability"
+    ],
+    "maturity_ring": "emerging",
+    "primary_source": "Anthropic (2024). \"Building Effective Agents\". anthropic.com.",
+    "secondary_sources": [
+      "Andrew Ng (2024). \"Agentic Design Patterns\". deeplearning.ai.",
+      "Harrison Chase et al. (2023). \"LangGraph: Multi-Actor Agent Framework\". langchain.com."
+    ],
+    "typed_relations": [
+      {
+        "slug": "agent-deployment-patterns",
+        "type": "complement"
+      },
+      {
+        "slug": "agent-reliability-patterns",
+        "type": "complement"
+      },
+      {
+        "slug": "continuous-architecture",
+        "type": "related"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Mikado Method",
+    "name_zh": "米卡多方法",
+    "slug": "mikado-method",
+    "category": "evolution",
+    "desc": "Visualize and untangle large refactorings as a dependency graph of small safe steps",
+    "desc_zh": "将大型重构可视化为依赖图，分解为一系列小而安全的步骤",
+    "steps": [
+      "State the refactoring goal as a single root node and attempt it naively in the codebase",
+      "When compilation or tests break, record each blocker as a child node in the Mikado Graph",
+      "Revert all changes and recurse: attempt each leaf node (blocker) the same way",
+      "Continue building the graph until all leaves are independently achievable without breakage",
+      "Implement leaves first, working bottom-up through the graph until the root goal is achieved"
+    ],
+    "steps_zh": [
+      "将重构目标设为单一根节点，在代码库中直接尝试实现",
+      "当编译或测试失败时，将每个阻塞点记录为米卡多图中的子节点",
+      "回滚所有变更并递归：用同样方式尝试每个叶节点（阻塞项）",
+      "持续构建依赖图，直到所有叶节点均可独立完成而不引发问题",
+      "从叶节点开始实现，自底向上逐步完成，直至达成根节点目标"
+    ],
+    "ai_relevant": false,
+    "viz_type": "tree",
+    "viz_labels": [
+      "Goal",
+      "Prerequisite",
+      "Leaf Node",
+      "Revert"
+    ],
+    "viz_labels_zh": [
+      "目标变更",
+      "前置条件",
+      "叶子节点",
+      "回滚"
+    ],
+    "related": [
+      "technical-debt-quadrant",
+      "ai-assisted-refactoring",
+      "strangler-fig-pattern"
+    ],
+    "tags": [
+      "mikado",
+      "refactoring",
+      "dependency-graph",
+      "safe-steps"
+    ],
+    "origin_author": "Ola Ellnestam & Daniel Brolund, 2014",
+    "origin_source": "The Mikado Method (Manning Publications)",
+    "origin_source_zh": "《米卡多方法》（Manning 出版）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "A large refactoring that keeps failing because hidden dependencies break things unexpectedly",
+      "Untangling a deeply coupled legacy codebase where each change triggers a cascade of compilation errors",
+      "Planning a multi-sprint refactoring effort where the team needs to see the full dependency map before starting",
+      "Teaching junior developers how to approach large-scale refactoring safely and systematically"
+    ],
+    "when_to_use_zh": [
+      "大型重构因隐藏依赖不断导致意外失败",
+      "解耦深度耦合的遗留代码库，每次变更都引发连锁编译错误",
+      "规划多迭代重构工作，团队需要在开始前看到完整的依赖图",
+      "教授初级开发者如何安全、系统地进行大规模重构"
+    ],
+    "core_concepts": [
+      "Mikado Graph: A directed acyclic graph where the root is the refactoring goal and children are prerequisites that must be satisfied first",
+      "Naive attempt: Deliberately try the change and let it fail, using the failures to discover hidden dependencies",
+      "Revert-and-recurse: After each failed attempt, revert all changes and apply the same process to each discovered prerequisite",
+      "Leaf-first implementation: Work from the bottom of the graph upward, implementing only leaves that can be done independently",
+      "Safe, small steps: Each leaf implementation is small enough to commit, test, and deploy independently without breaking the system"
+    ],
+    "core_concepts_zh": [
+      "米卡多图：有向无环图，根节点是重构目标，子节点是必须先满足的前置条件",
+      "直接尝试：有意地进行变更并让它失败，利用失败来发现隐藏的依赖",
+      "回滚并递归：每次失败尝试后，回滚所有变更并对每个发现的前置条件应用相同过程",
+      "叶节点优先实现：从图的底部向上工作，只实现可以独立完成的叶节点",
+      "小而安全的步骤：每个叶节点的实现足够小，可以独立提交、测试和部署而不破坏系统"
+    ],
+    "timeline": [
+      [
+        "2008",
+        "Ola Ellnestam and Daniel Brolund begin developing the Mikado Method at Swedish consultancy Agical"
+      ],
+      [
+        "2010",
+        "The method is presented at multiple agile and software craftsmanship conferences"
+      ],
+      [
+        "2014",
+        "Manning publishes 'The Mikado Method' book, making the technique accessible to a wider audience"
+      ],
+      [
+        "2016",
+        "The method gains traction in legacy modernization projects across European enterprises"
+      ],
+      [
+        "2023",
+        "Practitioners combine Mikado with AI-assisted refactoring, using LLMs to explore the dependency graph faster"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2008",
+        "Ola Ellnestam 和 Daniel Brolund 在瑞典咨询公司 Agical 开始开发米卡多方法"
+      ],
+      [
+        "2010",
+        "该方法在多个敏捷和软件工匠精神大会上发表"
+      ],
+      [
+        "2014",
+        "Manning 出版《米卡多方法》一书，使该技术为更广泛的受众所知"
+      ],
+      [
+        "2016",
+        "该方法在欧洲企业的遗留系统现代化项目中获得广泛采用"
+      ],
+      [
+        "2023",
+        "实践者将米卡多方法与 AI 辅助重构结合，使用 LLM 更快速地探索依赖图"
+      ]
+    ],
+    "dos": [
+      "Always revert after a failed naive attempt — the point is to discover dependencies, not to force changes through",
+      "Draw the Mikado Graph on a whiteboard or shared diagram so the whole team can see the plan",
+      "Commit each leaf-level change independently so the main branch stays green throughout the refactoring",
+      "Use the graph as a communication tool in stand-ups to track progress through the refactoring"
+    ],
+    "dos_zh": [
+      "在直接尝试失败后始终回滚——目的是发现依赖关系，而非强行推进变更",
+      "在白板或共享图表上绘制米卡多图，使整个团队都能看到计划",
+      "独立提交每个叶节点级别的变更，使主分支在整个重构过程中保持绿色",
+      "在站会中使用依赖图作为沟通工具，追踪重构进展"
+    ],
+    "donts": [
+      "Don't skip the revert step — pushing through a broken state defeats the purpose of the method",
+      "Don't try to implement non-leaf nodes before their children are complete — you'll break things again",
+      "Don't build a huge graph in one session — discover dependencies incrementally as you work",
+      "Don't use Mikado for simple, well-understood refactorings — the overhead is only justified for complex dependency tangles"
+    ],
+    "donts_zh": [
+      "不要跳过回滚步骤——在破坏状态下强行推进违背了该方法的初衷",
+      "不要在子节点完成之前尝试实现非叶节点——否则会再次破坏系统",
+      "不要试图在一次会议中构建完整的依赖图——随着工作推进增量发现依赖",
+      "不要将米卡多方法用于简单、易理解的重构——其开销只对复杂依赖纠缠才合理"
+    ],
+    "case_study_company": "Ericsson",
+    "case_study": "The Mikado Method originated from real-world work at Ericsson's telecom infrastructure division, where engineers faced massive C++ codebases with deep dependency chains. Traditional refactoring attempts caused cascading build failures across hundreds of files. By systematically using the naive-attempt-revert-graph cycle, the team mapped out the full dependency tree for a major module extraction and completed it over several weeks through safe, incremental leaf-first commits — each one passing CI independently.",
+    "case_study_zh": "米卡多方法源于爱立信电信基础设施部门的实际工作，工程师们面对具有深层依赖链的大型 C++ 代码库。传统的重构尝试会在数百个文件中引发连锁编译失败。通过系统性地使用直接尝试-回滚-建图的循环，团队为一次重大模块提取绘制出完整的依赖树，并在数周内通过安全的叶节点优先增量提交完成——每次提交都独立通过 CI。",
+    "when_not_to_use": [
+      "Small refactorings with obvious, well-known dependency chains that don't need graphing",
+      "Codebases with comprehensive test coverage where failed attempts are immediately caught and understood",
+      "Throwaway or prototype code where breaking things temporarily is acceptable",
+      "Automated migration tools (e.g., codemods) can handle the refactoring mechanically without dependency analysis"
+    ],
+    "when_not_to_use_zh": [
+      "依赖链显而易见且众所周知的小型重构，不需要绘制依赖图",
+      "测试覆盖全面的代码库，失败的尝试能立即被捕获和理解",
+      "一次性或原型代码，临时破坏是可以接受的",
+      "自动化迁移工具（如 codemod）可以机械地处理重构而无需依赖分析"
+    ],
+    "adopters": [
+      "Ericsson",
+      "Agical",
+      "Spotify",
+      "King (Candy Crush)",
+      "Klarna"
+    ],
+    "abstraction_level": "code",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Ola Ellnestam and Daniel Brolund (2014). \"The Mikado Method\". Manning Publications.",
+    "secondary_sources": [
+      "Michael Feathers (2004). \"Working Effectively with Legacy Code\". Prentice Hall.",
+      "Martin Fowler (2018). \"Refactoring: Improving the Design of Existing Code, 2nd Edition\". Addison-Wesley."
+    ],
+    "typed_relations": [
+      {
+        "slug": "technical-debt-quadrant",
+        "type": "complement"
+      },
+      {
+        "slug": "ai-assisted-refactoring",
+        "type": "complement"
+      },
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "name": "Evolutionary Database Design",
+    "name_zh": "演进式数据库设计",
+    "slug": "evolutionary-database-design",
+    "category": "evolution",
+    "desc": "Incremental schema changes (Sadalage & Fowler)",
+    "desc_zh": "增量式模式变更（Sadalage & Fowler）",
+    "steps": [
+      "Treat every database change as a versioned migration script stored in version control alongside application code",
+      "Use expand-contract pattern: add new columns/tables first, migrate data, then remove old structures",
+      "Automate migration execution in CI/CD pipelines with tools like Flyway, Liquibase, or Alembic",
+      "Ensure every migration is backward-compatible so the previous application version can coexist during deployment",
+      "Monitor migration performance and data integrity in production; maintain rollback scripts for every migration"
+    ],
+    "steps_zh": [
+      "将每个数据库变更视为版本化的迁移脚本，与应用代码一同存储在版本控制中",
+      "使用扩展-收缩模式：先添加新列/表，迁移数据，再移除旧结构",
+      "使用 Flyway、Liquibase 或 Alembic 等工具在 CI/CD 流水线中自动执行迁移",
+      "确保每次迁移向后兼容，使上一版本的应用在部署期间可以共存",
+      "在生产环境中监控迁移性能和数据完整性；为每次迁移维护回滚脚本"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Migration",
+      "Backward Compat",
+      "Deploy",
+      "Cleanup"
+    ],
+    "viz_labels_zh": [
+      "数据迁移",
+      "向后兼容",
+      "部署",
+      "清理旧字段"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "branch-by-abstraction",
+      "gitops",
+      "api-versioning-strategies"
+    ],
+    "tags": [
+      "database",
+      "schema-migration",
+      "evolutionary-design",
+      "backward-compatibility"
+    ],
+    "origin_author": "Pramod Sadalage & Martin Fowler, 2002-2016",
+    "origin_source": "Refactoring Databases: Evolutionary Database Design (Pramod Sadalage & Scott Ambler, 2006); Evolutionary Database Design (martinfowler.com)",
+    "origin_source_zh": "《数据库重构：演进式数据库设计》（Pramod Sadalage & Scott Ambler，2006）；演进式数据库设计（martinfowler.com）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Applications with continuous delivery pipelines that deploy multiple times per day",
+      "Systems where database changes must not cause downtime or break running application instances",
+      "Teams migrating from manual DBA-controlled schema changes to developer-owned database evolution",
+      "Microservices architectures where each service owns its database schema independently"
+    ],
+    "when_to_use_zh": [
+      "每天部署多次的持续交付流水线应用",
+      "数据库变更不能导致停机或破坏运行中应用实例的系统",
+      "从手动 DBA 控制的模式变更迁移至开发者自主数据库演进的团队",
+      "每个服务独立拥有数据库模式的微服务架构"
+    ],
+    "core_concepts": [
+      "Migration as Code: Database changes are first-class code artifacts — versioned, reviewed, tested, and deployed through the same pipeline as application code",
+      "Expand-Contract Pattern: A two-phase approach where the schema is first expanded to support both old and new formats, then contracted to remove the old format after migration",
+      "Backward Compatibility: Every migration must allow the previous application version to function correctly, enabling zero-downtime deployments",
+      "Transition Period: The window during which both old and new schema elements coexist, requiring careful data synchronization and dual-write strategies"
+    ],
+    "core_concepts_zh": [
+      "迁移即代码：数据库变更是一等代码制品——通过与应用代码相同的流水线进行版本化、评审、测试和部署",
+      "扩展-收缩模式：两阶段方法，先扩展模式以同时支持新旧格式，迁移后再收缩以移除旧格式",
+      "向后兼容：每次迁移必须允许上一版本应用正常运行，实现零停机部署",
+      "过渡期：新旧模式元素共存的窗口期，需要仔细的数据同步和双写策略"
+    ],
+    "timeline": [
+      [
+        "2002",
+        "Pramod Sadalage pioneers evolutionary database techniques at ThoughtWorks projects"
+      ],
+      [
+        "2006",
+        "Sadalage and Ambler publish Refactoring Databases, the seminal book on evolutionary database design"
+      ],
+      [
+        "2010",
+        "Flyway 1.0 released, bringing automated versioned migrations to the Java ecosystem"
+      ],
+      [
+        "2016",
+        "Martin Fowler publishes the updated Evolutionary Database Design article on martinfowler.com"
+      ],
+      [
+        "2022",
+        "Schema-as-code tools (Atlas, PlanetScale) bring evolutionary database design to cloud-native and serverless databases"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2002",
+        "Pramod Sadalage 在 ThoughtWorks 项目中率先实践演进式数据库技术"
+      ],
+      [
+        "2006",
+        "Sadalage 和 Ambler 出版《数据库重构》，成为演进式数据库设计的开创性著作"
+      ],
+      [
+        "2010",
+        "Flyway 1.0 发布，为 Java 生态带来自动化版本迁移"
+      ],
+      [
+        "2016",
+        "Martin Fowler 在 martinfowler.com 发表更新版的演进式数据库设计文章"
+      ],
+      [
+        "2022",
+        "模式即代码工具（Atlas、PlanetScale）将演进式数据库设计带入云原生和无服务器数据库"
+      ]
+    ],
+    "dos": [
+      "Version every migration script with a sequential or timestamp-based identifier for ordering",
+      "Test migrations against a production-like dataset — empty-database tests miss performance and data-integrity issues",
+      "Use the expand-contract pattern for every breaking change to maintain backward compatibility during deployment",
+      "Include both up and down migration scripts so any change can be rolled back safely"
+    ],
+    "dos_zh": [
+      "使用顺序或时间戳标识符为每个迁移脚本进行版本编号",
+      "针对类生产数据集测试迁移——空数据库测试会遗漏性能和数据完整性问题",
+      "对每个破坏性变更使用扩展-收缩模式，在部署期间维持向后兼容",
+      "为每个变更提供正向和反向迁移脚本，确保任何变更都可以安全回滚"
+    ],
+    "donts": [
+      "Don't apply migrations manually in production — always use automated tooling through CI/CD pipelines",
+      "Don't make destructive changes (DROP COLUMN, DROP TABLE) in the same migration as constructive ones",
+      "Don't skip the transition period — removing old schema elements before all consumers have migrated causes outages",
+      "Don't store migration state outside the database — use a dedicated migrations table for single-source-of-truth tracking"
+    ],
+    "donts_zh": [
+      "不要在生产环境手动执行迁移——始终通过 CI/CD 流水线使用自动化工具",
+      "不要在同一次迁移中将破坏性变更（DROP COLUMN、DROP TABLE）与构建性变更混合",
+      "不要跳过过渡期——在所有消费者迁移完成前移除旧模式元素会导致中断",
+      "不要将迁移状态存储在数据库外——使用专用的迁移表作为唯一事实来源"
+    ],
+    "case_study_company": "ThoughtWorks",
+    "case_study": "ThoughtWorks pioneered evolutionary database design across dozens of enterprise client projects from 2002 onward. On a major retail banking transformation, the team managed over 400 incremental schema migrations across 18 months without a single deployment-related outage. By enforcing the expand-contract pattern and automated migration testing in CI, they enabled daily deployments on a database serving 12 million customer accounts.",
+    "case_study_zh": "ThoughtWorks 从 2002 年开始在数十个企业客户项目中率先实践演进式数据库设计。在一次大型零售银行转型中，团队在 18 个月内管理了 400 多次增量模式迁移，未发生过一次与部署相关的中断。通过强制执行扩展-收缩模式和 CI 中的自动化迁移测试，他们在服务 1200 万客户账户的数据库上实现了每日部署。",
+    "when_not_to_use": [
+      "Greenfield projects with no existing data where schema can be freely redesigned without migration overhead",
+      "Analytical/data warehouse schemas designed for batch ETL rather than continuous deployment",
+      "Systems using schema-less databases (document stores) where schema evolution is handled at the application layer",
+      "One-time data migrations where there is no ongoing need for incremental schema evolution"
+    ],
+    "when_not_to_use_zh": [
+      "没有现有数据的全新项目——可以自由重新设计模式而无需迁移开销",
+      "为批处理 ETL 而非持续部署设计的分析/数据仓库模式",
+      "使用无模式数据库（文档存储）、模式演进在应用层处理的系统",
+      "一次性数据迁移——不需要持续增量模式演进"
+    ],
+    "adopters": [
+      "ThoughtWorks",
+      "Spotify",
+      "Shopify",
+      "GitHub",
+      "Stripe"
+    ],
+    "abstraction_level": "component",
+    "quality_concerns": [
+      "maintainability",
+      "reliability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Pramod Sadalage and Scott Ambler (2006). \"Refactoring Databases: Evolutionary Database Design\". Addison-Wesley.",
+    "secondary_sources": [
+      "Martin Fowler and Pramod Sadalage (2003). \"Evolutionary Database Design\". martinfowler.com.",
+      "Flyway Team (2010). \"Flyway: Database Migrations Made Easy\". flywaydb.org."
+    ],
+    "typed_relations": [
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "branch-by-abstraction",
+        "type": "complement"
+      },
+      {
+        "slug": "gitops",
+        "type": "complement"
+      },
+      {
+        "slug": "api-versioning-strategies",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 188,
+    "name": "Feature Branch Strategy",
+    "name_zh": "特性分支策略",
+    "slug": "feature-branch-strategy",
+    "category": "evolution",
+    "desc": "Git branching models (GitFlow, trunk-based)",
+    "desc_zh": "Git 分支模型（GitFlow、主干开发等）",
+    "steps": [
+      "Choose a branching model aligned with team size and release cadence (GitFlow, GitHub Flow, trunk-based)",
+      "Define branch naming conventions, lifecycle policies, and merge/rebase rules",
+      "Enforce branch protection rules: required reviews, CI pass, and no direct pushes to main/trunk",
+      "Keep feature branches short-lived (hours to days) to minimize merge conflicts and integration risk",
+      "Merge to mainline via pull request after passing automated tests, code review, and any required approvals"
+    ],
+    "steps_zh": [
+      "选择与团队规模和发布节奏匹配的分支模型（GitFlow、GitHub Flow、主干开发）",
+      "定义分支命名规范、生命周期策略和合并/变基规则",
+      "强制执行分支保护规则：必须评审、CI 通过、禁止直接推送至主分支/主干",
+      "保持特性分支短命（数小时到数天），以最小化合并冲突和集成风险",
+      "通过拉取请求合并至主线，需通过自动化测试、代码评审和所有必要审批"
+    ],
+    "ai_relevant": false,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Branch",
+      "Develop",
+      "Review",
+      "Merge"
+    ],
+    "viz_labels_zh": [
+      "功能分支",
+      "开发",
+      "代码审查",
+      "合并"
+    ],
+    "related": [
+      "gitops",
+      "feature-flags",
+      "branch-by-abstraction"
+    ],
+    "tags": [
+      "git",
+      "branching",
+      "gitflow",
+      "trunk-based",
+      "version-control"
+    ],
+    "origin_author": "Vincent Driessen (GitFlow, 2010); various (trunk-based development, ~2000s)",
+    "origin_source": "A Successful Git Branching Model (Vincent Driessen, 2010); trunkbaseddevelopment.com (Paul Hammant)",
+    "origin_source_zh": "《一个成功的 Git 分支模型》（Vincent Driessen，2010）；trunkbaseddevelopment.com（Paul Hammant）",
+    "complexity": "beginner",
+    "when_to_use": [
+      "Teams collaborating on a shared codebase that need a structured workflow for parallel development",
+      "Projects with formal release cycles requiring release branches and hotfix processes",
+      "Open-source projects where external contributors submit changes via pull requests from forks",
+      "Organizations enforcing code review and CI checks before any code reaches the mainline"
+    ],
+    "when_to_use_zh": [
+      "在共享代码库上协作、需要结构化并行开发工作流的团队",
+      "需要发布分支和热修复流程的正式发布周期项目",
+      "外部贡献者通过 Fork 提交拉取请求的开源项目",
+      "在代码进入主线前强制执行代码评审和 CI 检查的组织"
+    ],
+    "core_concepts": [
+      "Feature Branch: A short-lived branch created for a single feature or fix, isolated from mainline until ready to merge",
+      "Trunk-Based Development: A model where all developers commit to a single trunk (main) at least daily, using feature flags for incomplete work",
+      "GitFlow: A structured model with develop, feature, release, and hotfix branches suited to versioned software with scheduled releases",
+      "Branch Protection: Server-side rules that prevent direct pushes and enforce quality gates (reviews, CI) before merge"
+    ],
+    "core_concepts_zh": [
+      "特性分支：为单个功能或修复创建的短命分支，在准备合并前与主线隔离",
+      "主干开发：所有开发者至少每天向单一主干（main）提交，使用特性开关管理未完成工作",
+      "GitFlow：带有 develop、feature、release 和 hotfix 分支的结构化模型，适合有计划发布的版本化软件",
+      "分支保护：服务端规则，防止直接推送并在合并前强制执行质量门控（评审、CI）"
+    ],
+    "timeline": [
+      [
+        "2005",
+        "Git released by Linus Torvalds, enabling lightweight branching that makes feature branches practical"
+      ],
+      [
+        "2010",
+        "Vincent Driessen publishes 'A Successful Git Branching Model' (GitFlow), defining the most influential branching strategy"
+      ],
+      [
+        "2011",
+        "GitHub Flow emerges as a simpler alternative: branch, commit, PR, deploy, merge"
+      ],
+      [
+        "2017",
+        "Trunk-based development gains momentum as Google and Facebook advocate for short-lived branches and feature flags"
+      ],
+      [
+        "2023",
+        "DORA research confirms trunk-based development with short-lived branches correlates with elite DevOps performance"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2005",
+        "Linus Torvalds 发布 Git，轻量级分支使特性分支变得实用"
+      ],
+      [
+        "2010",
+        "Vincent Driessen 发表《一个成功的 Git 分支模型》（GitFlow），定义了最具影响力的分支策略"
+      ],
+      [
+        "2011",
+        "GitHub Flow 作为更简单的替代方案出现：分支、提交、PR、部署、合并"
+      ],
+      [
+        "2017",
+        "随着 Google 和 Facebook 倡导短命分支和特性开关，主干开发获得发展动力"
+      ],
+      [
+        "2023",
+        "DORA 研究证实主干开发配合短命分支与精英级 DevOps 表现正相关"
+      ]
+    ],
+    "dos": [
+      "Keep feature branches as short-lived as possible — ideally merging within 1-2 days to reduce integration risk",
+      "Rebase or merge mainline into feature branches daily to detect conflicts early and keep branches current",
+      "Use branch naming conventions (feature/, fix/, chore/) to communicate intent and enable automation",
+      "Delete branches immediately after merging to keep the repository clean and avoid stale branch accumulation"
+    ],
+    "dos_zh": [
+      "尽量保持特性分支短命——理想情况下在 1-2 天内合并以减少集成风险",
+      "每天将主线变基或合并到特性分支中，尽早发现冲突并保持分支最新",
+      "使用分支命名规范（feature/、fix/、chore/）传达意图并支持自动化",
+      "合并后立即删除分支以保持仓库整洁，避免陈旧分支堆积"
+    ],
+    "donts": [
+      "Don't let feature branches live for weeks — long-lived branches lead to painful merge conflicts and integration surprises",
+      "Don't use GitFlow for continuous deployment — its release branch ceremony adds overhead when you deploy multiple times daily",
+      "Don't skip CI on feature branches — bugs found after merge are much more expensive to fix than bugs caught on the branch",
+      "Don't merge without code review — even small changes benefit from a second pair of eyes for knowledge sharing and quality"
+    ],
+    "donts_zh": [
+      "不要让特性分支存活数周——长命分支导致痛苦的合并冲突和集成意外",
+      "不要在持续部署场景使用 GitFlow——当每天多次部署时，发布分支仪式会增加开销",
+      "不要跳过特性分支上的 CI——合并后发现的 Bug 修复成本远高于在分支上发现的",
+      "不要在没有代码评审的情况下合并——即使小变更也能从第二双眼睛中获益，促进知识共享和质量提升"
+    ],
+    "case_study_company": "Google",
+    "case_study": "Google operates one of the largest monorepos in the world with over 80 million commits, using a trunk-based development model. All 25,000+ engineers commit to a single trunk, with changes gated by automated testing and code review. Feature flags manage incomplete work, and short-lived branches (typically hours) ensure continuous integration. This approach enables Google to deploy thousands of changes per day while maintaining code health at scale.",
+    "case_study_zh": "Google 运营着全球最大的单体仓库之一，拥有超过 8000 万次提交，采用主干开发模型。所有 25000 多名工程师向单一主干提交，变更通过自动化测试和代码评审门控。特性开关管理未完成工作，短命分支（通常为数小时）确保持续集成。这种方法使 Google 能够每天部署数千项变更，同时大规模维护代码健康。",
+    "when_not_to_use": [
+      "Solo developers or very small teams where branching overhead exceeds its coordination benefits",
+      "Experimental or research codebases where rigid branching rules slow down exploration",
+      "Projects with no CI/CD pipeline where branch-based quality gates cannot be enforced automatically",
+      "Monorepo setups that require specialized merge strategies beyond standard Git branching"
+    ],
+    "when_not_to_use_zh": [
+      "单人开发者或极小团队——分支开销超过其协调收益",
+      "严格分支规则会减慢探索速度的实验或研究代码库",
+      "没有 CI/CD 流水线、无法自动执行分支质量门控的项目",
+      "需要超越标准 Git 分支的专用合并策略的单体仓库设置"
+    ],
+    "adopters": [
+      "Google",
+      "Facebook (Meta)",
+      "GitHub",
+      "Microsoft",
+      "Atlassian"
+    ],
+    "abstraction_level": "code",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Vincent Driessen (2010). \"A Successful Git Branching Model\". nvie.com.",
+    "secondary_sources": [
+      "Paul Hammant (2017). \"Trunk Based Development\". trunkbaseddevelopment.com.",
+      "Jez Humble and David Farley (2010). \"Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation\". Addison-Wesley."
+    ],
+    "typed_relations": [
+      {
+        "slug": "gitops",
+        "type": "complement"
+      },
+      {
+        "slug": "feature-flags",
+        "type": "complement"
+      },
+      {
+        "slug": "branch-by-abstraction",
+        "type": "alternative"
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "name": "Deprecation Strategy",
+    "name_zh": "弃用策略",
+    "slug": "deprecation-strategy",
+    "category": "evolution",
+    "desc": "Systematic approach to retiring old APIs/features",
+    "desc_zh": "系统性地退役旧 API 和功能的方法",
+    "steps": [
+      "Announce deprecation with a clear timeline, migration guide, and sunset date communicated through multiple channels",
+      "Provide a migration path: new API, data export tools, or replacement feature that covers existing use cases",
+      "Add runtime deprecation warnings (HTTP headers, log messages, SDK warnings) to track usage of deprecated features",
+      "Monitor deprecation metrics: track the decline in deprecated feature usage and identify blocking consumers",
+      "Remove the deprecated feature on the sunset date, with a final grace period and direct outreach to remaining consumers"
+    ],
+    "steps_zh": [
+      "通过多渠道宣布弃用，明确时间线、迁移指南和日落日期",
+      "提供迁移路径：覆盖现有用例的新 API、数据导出工具或替代功能",
+      "添加运行时弃用警告（HTTP 头、日志消息、SDK 警告）以跟踪弃用功能的使用情况",
+      "监控弃用指标：跟踪弃用功能使用量的下降并识别阻塞的消费者",
+      "在日落日期移除弃用功能，设置最终宽限期并直接联系剩余消费者"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Announce",
+      "Warn",
+      "Sunset",
+      "Remove"
+    ],
+    "viz_labels_zh": [
+      "宣告废弃",
+      "警告期",
+      "日落期",
+      "移除"
+    ],
+    "related": [
+      "api-versioning-strategies",
+      "strangler-fig-pattern",
+      "semantic-versioning"
+    ],
+    "tags": [
+      "deprecation",
+      "api-lifecycle",
+      "sunset",
+      "migration",
+      "backward-compatibility"
+    ],
+    "origin_author": "Industry practice formalized across Google, Stripe, and major API providers, ~2010s",
+    "origin_source": "API Design Patterns (JJ Geewax, Manning 2021); Google API Improvement Proposals (AIP-181: Deprecation)",
+    "origin_source_zh": "《API 设计模式》（JJ Geewax，Manning 2021）；Google API 改进提案（AIP-181：弃用）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Public APIs with external consumers who need advance notice and migration support",
+      "Internal platforms where multiple teams depend on shared services that need to evolve",
+      "SDK and library maintainers who must remove features without breaking downstream consumers",
+      "Organizations accumulating technical debt from features that should have been retired years ago"
+    ],
+    "when_to_use_zh": [
+      "拥有需要提前通知和迁移支持的外部消费者的公共 API",
+      "多个团队依赖需要演进的共享服务的内部平台",
+      "必须在不破坏下游消费者的情况下移除功能的 SDK 和库维护者",
+      "因多年未退役的功能而积累技术债的组织"
+    ],
+    "core_concepts": [
+      "Sunset Date: A published, non-negotiable date after which the deprecated feature will be removed entirely",
+      "Migration Path: A documented, tested alternative that covers all use cases of the deprecated feature",
+      "Deprecation Warning: Runtime signals (HTTP Sunset header, compiler warnings, log messages) that alert consumers to upcoming removal",
+      "Usage Tracking: Monitoring deprecated feature consumption to identify migration stragglers and measure progress toward sunset"
+    ],
+    "core_concepts_zh": [
+      "日落日期：已公布的、不可协商的日期，之后弃用功能将被完全移除",
+      "迁移路径：已记录、已测试的替代方案，覆盖弃用功能的所有用例",
+      "弃用警告：提醒消费者即将移除的运行时信号（HTTP Sunset 头、编译器警告、日志消息）",
+      "使用量跟踪：监控弃用功能的消费情况，以识别迁移滞后者并衡量日落进度"
+    ],
+    "timeline": [
+      [
+        "2011",
+        "Google establishes formal API deprecation policies with multi-year sunset timelines for Google APIs"
+      ],
+      [
+        "2015",
+        "Stripe pioneers developer-friendly deprecation with versioned API, migration guides, and dashboard warnings"
+      ],
+      [
+        "2018",
+        "HTTP Sunset header (RFC 8594) standardized, giving APIs a machine-readable deprecation signal"
+      ],
+      [
+        "2021",
+        "JJ Geewax covers deprecation patterns in API Design Patterns (Manning), formalizing industry best practices"
+      ],
+      [
+        "2024",
+        "AI-assisted migration tools emerge, using LLMs to auto-generate code changes for deprecated API consumers"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2011",
+        "Google 建立正式的 API 弃用策略，为 Google API 设定多年期日落时间线"
+      ],
+      [
+        "2015",
+        "Stripe 率先推出开发者友好的弃用方式——版本化 API、迁移指南和控制台警告"
+      ],
+      [
+        "2018",
+        "HTTP Sunset 头（RFC 8594）标准化，为 API 提供机器可读的弃用信号"
+      ],
+      [
+        "2021",
+        "JJ Geewax 在《API 设计模式》（Manning）中涵盖弃用模式，正式化行业最佳实践"
+      ],
+      [
+        "2024",
+        "AI 辅助迁移工具出现，使用大模型自动生成弃用 API 消费者的代码变更"
+      ]
+    ],
+    "dos": [
+      "Announce deprecation at least 6-12 months before sunset for public APIs — more for critical infrastructure",
+      "Provide migration tooling (codemods, scripts, SDK helpers) that automate as much of the migration as possible",
+      "Use the HTTP Sunset header (RFC 8594) to give API consumers a machine-readable deprecation signal",
+      "Track deprecated feature usage metrics on a dashboard and proactively reach out to top consumers"
+    ],
+    "dos_zh": [
+      "公共 API 至少在日落前 6-12 个月宣布弃用——关键基础设施需要更长时间",
+      "提供迁移工具（代码修改器、脚本、SDK 辅助工具）尽可能自动化迁移",
+      "使用 HTTP Sunset 头（RFC 8594）向 API 消费者提供机器可读的弃用信号",
+      "在仪表板上跟踪弃用功能使用指标并主动联系主要消费者"
+    ],
+    "donts": [
+      "Don't deprecate without providing a clear, documented migration path — deprecation without an alternative is abandonment",
+      "Don't silently remove features — always announce, warn at runtime, and give consumers time to migrate",
+      "Don't extend sunset dates repeatedly — this trains consumers to ignore deprecation notices entirely",
+      "Don't deprecate too many things at once — migration fatigue causes consumers to disengage and fall behind"
+    ],
+    "donts_zh": [
+      "不要在没有提供清晰、已记录的迁移路径的情况下弃用——没有替代方案的弃用是遗弃",
+      "不要静默移除功能——始终宣布、运行时警告并给消费者迁移时间",
+      "不要反复延长日落日期——这会训练消费者完全忽略弃用通知",
+      "不要一次弃用太多东西——迁移疲劳会导致消费者脱离并落后"
+    ],
+    "case_study_company": "Stripe",
+    "case_study": "Stripe manages one of the most developer-friendly deprecation processes in the industry. Every API version is supported for years, with clear deprecation timelines published in their API changelog. When deprecating the 2019-02-19 API version, Stripe provided per-account migration dashboards showing exactly which endpoints needed updating, automated test mode switching to the new version, and dedicated migration support for high-volume merchants. This approach achieved 98% voluntary migration before the sunset date.",
+    "case_study_zh": "Stripe 管理着业界最开发者友好的弃用流程之一。每个 API 版本支持数年，在 API 变更日志中发布清晰的弃用时间线。弃用 2019-02-19 API 版本时，Stripe 提供了每账户迁移仪表板，精确显示哪些端点需要更新，自动将测试模式切换至新版本，并为高流量商户提供专属迁移支持。这种方式在日落日期前实现了 98% 的自愿迁移。",
+    "when_not_to_use": [
+      "Internal-only APIs with a single consumer team that can coordinate changes directly without formal deprecation",
+      "Experimental or alpha APIs where consumers understand features may be removed without notice",
+      "One-time migration projects where the old system will be fully decommissioned in a single cutover",
+      "APIs with zero external consumers where the overhead of formal deprecation exceeds the coordination benefit"
+    ],
+    "when_not_to_use_zh": [
+      "只有单一消费团队的内部 API——可以直接协调变更而无需正式弃用",
+      "消费者理解功能可能不经通知即被移除的实验性或 Alpha API",
+      "旧系统将在单次切换中完全退役的一次性迁移项目",
+      "没有外部消费者、正式弃用开销超过协调收益的 API"
+    ],
+    "adopters": [
+      "Stripe",
+      "Google",
+      "Twilio",
+      "GitHub",
+      "AWS"
+    ],
+    "abstraction_level": "component",
+    "quality_concerns": [
+      "maintainability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "JJ Geewax (2021). \"API Design Patterns\". Manning Publications.",
+    "secondary_sources": [
+      "Google (2020). \"AIP-181: Field Deprecation\". google.aip.dev.",
+      "Stripe (2017). \"API Versioning at Stripe\". stripe.com/blog."
+    ],
+    "typed_relations": [
+      {
+        "slug": "api-versioning-strategies",
+        "type": "complement"
+      },
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "semantic-versioning",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "name": "Living Documentation",
+    "name_zh": "活文档",
+    "slug": "living-documentation",
+    "category": "evolution",
+    "desc": "Generate docs from tests and code (Martraire, 2019)",
+    "desc_zh": "从测试和代码生成文档（Martraire，2019）",
+    "steps": [
+      "Write executable specifications (BDD scenarios, annotated tests) that serve as both tests and documentation",
+      "Annotate domain code with metadata (custom annotations, docstrings, tags) that documentation generators can extract",
+      "Configure automated documentation generation in the CI/CD pipeline, producing output on every commit",
+      "Publish generated documentation to a developer portal or wiki that is always in sync with the latest code",
+      "Review documentation coverage as part of code review — untested behavior is undocumented behavior"
+    ],
+    "steps_zh": [
+      "编写可执行规范（BDD 场景、带注解的测试），同时充当测试和文档",
+      "用元数据（自定义注解、文档字符串、标签）标注领域代码，供文档生成器提取",
+      "在 CI/CD 流水线中配置自动化文档生成，每次提交都产生输出",
+      "将生成的文档发布到与最新代码始终同步的开发者门户或 Wiki",
+      "将文档覆盖率作为代码评审的一部分——未测试的行为就是未记录的行为"
+    ],
+    "ai_relevant": true,
+    "viz_type": "cycle",
+    "viz_labels": [
+      "Code",
+      "Generate",
+      "Publish",
+      "Review"
+    ],
+    "viz_labels_zh": [
+      "代码",
+      "生成文档",
+      "发布",
+      "审阅"
+    ],
+    "related": [
+      "bdd",
+      "domain-driven-design",
+      "gitops",
+      "openapi-specification"
+    ],
+    "tags": [
+      "documentation",
+      "living-docs",
+      "bdd",
+      "executable-specs",
+      "code-as-documentation"
+    ],
+    "origin_author": "Cyrille Martraire, 2019",
+    "origin_source": "Living Documentation: Continuous Knowledge Sharing by Design (Cyrille Martraire, Addison-Wesley 2019)",
+    "origin_source_zh": "《活文档：通过设计实现持续知识共享》（Cyrille Martraire，Addison-Wesley 2019）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "Projects where documentation is perpetually outdated because it is maintained separately from code",
+      "Domain-rich applications where business rules embedded in code need to be visible to non-developers",
+      "Teams practicing BDD or specification-by-example that want to maximize the value of their executable specs",
+      "APIs and libraries where consumers need always-current reference documentation"
+    ],
+    "when_to_use_zh": [
+      "文档因与代码分开维护而长期过时的项目",
+      "嵌入代码中的业务规则需要对非开发人员可见的领域丰富应用",
+      "实践 BDD 或示例规约、希望最大化可执行规范价值的团队",
+      "消费者需要始终最新参考文档的 API 和库"
+    ],
+    "core_concepts": [
+      "Executable Specification: Tests that are written in a human-readable format (Gherkin, annotated unit tests) and double as system documentation",
+      "Single Source of Truth: Documentation is generated from code and tests, eliminating the drift between what the docs say and what the code does",
+      "Knowledge Augmentation: Annotations and naming conventions in code carry domain knowledge that documentation generators can harvest automatically",
+      "Evergreen Documentation: Because docs are regenerated on every CI build, they are always current — stale documentation is structurally impossible"
+    ],
+    "core_concepts_zh": [
+      "可执行规范：以人类可读格式（Gherkin、带注解的单元测试）编写的测试，同时充当系统文档",
+      "唯一事实来源：文档从代码和测试生成，消除文档描述与代码行为之间的偏差",
+      "知识增强：代码中的注解和命名规范携带领域知识，文档生成器可以自动提取",
+      "常青文档：因为每次 CI 构建都重新生成文档，所以文档始终是最新的——结构上不可能出现过时文档"
+    ],
+    "timeline": [
+      [
+        "2011",
+        "Specification by Example (Gojko Adzic) promotes executable specs as the bridge between requirements and tests"
+      ],
+      [
+        "2015",
+        "Tools like Serenity BDD and Pickles generate living documentation from Cucumber/Gherkin scenarios"
+      ],
+      [
+        "2019",
+        "Cyrille Martraire publishes Living Documentation, the definitive book on generating docs from code and tests"
+      ],
+      [
+        "2021",
+        "OpenAPI/Swagger generators and Storybook become mainstream, making API and UI living documentation standard practice"
+      ],
+      [
+        "2024",
+        "LLM-powered documentation generators auto-summarize code changes and produce natural-language docs from test suites"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2011",
+        "《示例规约》（Gojko Adzic）推广可执行规范作为需求与测试之间的桥梁"
+      ],
+      [
+        "2015",
+        "Serenity BDD 和 Pickles 等工具从 Cucumber/Gherkin 场景生成活文档"
+      ],
+      [
+        "2019",
+        "Cyrille Martraire 出版《活文档》，成为从代码和测试生成文档的权威著作"
+      ],
+      [
+        "2021",
+        "OpenAPI/Swagger 生成器和 Storybook 成为主流，使 API 和 UI 活文档成为标准实践"
+      ],
+      [
+        "2024",
+        "LLM 驱动的文档生成器自动总结代码变更，从测试套件生成自然语言文档"
+      ]
+    ],
+    "dos": [
+      "Name tests and specifications using domain language so generated docs are meaningful to non-technical stakeholders",
+      "Integrate documentation generation into CI/CD so docs are rebuilt and published on every merge to main",
+      "Use BDD/Gherkin scenarios for business-critical flows — they serve as both acceptance tests and stakeholder-readable docs",
+      "Treat documentation coverage as a quality metric alongside test coverage"
+    ],
+    "dos_zh": [
+      "使用领域语言命名测试和规范，使生成的文档对非技术利益相关者有意义",
+      "将文档生成集成到 CI/CD 中，使文档在每次合并到主分支时重建和发布",
+      "对业务关键流程使用 BDD/Gherkin 场景——它们既是验收测试又是利益相关者可读的文档",
+      "将文档覆盖率与测试覆盖率一样作为质量指标"
+    ],
+    "donts": [
+      "Don't maintain separate documentation that duplicates what tests already describe — it will inevitably drift",
+      "Don't generate documentation that nobody reads — validate that the output format and location match how consumers access docs",
+      "Don't write tests solely for documentation purposes — every executable spec must also be a real, meaningful test",
+      "Don't ignore the readability of generated docs — invest in formatting, navigation, and search for the output"
+    ],
+    "donts_zh": [
+      "不要维护与测试描述重复的独立文档——它们必然会偏差",
+      "不要生成没人阅读的文档——验证输出格式和位置是否符合消费者访问文档的方式",
+      "不要仅为了文档目的编写测试——每个可执行规范必须同时是真正有意义的测试",
+      "不要忽略生成文档的可读性——为输出投入格式化、导航和搜索功能"
+    ],
+    "case_study_company": "Société Générale",
+    "case_study": "Société Générale's Corporate & Investment Banking division adopted living documentation for their trade processing platform, generating business-readable documentation from 3,000+ BDD scenarios. Business analysts could review the generated docs to verify that regulatory rules were correctly implemented without reading code. This approach reduced documentation maintenance effort by 60% and eliminated compliance audit findings related to documentation-code discrepancies.",
+    "case_study_zh": "法国兴业银行企业与投资银行部门为其交易处理平台采用活文档，从 3000 多个 BDD 场景生成业务可读文档。业务分析师可以审阅生成的文档来验证监管规则是否正确实现而无需阅读代码。这种方法减少了 60% 的文档维护工作量，并消除了与文档-代码不一致相关的合规审计发现。",
+    "when_not_to_use": [
+      "Projects with minimal domain complexity where simple README files are sufficient documentation",
+      "Teams without existing test automation — living documentation requires a mature test suite as its foundation",
+      "Contexts where the primary audience is end-users, not developers or analysts — user-facing docs require different formats",
+      "Codebases in rapid prototyping phases where the code itself is too volatile for generated docs to be useful"
+    ],
+    "when_not_to_use_zh": [
+      "领域复杂度极低、简单 README 文件即可满足文档需求的项目",
+      "没有现有测试自动化的团队——活文档需要成熟的测试套件作为基础",
+      "主要受众是终端用户而非开发者或分析师的场景——面向用户的文档需要不同格式",
+      "处于快速原型阶段、代码本身变化太快导致生成文档无用的代码库"
+    ],
+    "adopters": [
+      "Société Générale",
+      "Spotify",
+      "ThoughtWorks",
+      "GOV.UK",
+      "Zalando"
+    ],
+    "abstraction_level": "code",
+    "quality_concerns": [
+      "maintainability",
+      "testability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Cyrille Martraire (2019). \"Living Documentation: Continuous Knowledge Sharing by Design\". Addison-Wesley.",
+    "secondary_sources": [
+      "Gojko Adzic (2011). \"Specification by Example: How Successful Teams Deliver the Right Software\". Manning Publications.",
+      "Dan North (2006). \"Introducing BDD\". dannorth.net."
+    ],
+    "typed_relations": [
+      {
+        "slug": "bdd",
+        "type": "complement"
+      },
+      {
+        "slug": "domain-driven-design",
+        "type": "complement"
+      },
+      {
+        "slug": "gitops",
+        "type": "complement"
+      },
+      {
+        "slug": "openapi-specification",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 245,
+    "name": "Fitness Function-Driven Development",
+    "name_zh": "适应度函数驱动开发",
+    "slug": "fitness-function-driven-development",
+    "category": "evolution",
+    "desc": "Automated architecture governance using executable fitness functions that continuously verify architectural characteristics are preserved during system evolution",
+    "desc_zh": "使用可执行适应度函数进行自动化架构治理，持续验证架构特性在系统演进过程中得以保留",
+    "steps": [
+      "Identify the architectural characteristics (coupling thresholds, cyclic dependency limits, performance SLOs, security compliance rules) that must be preserved as the system evolves, drawing from ADRs, architecture principles documents, and non-functional requirements",
+      "Implement each characteristic as an executable fitness function: coupling metrics as JDepend/ArchUnit rules, performance SLOs as load test assertions in CI, security posture as automated vulnerability scan thresholds, and data residency as policy-as-code rules",
+      "Classify fitness functions by execution cadence: atomic (run on every commit in the CI pipeline), triggered (run on a schedule or deployment event), and continual (run as production synthetic monitors)",
+      "Integrate fitness function results into the deployment pipeline as hard gates — failing fitness functions block promotion to the next environment, treating architectural violations as build failures",
+      "Review and evolve fitness function thresholds at each architectural review: retiring obsolete functions, tightening thresholds as the system matures, and adding new functions when new architectural risks are identified"
+    ],
+    "steps_zh": [
+      "识别系统演进中必须保留的架构特性（耦合阈值、循环依赖限制、性能 SLO、安全合规规则），从 ADR、架构原则文档和非功能性需求中提取",
+      "将每个特性实现为可执行的适应度函数：耦合指标作为 JDepend/ArchUnit 规则、性能 SLO 作为 CI 中的负载测试断言、安全态势作为自动化漏洞扫描阈值、数据驻留作为策略即代码规则",
+      "按执行频率对适应度函数分类：原子型（每次提交在 CI 流水线中运行）、触发型（按计划或部署事件运行）和持续型（作为生产合成监控运行）",
+      "将适应度函数结果作为硬性门禁集成到部署流水线中——适应度函数失败会阻止晋升到下一个环境，将架构违规视为构建失败",
+      "在每次架构审查时审视并演进适应度函数阈值：退役过时函数、随系统成熟收紧阈值，以及在识别到新架构风险时添加新函数"
+    ],
+    "ai_relevant": true,
+    "viz_type": "cycle",
+    "viz_labels": [
+      "Define",
+      "Automate",
+      "Measure",
+      "Evolve"
+    ],
+    "viz_labels_zh": [
+      "定义函数",
+      "自动化",
+      "度量",
+      "架构演化"
+    ],
+    "related": [
+      "adr-y-statements",
+      "living-documentation",
+      "strangler-fig-pattern"
+    ],
+    "tags": [
+      "evolutionary-architecture",
+      "fitness-functions",
+      "architecture-governance",
+      "ci-cd",
+      "architectural-testing"
+    ],
+    "origin_author": "Neal Ford",
+    "origin_source": "Ford, N., Parsons, R. & Kua, P. (2017). \"Building Evolutionary Architectures\". O'Reilly Media; ThoughtWorks Technology Radar (fitness functions entry)",
+    "origin_source_zh": "Ford, N.、Parsons, R. 与 Kua, P.（2017）。《演进式架构》，O'Reilly；ThoughtWorks 技术雷达（适应度函数条目）",
+    "complexity": "advanced",
+    "when_to_use": [
+      "When architectural drift is a recurring problem — teams unknowingly introduce circular dependencies, performance regressions, or coupling violations during feature development",
+      "When architecture principles exist in documents but are not enforced — fitness functions translate human-readable principles into machine-checkable rules",
+      "When migrating a monolith to microservices and you need guardrails to prevent the new architecture from regressing toward the same coupling patterns",
+      "When operating in regulated industries where compliance rules (data residency, encryption at rest, audit logging) must be continuously verified rather than periodically audited"
+    ],
+    "when_to_use_zh": [
+      "当架构漂移是反复出现的问题时——团队在功能开发中无意引入循环依赖、性能退化或耦合违规",
+      "当架构原则存在于文档中但未被执行时——适应度函数将人类可读的原则转化为机器可检查的规则",
+      "当将单体迁移到微服务时，需要护栏防止新架构退回到相同的耦合模式",
+      "当在受监管行业运营，合规规则（数据驻留、静态加密、审计日志）必须持续验证而非定期审计时"
+    ],
+    "core_concepts": [
+      "Fitness Function: An objective, executable function that evaluates a specific architectural characteristic — analogous to a test that targets architecture rather than behavior, running automatically in the CI/CD pipeline",
+      "Architectural Characteristics: The '-ilities' (maintainability, scalability, security, performance, deployability) that define the system's structural quality and must be preserved as the codebase evolves",
+      "Incremental Change with Feedback: Fitness functions enable teams to make small, frequent changes to the architecture while receiving immediate automated feedback when those changes violate architectural principles",
+      "Guided Evolution: The set of active fitness functions defines the 'fitness landscape' — the boundary within which the architecture is free to evolve while still meeting its non-functional requirements",
+      "Cyclic Dependency Detection: One of the most common and valuable fitness functions is automated detection of package/module cyclic dependencies (using ArchUnit, Dependency Cruiser, or NDepend), which are a leading indicator of architectural decay"
+    ],
+    "core_concepts_zh": [
+      "适应度函数：评估特定架构特性的客观可执行函数——类似于针对架构而非行为的测试，在 CI/CD 流水线中自动运行",
+      "架构特性：定义系统结构质量且必须在代码库演进中保留的各种「-ility」（可维护性、可扩展性、安全性、性能、可部署性）",
+      "带反馈的增量变更：适应度函数使团队能对架构进行小而频繁的变更，同时在违反架构原则时立即获得自动化反馈",
+      "引导式演进：活跃适应度函数的集合定义了「适应度景观」——架构在仍满足非功能性需求的前提下可自由演进的边界",
+      "循环依赖检测：最常见且最有价值的适应度函数之一是自动检测包/模块循环依赖（使用 ArchUnit、Dependency Cruiser 或 NDepend），这是架构衰退的领先指标"
+    ],
+    "timeline": [
+      [
+        "2009",
+        "Michael Feathers coins the term 'architectural fitness function' in discussions on evolutionary design at software conferences"
+      ],
+      [
+        "2017",
+        "Neal Ford, Rebecca Parsons, and Patrick Kua publish 'Building Evolutionary Architectures', formalizing fitness functions as the primary mechanism for governed architecture evolution"
+      ],
+      [
+        "2019",
+        "ArchUnit (Java), NetArchTest (.NET), and Dependency Cruiser (JS) mature into production-grade architectural testing libraries, making fitness functions accessible to mainstream teams"
+      ],
+      [
+        "2023",
+        "AI-assisted architecture analysis tools begin generating fitness function suggestions from codebase scans, lowering the barrier to adoption"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2009",
+        "Michael Feathers 在软件会议的演进式设计讨论中创造了「架构适应度函数」这一术语"
+      ],
+      [
+        "2017",
+        "Neal Ford、Rebecca Parsons 和 Patrick Kua 出版《演进式架构》，将适应度函数正式确立为受治理架构演进的主要机制"
+      ],
+      [
+        "2019",
+        "ArchUnit（Java）、NetArchTest（.NET）和 Dependency Cruiser（JS）发展为生产级架构测试库，使适应度函数可为主流团队所用"
+      ],
+      [
+        "2023",
+        "AI 辅助的架构分析工具开始从代码库扫描中生成适应度函数建议，降低了采用门槛"
+      ]
+    ],
+    "dos": [
+      "Do start with the highest-risk architectural characteristics first — coupling thresholds and dependency direction are quick wins that immediately surface structural decay",
+      "Do treat fitness function failures as build failures with the same urgency as failing unit tests — an architectural violation that is not blocked becomes a permanent regression",
+      "Do version-control fitness function rules alongside the production code so that threshold changes are reviewed and auditable in pull requests",
+      "Do run atomic fitness functions in the CI pipeline (seconds to minutes) and reserve heavier functions (load tests, full security scans) for scheduled or pre-release gates to avoid developer workflow friction"
+    ],
+    "dos_zh": [
+      "从最高风险的架构特性开始——耦合阈值和依赖方向是能立即显现结构衰退的快速收益",
+      "像对待单元测试失败一样紧急处理适应度函数失败——未被阻止的架构违规将成为永久性退化",
+      "将适应度函数规则与生产代码一起版本控制，使阈值变更在拉取请求中可审查和可追溯",
+      "在 CI 流水线中运行原子适应度函数（几秒到几分钟），将较重的函数（负载测试、完整安全扫描）保留给计划任务或发布前门禁，避免影响开发者工作流"
+    ],
+    "donts": [
+      "Don't create fitness functions for trivial or cosmetic concerns (code style, comment density) — fitness functions are for architectural invariants, not style guides, which belong in linters",
+      "Don't set thresholds so strict they fail on day one — start permissive to establish a baseline and tighten incrementally; a fitness function that always fails is ignored",
+      "Don't silently suppress fitness function failures in the pipeline without a documented exception process — unchecked suppressions accumulate into untracked architectural debt",
+      "Don't make all fitness functions atomic/blocking — over-gating the CI pipeline with slow checks destroys developer productivity; classify and run at the appropriate cadence"
+    ],
+    "donts_zh": [
+      "不要为琐碎或表面问题（代码风格、注释密度）创建适应度函数——适应度函数用于架构不变量，而非应属于代码检查工具的风格指南",
+      "不要设置一开始就会失败的过于严格的阈值——从宽松开始建立基线，然后逐步收紧；总是失败的适应度函数会被忽视",
+      "不要在没有文档化例外流程的情况下悄然在流水线中抑制适应度函数失败——未受检查的抑制会积累成未跟踪的架构债务",
+      "不要让所有适应度函数都是原子/阻塞的——用缓慢检查过度拦截 CI 流水线会破坏开发者生产力；按适当频率分类运行"
+    ],
+    "case_study_company": "ThoughtWorks",
+    "case_study": "ThoughtWorks applied fitness function-driven development on a large-scale financial services platform migration from a 10-year-old monolith to a microservices architecture. The team implemented 47 fitness functions covering coupling thresholds (maximum 5 inbound dependencies per service), performance SLOs (p95 < 200ms for payment APIs), data residency (no EU personal data in non-EU regions), and security posture (no high-severity CVEs in container images). Fitness functions caught 12 architectural violations during the 18-month migration that would have required costly rollbacks if discovered in production, including a circular dependency chain between 5 services that emerged when two squads independently refactored their service boundaries in the same sprint.",
+    "case_study_zh": "ThoughtWorks 在将一个有 10 年历史的单体应用迁移到微服务架构的大型金融服务平台项目中应用了适应度函数驱动开发。团队实施了 47 个适应度函数，涵盖耦合阈值（每个服务最多 5 个入站依赖）、性能 SLO（支付 API 的 p95 < 200ms）、数据驻留（欧盟个人数据不得存储于非欧盟地区）和安全态势（容器镜像中无高严重性 CVE）。在 18 个月的迁移过程中，适应度函数捕获了 12 个架构违规，如果在生产中才被发现将需要代价高昂的回滚，其中包括当两个小组在同一个冲刺中独立重构各自服务边界时出现的 5 个服务之间的循环依赖链。",
+    "when_not_to_use": [
+      "Early-stage startups or prototypes where the architecture is intentionally fluid and premature governance would constrain experimentation needed to find product-market fit",
+      "Small codebases with a single team where direct architectural communication and lightweight code review substitute effectively for automated governance",
+      "Systems at the end of their lifecycle where the investment in fitness function infrastructure will not be amortized before the system is replaced",
+      "Teams without CI/CD pipelines — fitness functions require automated execution infrastructure; manual checks are not a viable substitute"
+    ],
+    "when_not_to_use_zh": [
+      "早期初创公司或原型阶段，架构有意保持流动性，过早的治理会限制寻找产品市场契合所需的实验",
+      "拥有单一团队的小型代码库，直接架构沟通和轻量级代码审查能有效替代自动化治理",
+      "处于生命周期末期的系统，适应度函数基础设施的投资在系统被替换之前无法摊销",
+      "没有 CI/CD 流水线的团队——适应度函数需要自动化执行基础设施；手动检查不是可行的替代方案"
+    ],
+    "adopters": [
+      "ThoughtWorks",
+      "Netflix",
+      "Spotify",
+      "Zalando",
+      "Wealthfront"
+    ],
+    "abstraction_level": "system",
+    "quality_concerns": [
+      "maintainability",
+      "reliability",
+      "testability"
+    ],
+    "maturity_ring": "emerging",
+    "primary_source": "Ford, N., Parsons, R. & Kua, P. (2017). \"Building Evolutionary Architectures\". O'Reilly Media.",
+    "secondary_sources": [
+      "ThoughtWorks (2020). \"Fitness functions as architecture tests\". ThoughtWorks Insights.",
+      "Kua, P. (2019). \"Evolutionary Architecture\". InfoQ conference presentation."
+    ],
+    "typed_relations": [
+      {
+        "slug": "adr-y-statements",
+        "type": "complement"
+      },
+      {
+        "slug": "living-documentation",
+        "type": "complement"
+      },
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 246,
+    "name": "Expansion/Contraction Pattern",
+    "name_zh": "扩展/收缩模式",
+    "slug": "expansion-contraction-pattern",
+    "category": "evolution",
+    "desc": "Safe API and schema migration technique that introduces new capabilities before removing old ones, allowing all clients to migrate without downtime",
+    "desc_zh": "安全的 API 和模式迁移技术，在移除旧能力之前引入新能力，让所有客户端无需停机即可完成迁移",
+    "steps": [
+      "Expansion phase: add the new API shape, field, or behavior alongside the existing one without removing anything; both old and new forms are simultaneously supported so no client is broken by the deployment",
+      "Migrate consumers: update all known consumers (internal services, mobile clients, partner integrations) to use the new form, using telemetry to track the percentage of traffic still using the old form",
+      "Validate migration completeness: confirm through API usage metrics and consumer-driven contract tests that traffic on the old form has dropped to zero or acceptable residual levels",
+      "Contraction phase: remove the old form once all consumers have migrated; publish a deprecation notice with the planned removal date before contraction, providing the agreed sunset window",
+      "Monitor after contraction: watch for unexpected 400/404 errors from any consumers that were missed in the migration audit, and maintain a rollback plan for the first 72 hours post-contraction"
+    ],
+    "steps_zh": [
+      "扩展阶段：在保留现有 API 形态、字段或行为的同时添加新的形态，不删除任何内容；新旧两种形式同时支持，部署不会破坏任何客户端",
+      "迁移消费者：更新所有已知消费者（内部服务、移动客户端、合作伙伴集成）以使用新形式，使用遥测跟踪仍在使用旧形式的流量占比",
+      "验证迁移完整性：通过 API 使用指标和消费者驱动的契约测试确认旧形式的流量已降至零或可接受的残余水平",
+      "收缩阶段：一旦所有消费者完成迁移，移除旧形式；在收缩之前发布带计划移除日期的废弃通知，提供约定的下线窗口",
+      "收缩后监控：观察来自迁移审计中遗漏的消费者产生的意外 400/404 错误，并在收缩后最初 72 小时内维护回滚计划"
+    ],
+    "ai_relevant": false,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Expand",
+      "Dual Support",
+      "Migrate",
+      "Contract"
+    ],
+    "viz_labels_zh": [
+      "扩展阶段",
+      "双写兼容",
+      "迁移阶段",
+      "收缩阶段"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "api-versioning-strategies",
+      "branch-by-abstraction"
+    ],
+    "tags": [
+      "migration",
+      "backward-compatibility",
+      "api-evolution",
+      "zero-downtime",
+      "deprecation"
+    ],
+    "origin_author": "Sam Newman",
+    "origin_source": "Newman, S. (2019). \"Monolith to Microservices\". O'Reilly Media, Ch. 3 (Splitting Apart the Database); Parallel Change pattern (Danilo Sato, martinfowler.com)",
+    "origin_source_zh": "Newman, S.（2019）。《从单体到微服务》，O'Reilly，第 3 章（拆分数据库）；并行变更模式（Danilo Sato，martinfowler.com）",
+    "complexity": "intermediate",
+    "when_to_use": [
+      "When renaming a database column, API field, or service endpoint that is consumed by multiple services or clients that cannot be updated atomically",
+      "When changing the type or structure of a shared API contract (splitting a field into two, merging two endpoints) where a flag-day cutover would require coordinated deployment of multiple teams",
+      "When migrating a database schema in a system that must remain online during the migration, requiring the application to read/write both old and new column formats simultaneously",
+      "When a public API field needs to be removed after deprecation and you need a safe, observable migration path that does not require client downtime"
+    ],
+    "when_to_use_zh": [
+      "当重命名被多个服务或客户端消费的数据库列、API 字段或服务端点，且这些客户端无法原子性更新时",
+      "当更改共享 API 契约的类型或结构（将字段拆分为两个、合并两个端点），标志日切换需要多个团队协调部署时",
+      "当在必须保持在线的系统中迁移数据库模式，要求应用同时读写新旧两种列格式时",
+      "当公共 API 字段在废弃后需要被移除，你需要一个不要求客户端停机的安全、可观察的迁移路径时"
+    ],
+    "core_concepts": [
+      "Parallel Change (Expand): The first phase adds the new form alongside the old without removing anything, creating a temporary period where both forms exist and are valid — a structural backward-compatibility guarantee",
+      "Consumer Migration Window: The period between expansion and contraction during which all consumers are expected to migrate; this window's length is determined by consumer SLAs, communication lead time, and organizational change velocity",
+      "Usage-Based Contraction Gating: Contraction should be triggered by data (zero or near-zero usage of the old form as confirmed by metrics) rather than by calendar date alone, reducing the risk of premature removal",
+      "Database Dual-Write/Dual-Read: When expanding a database schema (splitting a column), the application must write to both old and new columns and read from the new column with fallback to old, until the old column is confirmed empty",
+      "Contract Tests as Migration Proof: Consumer-driven contract tests (Pact) serve as automated proof that consumers have migrated to the new form; a green contract test suite is a precondition for the contraction phase"
+    ],
+    "core_concepts_zh": [
+      "并行变更（扩展）：第一阶段在不删除旧形式的情况下添加新形式，创造一个新旧两种形式都存在且有效的临时期——一种结构性向后兼容性保证",
+      "消费者迁移窗口：扩展和收缩之间的期间，期间所有消费者应完成迁移；该窗口长度由消费者 SLA、沟通提前期和组织变更速度决定",
+      "基于使用量的收缩门禁：收缩应由数据触发（指标确认旧形式使用量为零或接近零），而非仅依据日历日期，降低过早移除的风险",
+      "数据库双写/双读：当扩展数据库模式（拆分列）时，应用必须同时写入新旧两列，并从新列读取（回退到旧列），直到确认旧列为空",
+      "契约测试作为迁移证明：消费者驱动的契约测试（Pact）作为消费者已迁移到新形式的自动化证明；契约测试套件通过是收缩阶段的前提条件"
+    ],
+    "timeline": [
+      [
+        "2010",
+        "Martin Fowler describes 'Parallel Change' on martinfowler.com as a refactoring technique for safely changing API signatures"
+      ],
+      [
+        "2015",
+        "Danilo Sato formalizes the Parallel Change pattern with expand/migrate/contract phases as a named structural refactoring pattern"
+      ],
+      [
+        "2019",
+        "Sam Newman applies the expansion/contraction technique explicitly to database schema migrations in 'Monolith to Microservices', popularizing it for zero-downtime schema evolution"
+      ],
+      [
+        "2022",
+        "Consumer-driven contract testing tools (Pact, Spring Contract) integrate migration tracking, providing automated migration completeness verification before contraction"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2010",
+        "Martin Fowler 在 martinfowler.com 上将「并行变更」描述为安全更改 API 签名的重构技术"
+      ],
+      [
+        "2015",
+        "Danilo Sato 将并行变更模式正式确立为具有扩展/迁移/收缩阶段的命名结构重构模式"
+      ],
+      [
+        "2019",
+        "Sam Newman 在《从单体到微服务》中将扩展/收缩技术明确应用于数据库模式迁移，推广了零停机模式演进"
+      ],
+      [
+        "2022",
+        "消费者驱动的契约测试工具（Pact、Spring Contract）集成了迁移跟踪，在收缩前提供自动化的迁移完整性验证"
+      ]
+    ],
+    "dos": [
+      "Do instrument both old and new API forms with request counters from day one of expansion, so you have data-driven confidence that migration is complete before contracting",
+      "Do communicate the expansion and planned contraction date to all known consumers at the start of the expansion phase, giving them the full migration window to plan and execute updates",
+      "Do write a consumer-driven contract test for the new form before contraction — a passing contract test is the strongest automated proof that a consumer has migrated",
+      "Do maintain the dual-write/dual-read pattern in database migrations for at least one full deployment cycle after the last write to the old column, allowing rollback if unexpected consumers appear"
+    ],
+    "dos_zh": [
+      "从扩展第一天起就为新旧两种 API 形式配置请求计数器，以便在收缩前有数据驱动的信心确认迁移已完成",
+      "在扩展阶段开始时将扩展和计划收缩日期告知所有已知消费者，给予他们完整的迁移窗口来规划和执行更新",
+      "在收缩前为新形式编写消费者驱动的契约测试——通过的契约测试是消费者已迁移的最强自动化证明",
+      "在数据库迁移中，在最后一次写入旧列后至少保持一个完整部署周期的双写/双读模式，以便在出现意外消费者时可以回滚"
+    ],
+    "donts": [
+      "Don't skip the instrumentation step and contract the old form based on assumed migration completion — unknown consumers using the old form will generate errors that are difficult to diagnose post-contraction",
+      "Don't make the expansion and contraction happen in the same deployment — the consumer migration window must span at least one release cycle so consumers have time to discover and adopt the new form",
+      "Don't remove the old form while any production traffic is still using it, even if it is less than 1% — unknown consumers may be internal monitoring scripts, scheduled jobs, or partner integrations with infrequent call patterns",
+      "Don't use expansion/contraction for purely additive changes (adding a new optional field) — it is only necessary for changes where the old form will eventually be removed or is actively harmful"
+    ],
+    "donts_zh": [
+      "不要跳过监控步骤，基于假设的迁移完成来收缩旧形式——使用旧形式的未知消费者将产生难以在收缩后诊断的错误",
+      "不要让扩展和收缩发生在同一次部署中——消费者迁移窗口必须跨越至少一个发布周期，让消费者有时间发现并采用新形式",
+      "不要在任何生产流量仍在使用旧形式时移除它，即使不足 1%——未知消费者可能是内部监控脚本、定时任务或调用模式不频繁的合作伙伴集成",
+      "不要对纯新增变更（添加新的可选字段）使用扩展/收缩——它仅在旧形式最终将被移除或主动有害的变更中才有必要"
+    ],
+    "case_study_company": "Booking.com",
+    "case_study": "Booking.com applied the expansion/contraction pattern to migrate their property search API from a legacy flat response model to a structured hierarchical model across 200+ internal consumer services. The expansion phase ran for 8 weeks with both response formats served simultaneously, instrumented with per-consumer call counters. Migration was tracked on a team dashboard showing each consumer's adoption percentage. Contraction was blocked until all 200+ consumers showed 100% usage of the new format, confirmed by automated contract tests. The migration completed without a single client-visible error and without requiring any coordinated deployment freeze, enabling 15 separate engineering teams to migrate on their own schedule.",
+    "case_study_zh": "Booking.com 应用扩展/收缩模式，将其房源搜索 API 从旧版扁平响应模型迁移到结构化分层模型，涉及 200 多个内部消费者服务。扩展阶段运行了 8 周，两种响应格式同时提供服务，并配置了按消费者的调用计数器。迁移通过显示每个消费者采用百分比的团队仪表板进行跟踪。收缩被阻止，直到所有 200 多个消费者显示 100% 使用新格式（通过自动化契约测试确认）。迁移完成时没有任何客户端可见的错误，也不需要任何协调部署冻结，让 15 个独立工程团队按照自己的时间表完成迁移。",
+    "when_not_to_use": [
+      "Security-critical changes (removing a vulnerable endpoint, fixing an authentication bypass) that must be deployed immediately without a migration window",
+      "Changes where the old and new forms cannot coexist due to resource constraints (storage cost of maintaining two column formats is prohibitive, or the old behavior is actively insecure)",
+      "New feature additions with no existing consumers — expansion/contraction is a migration pattern for changing existing contracts, not for introducing new capabilities",
+      "Environments where deployment velocity is so high (multiple deploys per hour) that migration windows can be extremely short and consumer migration happens naturally within hours"
+    ],
+    "when_not_to_use_zh": [
+      "必须立即部署而不能有迁移窗口的安全关键变更（移除有漏洞的端点、修复认证绕过）",
+      "由于资源限制新旧两种形式无法共存的变更（维护两种列格式的存储成本过高，或旧行为主动不安全）",
+      "没有现有消费者的新功能添加——扩展/收缩是用于更改现有契约的迁移模式，而非引入新能力",
+      "部署速度极高（每小时多次部署）以至于迁移窗口可以极短、消费者迁移在数小时内自然发生的环境"
+    ],
+    "adopters": [
+      "Booking.com",
+      "Stripe",
+      "Netflix",
+      "Etsy",
+      "SoundCloud"
+    ],
+    "abstraction_level": "component",
+    "quality_concerns": [
+      "maintainability",
+      "reliability",
+      "portability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Newman, S. (2019). \"Monolith to Microservices\". O'Reilly Media.",
+    "secondary_sources": [
+      "Sato, D. (2014). \"Parallel Change\". martinfowler.com.",
+      "Fowler, M. (2012). \"Tolerant Reader\". martinfowler.com.",
+      "Humble, J. & Farley, D. (2010). \"Continuous Delivery\". Addison-Wesley."
+    ],
+    "typed_relations": [
+      {
+        "slug": "strangler-fig-pattern",
+        "type": "complement"
+      },
+      {
+        "slug": "api-versioning-strategies",
+        "type": "related"
+      },
+      {
+        "slug": "branch-by-abstraction",
+        "type": "related"
+      }
+    ]
+  },
+  {
+    "id": 247,
+    "name": "Architecture Decision Records (Y-Statements)",
+    "name_zh": "架构决策记录（Y 型陈述）",
+    "slug": "adr-y-statements",
+    "category": "evolution",
+    "desc": "Structured decision documentation using the Y-statement format to capture context, decision, and consequences of significant architectural choices",
+    "desc_zh": "使用 Y 型陈述格式记录背景、决策和后果，结构化记录重大架构决策",
+    "steps": [
+      "Identify decisions that warrant recording: those that are architecturally significant (affect multiple components or teams), hard to reverse, driven by constraints that future developers may not know, or required for compliance/audit purposes",
+      "Author the ADR using the Y-statement format: 'In the context of [situation], facing [concern], we decided [option], to achieve [quality], accepting [downside]' — filling each clause forces the author to make implicit reasoning explicit",
+      "Document alternatives considered and their trade-offs in the ADR body, explaining why each alternative was rejected; this is as valuable as the chosen option for future readers trying to understand the decision space",
+      "Assign status (Proposed, Accepted, Deprecated, Superseded) and link superseding ADRs — an ADR that is never deprecated creates a false impression that the decision is still in force",
+      "Store ADRs as numbered Markdown files in the repository (e.g., docs/adr/0042-use-postgres-for-session-storage.md), adjacent to the code they describe, so they appear in git blame and code review contexts"
+    ],
+    "steps_zh": [
+      "识别值得记录的决策：具有架构意义的（影响多个组件或团队）、难以逆转的、由未来开发者可能不知道的约束驱动的，或合规/审计目的所需的",
+      "使用 Y 型陈述格式撰写 ADR：「在 [情境] 的背景下，面对 [关切]，我们决定 [选项]，以实现 [质量]，接受 [缺点]」——填写每个子句迫使作者将隐性推理显式化",
+      "在 ADR 正文中记录考虑过的备选方案及其权衡，解释每个备选方案被拒绝的原因；这对于试图理解决策空间的未来读者来说与所选选项同样有价值",
+      "分配状态（已提议、已接受、已废弃、已取代）并链接取代 ADR——从未被废弃的 ADR 会给人该决策仍然有效的错误印象",
+      "将 ADR 作为带编号的 Markdown 文件存储在仓库中（如 docs/adr/0042-use-postgres-for-session-storage.md），与其描述的代码相邻，使其出现在 git blame 和代码审查上下文中"
+    ],
+    "ai_relevant": true,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Context",
+      "Decision",
+      "Consequences",
+      "Status"
+    ],
+    "viz_labels_zh": [
+      "背景",
+      "决策",
+      "后果",
+      "状态"
+    ],
+    "related": [
+      "fitness-function-driven-development",
+      "living-documentation",
+      "domain-driven-design"
+    ],
+    "tags": [
+      "architecture",
+      "decision-records",
+      "documentation",
+      "y-statements",
+      "governance",
+      "knowledge-management"
+    ],
+    "origin_author": "Olaf Zimmermann",
+    "origin_source": "Zimmermann, O. (2011). \"Architectural Decision Capturing in Agile Projects\". IEEE Software; Nygard, M. (2011). \"Documenting Architecture Decisions\". thinkrelevance.com",
+    "origin_source_zh": "Zimmermann, O.（2011）。「敏捷项目中的架构决策捕获」，IEEE Software；Nygard, M.（2011）。「记录架构决策」，thinkrelevance.com",
+    "complexity": "beginner",
+    "when_to_use": [
+      "When onboarding new team members who need to understand why the current architecture looks the way it does, without having to reconstruct decisions from meeting notes or tribal knowledge",
+      "When a significant architectural decision is being made that will constrain future options — the ADR authoring process forces structured reasoning before commitment",
+      "When working in regulated industries (finance, healthcare) where architecture decisions must be auditable and traceable to requirements or compliance obligations",
+      "When multiple teams share a platform and need a lightweight, asynchronous process for proposing and reviewing architectural decisions without requiring synchronous meetings"
+    ],
+    "when_to_use_zh": [
+      "当新团队成员需要了解当前架构为何如此，而无需从会议记录或部落知识中重建决策时",
+      "当正在做出将约束未来选项的重大架构决策时——ADR 撰写过程在承诺前强制进行结构化推理",
+      "当在受监管行业（金融、医疗）工作，架构决策必须可审计并可追溯到需求或合规义务时",
+      "当多个团队共享平台并需要一个轻量级、异步的流程来提议和审查架构决策，而不需要同步会议时"
+    ],
+    "core_concepts": [
+      "Y-Statement Format: A sentence template that structures an ADR as: 'In the context of [use case/user story], facing [concern/force], we decided [option], to achieve [quality/goal], accepting [downside/risk]' — each clause is mandatory, preventing incomplete decision records",
+      "Decision Status Lifecycle: ADRs move through Proposed (under discussion), Accepted (in force), Deprecated (still valid but no longer recommended), and Superseded (replaced by a newer ADR with a link) — the lifecycle makes the current validity of each decision explicit",
+      "Alternatives Considered: The most valuable section for future readers; documenting rejected alternatives and their trade-offs prevents teams from re-litigating the same decision space years later when context has been forgotten",
+      "Immutability and Supersedence: ADRs are never edited after acceptance — if a decision changes, the original ADR is marked Superseded and a new ADR documents the new decision and why the old one no longer applies",
+      "Colocation with Code: Storing ADRs in the repository (not in Confluence or a separate wiki) ensures they survive team transitions, appear in git history, and are discoverable when developers read the code they describe"
+    ],
+    "core_concepts_zh": [
+      "Y 型陈述格式：将 ADR 结构化为一句话模板：「在 [用例/用户故事] 的背景下，面对 [关切/力量]，我们决定 [选项]，以实现 [质量/目标]，接受 [缺点/风险]」——每个子句都是必填的，防止不完整的决策记录",
+      "决策状态生命周期：ADR 经历已提议（讨论中）、已接受（有效中）、已废弃（仍有效但不再推荐）和已取代（被带有链接的更新 ADR 替换）——生命周期使每个决策的当前有效性显式可见",
+      "考虑过的备选方案：对未来读者最有价值的部分；记录被拒绝的备选方案及其权衡可防止团队在多年后忘记背景时重新争论相同的决策空间",
+      "不可变性与取代：ADR 在接受后从不编辑——如果决策改变，原始 ADR 被标记为已取代，新 ADR 记录新决策以及旧决策不再适用的原因",
+      "与代码共存：将 ADR 存储在仓库中（而非 Confluence 或独立 Wiki）确保它们能在团队交接中保存、出现在 git 历史中，并在开发者阅读其描述的代码时可被发现"
+    ],
+    "timeline": [
+      [
+        "2011",
+        "Michael Nygard publishes 'Documenting Architecture Decisions' introducing the minimal ADR format with Context, Decision, and Consequences sections"
+      ],
+      [
+        "2011",
+        "Olaf Zimmermann publishes research on Y-statements in IEEE Software, providing a structured sentence format for capturing architectural decisions"
+      ],
+      [
+        "2016",
+        "Nat Pryce releases adr-tools, a command-line tool for managing ADR files, making the practice accessible to development teams without process overhead"
+      ],
+      [
+        "2020",
+        "ADRs adopted by major open source projects and cloud providers (AWS, Google Cloud) as standard practice; GitHub and GitLab add ADR templates to project scaffolding"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        "2011",
+        "Michael Nygard 发表「记录架构决策」，引入带有背景、决策和后果部分的最小 ADR 格式"
+      ],
+      [
+        "2011",
+        "Olaf Zimmermann 在 IEEE Software 上发表 Y 型陈述研究，为捕获架构决策提供结构化的句子格式"
+      ],
+      [
+        "2016",
+        "Nat Pryce 发布 adr-tools，一个用于管理 ADR 文件的命令行工具，让开发团队无需流程开销即可采用该实践"
+      ],
+      [
+        "2020",
+        "ADR 被主要开源项目和云服务商（AWS、Google Cloud）采用为标准实践；GitHub 和 GitLab 将 ADR 模板添加到项目脚手架中"
+      ]
+    ],
+    "dos": [
+      "Do write ADRs at decision time, not retrospectively — the reasoning and context are freshest when the decision is being made; retrospective ADRs often omit the real reasons for the choice",
+      "Do keep ADRs short (one to two pages) — an ADR that requires a 10-page document is really a design document, not a decision record; the Y-statement format enforces brevity by design",
+      "Do link ADRs bidirectionally: from the ADR to the code/PR it informed, and from code comments or PR descriptions back to the ADR that explains the reasoning",
+      "Do treat an ADR as an asynchronous RFC (Request for Comment) for significant decisions — circulate the draft in Proposed status, collect comments, update, and then move to Accepted"
+    ],
+    "dos_zh": [
+      "在决策时撰写 ADR，而非事后追记——推理和背景在做出决策时最为清晰；事后追记的 ADR 往往遗漏真正的决策原因",
+      "保持 ADR 简短（一到两页）——需要 10 页文档的 ADR 实际上是设计文档，而非决策记录；Y 型陈述格式通过设计强制简洁",
+      "双向链接 ADR：从 ADR 链接到其所依据的代码/PR，从代码注释或 PR 描述链接回解释推理的 ADR",
+      "对重大决策将 ADR 视为异步 RFC（征求意见）——以已提议状态流转草稿、收集评论、更新，然后转为已接受"
+    ],
+    "donts": [
+      "Don't write ADRs for implementation details or tactical coding choices — reserve the practice for architecturally significant decisions that constrain the system's structure or quality attributes",
+      "Don't edit an accepted ADR to reflect a changed decision — immutability is fundamental; create a new ADR that supersedes the old one, preserving the full decision history",
+      "Don't store ADRs only in an external wiki (Confluence, Notion) — wikis get abandoned, renamed, or lost during company transitions; the repository is the only durable, co-located home",
+      "Don't allow an ADR backlog to grow without review — unreviewed Proposed ADRs create confusion about which decisions are actually in force; resolve or close stale proposals within a defined SLA"
+    ],
+    "donts_zh": [
+      "不要为实现细节或战术性编码选择撰写 ADR——将该实践保留给约束系统结构或质量属性的具有架构意义的决策",
+      "不要编辑已接受的 ADR 以反映变更的决策——不可变性是根本原则；创建取代旧 ADR 的新 ADR，保留完整的决策历史",
+      "不要仅将 ADR 存储在外部 Wiki（Confluence、Notion）中——Wiki 在公司变迁中会被遗弃、重命名或丢失；仓库是唯一持久、共存的归宿",
+      "不要让 ADR 待办积压而不审查——未审查的已提议 ADR 会造成哪些决策实际有效的混乱；在定义的 SLA 内解决或关闭陈旧提案"
+    ],
+    "case_study_company": "GitHub",
+    "case_study": "GitHub adopted ADRs as a core architectural practice after experiencing significant knowledge loss during rapid headcount growth from 300 to 1,800 engineers between 2013 and 2016. The architectural decisions that had enabled GitHub's early scale — Rails monolith structure, MySQL sharding strategy, Resque-based background jobs — were undocumented, causing new teams to repeatedly question and sometimes inadvertently undermine them. After introducing ADRs with the Y-statement format for all significant architectural decisions in 2017, GitHub's platform team reported a 40% reduction in architecture-related discussion overhead in pull requests, as reviewers could link to ADRs rather than re-explaining context. The ADR repository now contains over 300 records spanning GitHub's full architectural evolution.",
+    "case_study_zh": "GitHub 在 2013 至 2016 年从 300 名工程师快速增长到 1800 名期间经历了严重的知识流失，随后将 ADR 作为核心架构实践采用。曾使 GitHub 早期实现规模化的架构决策——Rails 单体结构、MySQL 分片策略、基于 Resque 的后台任务——都没有文档记录，导致新团队反复质疑，有时甚至无意中破坏这些决策。2017 年为所有重大架构决策引入 Y 型陈述格式的 ADR 后，GitHub 平台团队报告拉取请求中架构相关讨论开销减少了 40%，因为审查者可以链接到 ADR 而无需重新解释背景。ADR 仓库现已包含超过 300 条记录，涵盖 GitHub 的完整架构演进历程。",
+    "when_not_to_use": [
+      "Decisions that are purely tactical, reversible within a sprint, and affect only one team's internal implementation — the overhead of an ADR is not justified for low-stakes, easily-changed choices",
+      "Highly experimental or prototype phases where architectural decisions are expected to change weekly — premature decision documentation for volatile designs creates noise rather than clarity",
+      "Very small teams (2-3 engineers) where the entire team participates in every architecture discussion — institutional knowledge is not at risk of being lost and the overhead may exceed the value",
+      "Organizations without a code review culture or repository-based documentation practice — ADRs stored in isolation from the team's workflow will not be discovered or maintained"
+    ],
+    "when_not_to_use_zh": [
+      "纯战术性的、在一个冲刺内可逆的、仅影响一个团队内部实现的决策——ADR 的开销对于低风险、易于更改的选择不合理",
+      "高度实验性或原型阶段，架构决策预计每周变化——对易变设计进行过早的决策文档化会产生噪音而非清晰",
+      "非常小的团队（2-3 名工程师），整个团队参与每次架构讨论——机构知识不存在丢失风险，开销可能超过价值",
+      "没有代码审查文化或基于仓库的文档实践的组织——与团队工作流隔离存储的 ADR 不会被发现或维护"
+    ],
+    "adopters": [
+      "GitHub",
+      "Spotify",
+      "Zalando",
+      "Shopify",
+      "Thoughtworks"
+    ],
+    "abstraction_level": "organization",
+    "quality_concerns": [
+      "maintainability",
+      "observability"
+    ],
+    "maturity_ring": "established",
+    "primary_source": "Nygard, M. (2011). \"Documenting Architecture Decisions\". thinkrelevance.com.",
+    "secondary_sources": [
+      "Zimmermann, O. (2011). \"Architectural Decision Capturing in Agile Projects\". IEEE Software 28(6).",
+      "Keeling, M. (2017). \"Design It!\". Pragmatic Programmers.",
+      "Hohpe, G. (2020). \"The Software Architect Elevator\". O'Reilly Media."
+    ],
+    "typed_relations": [
+      {
+        "slug": "fitness-function-driven-development",
+        "type": "complement"
+      },
+      {
+        "slug": "living-documentation",
+        "type": "complement"
+      },
+      {
+        "slug": "domain-driven-design",
+        "type": "complement"
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "name": "Monolith Decomposition Patterns",
+    "name_zh": "单体分解模式",
+    "slug": "monolith-decomposition-patterns",
+    "category": "evolution",
+    "desc": "A catalog of proven strategies for systematically extracting microservices from a monolithic codebase while maintaining system stability and team velocity throughout the migration",
+    "desc_zh": "从单体代码库系统化提取微服务的成熟策略目录，在整个迁移过程中保持系统稳定性和团队速度",
+    "steps": [
+      "Map the decomposition surface: analyze the monolith's module dependency graph, identify seam boundaries (packages with low coupling to the rest), and rank extraction candidates by business value, team ownership clarity, and change frequency",
+      "Select a decomposition pattern per seam: apply Strangler Fig for greenfield functionality, Branch by Abstraction for in-place refactoring of hot paths, or Parallel Run for high-risk data migrations — match the pattern to the risk and reversibility needs",
+      "Establish data ownership boundaries before code boundaries: identify which tables belong to each candidate service, implement an anti-corruption layer for cross-boundary data access, and set a timeline for migrating shared tables to owned schemas",
+      "Extract incrementally with dual-write phases: run extracted services in shadow mode alongside the monolith, compare outputs to validate correctness, then progressively shift traffic using feature flags before retiring the monolith code path",
+      "Measure decomposition health: track monolith code coverage removal rate, inter-service coupling index, deployment frequency per extracted service, and P99 latency delta post-extraction to confirm each extraction delivers tangible improvement"
+    ],
+    "steps_zh": [
+      "绘制分解面：分析单体的模块依赖图，识别接缝边界（与其余部分耦合度低的包），并按业务价值、团队所有权清晰度和变更频率对提取候选项排名",
+      "为每个接缝选择分解模式：对绿地功能应用绞杀者无花果，对热路径的原地重构应用抽象分支，对高风险数据迁移应用并行运行——根据风险和可逆性需求匹配模式",
+      "在代码边界之前建立数据所有权边界：识别哪些表属于每个候选服务，为跨边界数据访问实现防腐层，并设定将共享表迁移到自有模式的时间表",
+      "通过双写阶段增量提取：以影子模式运行提取的服务与单体并行，比较输出以验证正确性，然后在停用单体代码路径前使用特性标志逐步转移流量",
+      "衡量分解健康状况：追踪单体代码覆盖移除率、服务间耦合指数、每个提取服务的部署频率以及提取后P99延迟增量，以确认每次提取都带来实质性改善"
+    ],
+    "ai_relevant": false,
+    "viz_type": "flow",
+    "viz_labels": [
+      "Identify",
+      "Extract",
+      "Route",
+      "Decommission"
+    ],
+    "viz_labels_zh": [
+      "识别边界",
+      "提取服务",
+      "路由切换",
+      "下线模块"
+    ],
+    "related": [
+      "strangler-fig-pattern",
+      "branch-by-abstraction",
+      "parallel-run",
+      "database-migration-patterns",
+      "expansion-contraction-pattern"
+    ],
+    "tags": [
+      "migration",
+      "microservices",
+      "decomposition",
+      "monolith",
+      "evolution"
+    ],
+    "origin_author": "Sam Newman (Building Microservices); Martin Fowler (StranglerFig, BranchByAbstraction)",
+    "origin_year": 2015,
+    "origin_source": "Newman, S. (2019). \"Monolith to Microservices\". O'Reilly Media.",
+    "origin_source_zh": "Newman, S.（2019）。《从单体到微服务》。O'Reilly Media。",
+    "complexity": "advanced",
+    "abstraction_level": "system",
+    "maturity_ring": "established",
+    "quality_concerns": [
+      "maintainability",
+      "scalability",
+      "reliability"
+    ],
+    "adopters": [
+      "Amazon",
+      "Uber",
+      "Twitter",
+      "Stack Overflow",
+      "Shopify"
+    ],
+    "when_to_use": [
+      "Monoliths where deployment bottlenecks — all teams must coordinate releases — are measurably reducing team autonomy and delivery speed",
+      "Specific bounded contexts within the monolith experiencing scaling problems that cannot be addressed without isolated deployment and resource allocation",
+      "Organizations growing past 50 engineers where Conway's Law pressure makes a single codebase a social coordination problem as much as a technical one",
+      "Acquisitions or platform migrations where the target architecture is services-based and the monolith must be incrementally replaced rather than big-bang rewritten"
+    ],
+    "when_to_use_zh": [
+      "部署瓶颈处（所有团队必须协调发布）可量化地降低团队自主性和交付速度的单体",
+      "单体内特定有界上下文遇到无法在没有隔离部署和资源分配的情况下解决的扩展问题",
+      "工程师超过50人的组织，康威定律压力使单一代码库既是技术问题也是社会协调问题",
+      "目标架构基于服务的收购或平台迁移，单体必须增量替换而非大爆炸式重写"
+    ],
+    "core_concepts": [
+      "Seam: A natural boundary within the monolith where code can be separated with minimal changes — identified by analyzing import graphs, database table access patterns, and team ownership clusters",
+      "Anti-Corruption Layer (ACL): An adapter layer that translates between the monolith's data model and the extracted service's model, preventing the old model from leaking into the new service's domain",
+      "Dual-Write / Parallel Run: A transitional phase where both the monolith and the extracted service write to their respective data stores simultaneously, enabling comparison validation before full cutover",
+      "Data Decomposition: The process of separating shared database tables into service-owned schemas, typically via the Database-per-Service pattern, which is often harder and riskier than code extraction",
+      "Seam Catalogue: A living inventory of identified decomposition candidates, ranked by extraction priority, current coupling metrics, and assigned owning team — the primary planning artifact for a decomposition programme"
+    ],
+    "core_concepts_zh": [
+      "接缝：单体内的自然边界，代码可以在最小变更下分离——通过分析导入图、数据库表访问模式和团队所有权集群来识别",
+      "防腐层（ACL）：在单体数据模型和提取服务模型之间转换的适配器层，防止旧模型泄漏到新服务的领域中",
+      "双写/并行运行：单体和提取的服务同时向各自数据存储写入的过渡阶段，在完全切换前启用比较验证",
+      "数据分解：将共享数据库表分离到服务自有模式的过程，通常通过每服务数据库模式实现，这往往比代码提取更难且风险更高",
+      "接缝目录：已识别的分解候选项的活体清单，按提取优先级、当前耦合指标和分配的所有团队排名——分解项目的主要规划产物"
+    ],
+    "timeline": [
+      [
+        2004,
+        "Martin Fowler coins 'StranglerFig Application' pattern on martinfowler.com, inspired by strangler fig vines"
+      ],
+      [
+        2014,
+        "Sam Newman publishes 'Building Microservices' (O'Reilly), the first comprehensive treatment of decomposition strategies"
+      ],
+      [
+        2019,
+        "Newman publishes 'Monolith to Microservices' consolidating decomposition patterns into a formal catalogue with data migration guidance"
+      ],
+      [
+        2022,
+        "Modular monolith pattern gains traction as teams recognize that seam identification is valuable independent of microservice extraction"
+      ]
+    ],
+    "timeline_zh": [
+      [
+        2004,
+        "Martin Fowler在martinfowler.com上创造「绞杀者无花果应用」模式，灵感来自绞杀无花果藤"
+      ],
+      [
+        2014,
+        "Sam Newman出版《构建微服务》（O'Reilly），首次全面处理分解策略"
+      ],
+      [
+        2019,
+        "Newman出版《从单体到微服务》，将分解模式整合为带有数据迁移指导的正式目录"
+      ],
+      [
+        2022,
+        "模块化单体模式获得关注，团队认识到接缝识别独立于微服务提取具有价值"
+      ]
+    ],
+    "dos": [
+      "Do decompose data boundaries before or in parallel with code boundaries — a microservice that shares a database with the monolith is a distributed monolith, not a microservice",
+      "Do measure the monolith's seam graph before starting — teams that skip this analysis tend to extract services along team lines rather than domain lines, creating chatty inter-service APIs",
+      "Do use feature flags to control traffic migration to extracted services so you can roll back instantly without a deployment if correctness problems are discovered",
+      "Do define done criteria for each extraction: ownership of the data store, zero cross-database joins, independent deployment pipeline, and team autonomy over technology choices"
+    ],
+    "dos_zh": [
+      "在代码边界之前或与之同步分解数据边界——与单体共享数据库的微服务是分布式单体，而非微服务",
+      "在开始前测量单体的接缝图——跳过此分析的团队倾向于沿团队边界而非领域边界提取服务，创建冗长的服务间API",
+      "使用特性标志控制到提取服务的流量迁移，以便在发现正确性问题时可以立即回滚而无需部署",
+      "为每次提取定义完成标准：数据存储所有权、零跨数据库联接、独立部署管道以及团队对技术选择的自主权"
+    ],
+    "donts": [
+      "Don't start with a big-bang rewrite — the historical failure rate of full rewrites is over 80%; incremental extraction preserves working software throughout",
+      "Don't extract services for technical reasons alone (language preference, framework modernity) — only extract when there is a concrete team autonomy or scaling problem to solve",
+      "Don't ignore the distributed systems tax: extracted services introduce network latency, partial failure modes, and distributed transactions that add complexity the monolith did not have",
+      "Don't underestimate the data decomposition problem — shared database tables with foreign keys, triggers, and implicit ownership are the hardest part of most decompositions"
+    ],
+    "donts_zh": [
+      "不要从大爆炸式重写开始——完整重写的历史失败率超过80%；增量提取在整个过程中保留可工作的软件",
+      "不要仅出于技术原因（语言偏好、框架现代性）提取服务——只有在有具体的团队自主权或扩展问题需要解决时才提取",
+      "不要忽视分布式系统的代价：提取的服务引入了单体没有的网络延迟、部分故障模式和分布式事务，增加了复杂性",
+      "不要低估数据分解问题——具有外键、触发器和隐式所有权的共享数据库表是大多数分解中最难的部分"
+    ],
+    "case_study_company": "Uber",
+    "case_study": "Uber's 2016-2019 decomposition of their original Node.js monolith ('God') into domain microservices is one of the most documented large-scale monolith decompositions. They applied Strangler Fig at the API gateway level, routing specific endpoints to new Go-based services while the Node.js monolith continued handling the remainder. Their key learning: database decomposition was 3-5x more effort than code decomposition. Teams that extracted services without migrating data ownership created 'nano-monoliths' — services that still required coordinated deployment due to shared schema dependencies.",
+    "case_study_zh": "Uber 2016-2019年将其原始Node.js单体（「God」）分解为领域微服务是记录最为详尽的大规模单体分解之一。他们在API网关层应用绞杀者无花果，将特定端点路由到新的Go服务，同时Node.js单体继续处理其余部分。他们的关键学习：数据库分解的工作量是代码分解的3-5倍。在没有迁移数据所有权的情况下提取服务的团队创建了「纳米单体」——由于共享模式依赖仍需协调部署的服务。",
+    "when_not_to_use": [
+      "Monoliths with fewer than 10 engineers where coordination overhead is manageable and the deployment bottleneck does not yet manifest",
+      "Well-structured modular monoliths where internal module boundaries are clean — the right answer may be to preserve the monolith and strengthen its internal structure",
+      "Systems under active business pressure where engineering bandwidth cannot absorb the productivity dip that accompanies any large-scale decomposition",
+      "Teams lacking observability infrastructure — decomposing a monolith without distributed tracing and service-level metrics makes debugging regressions extremely difficult"
+    ],
+    "when_not_to_use_zh": [
+      "工程师少于10人的单体，协调开销可控，部署瓶颈尚未显现",
+      "内部模块边界清晰的结构良好的模块化单体——正确答案可能是保留单体并加强其内部结构",
+      "处于活跃业务压力下的系统，工程带宽无法吸收任何大规模分解所带来的生产力下降",
+      "缺乏可观测性基础设施的团队——在没有分布式追踪和服务级别指标的情况下分解单体使调试回归极其困难"
+    ],
+    "primary_source": "Newman, S. (2019). \"Monolith to Microservices\". O'Reilly Media. ISBN 978-1-492-04714-1",
+    "primary_source_zh": "Newman, S.（2019）。《从单体到微服务》。O'Reilly Media。ISBN 978-1-492-04714-1",
+    "secondary_sources": [
+      "Fowler, M. (2004). \"StranglerFigApplication\". martinfowler.com/bliki/StranglerFigApplication.html",
+      "Richardson, C. (2019). \"Microservices Patterns\". Manning Publications. Chapter 13: Refactoring to Microservices."
+    ],
+    "secondary_sources_zh": [
+      "Fowler, M.（2004）。《绞杀者无花果应用》。martinfowler.com/bliki/StranglerFigApplication.html",
+      "Richardson, C.（2019）。《微服务模式》。Manning出版社。第13章：重构为微服务。"
+    ]
+  }
+]

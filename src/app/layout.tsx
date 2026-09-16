@@ -1,5 +1,7 @@
+import { CatalogTabs } from "@/components/catalog-tabs";
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/styles/catalog-tabs.css";
 
 export const metadata: Metadata = {
   title: "100 个产品设计框架 · PMFrame.works",
@@ -15,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        <CatalogTabs />
+        {children}
+      </body>
     </html>
   );
 }
