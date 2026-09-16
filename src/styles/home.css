@@ -33,6 +33,32 @@
     --cat-system: #f8e8f3;
     --cat-system-text: #6b1a52;
     --cat-system-border: #e8b8d8;
+    --cat-thinking: #e8f5ee;
+    --cat-thinking-text: #2d6a4f;
+    --cat-architecture: #e8eef8;
+    --cat-architecture-text: #1a5276;
+    --cat-coding: #ede8f8;
+    --cat-coding-text: #6c3483;
+    --cat-quality: #fce8e8;
+    --cat-quality-text: #922b21;
+    --cat-deployment: #fdf3e3;
+    --cat-deployment-text: #7d6608;
+    --cat-evolution: #e8f8e8;
+    --cat-evolution-text: #1e8449;
+    --cat-ai: #f8e8e3;
+    --cat-ai-text: #a04000;
+    --cat-data: #e3ecf8;
+    --cat-data-text: #1b4f72;
+    --cat-security: #f8e8f0;
+    --cat-security-text: #7b2d52;
+    --cat-distributed: #e8f0f8;
+    --cat-distributed-text: #1a3c5e;
+    --cat-api: #f0f0e8;
+    --cat-api-text: #5a5a2d;
+    --cat-team: #f8f0e8;
+    --cat-team-text: #6b4226;
+    --cat-observability: #e8f4f0;
+    --cat-observability-text: #1a5245;
   }
 
   html { scroll-behavior: smooth; }
@@ -40,21 +66,21 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', 'Noto Sans SC', sans-serif;
     font-size: 15px;
     line-height: 1.6;
     min-height: 100vh;
   }
 
   /* PAGE MAX WIDTH — 1600px limits grid to ≤6 columns */
-  header, .controls, .fav-section, .grid-wrap, footer {
+  .pmf-home header, .pmf-home .controls, .pmf-home .fav-section, .pmf-home .grid-wrap, .pmf-home footer {
     max-width: 1600px;
     margin-left: auto;
     margin-right: auto;
   }
 
   /* HEADER */
-  header {
+  .pmf-home header {
     padding: 64px 48px 48px;
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -65,7 +91,7 @@
     align-items: end;
   }
 
-  header::before {
+  .pmf-home header::before {
     content: '';
     position: absolute;
     top: -80px; right: -80px;
@@ -74,7 +100,7 @@
     border: 1px solid var(--border);
     pointer-events: none;
   }
-  header::after {
+  .pmf-home header::after {
     content: '';
     position: absolute;
     top: -40px; right: -40px;
@@ -127,8 +153,8 @@
     margin-bottom: 16px;
   }
 
-  h1 {
-    font-family: 'DM Serif Display', serif;
+  .pmf-home h1 {
+    font-family: 'DM Serif Display', 'Noto Serif SC', serif;
     font-size: clamp(36px, 5vw, 64px);
     font-weight: 400;
     line-height: 1.1;
@@ -137,7 +163,7 @@
     letter-spacing: -0.02em;
   }
 
-  h1 em {
+  .pmf-home h1 em {
     font-style: italic;
     color: var(--text-secondary);
   }
@@ -159,7 +185,7 @@
     flex-wrap: wrap;
     background: var(--bg);
     position: sticky;
-    top: 0;
+    top: 48px;
     z-index: 10;
   }
 
@@ -535,7 +561,7 @@
   }
 
   .modal-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Serif Display', 'Noto Serif SC', serif;
     font-size: 26px;
     font-weight: 400;
     color: var(--text);
@@ -617,18 +643,18 @@
   }
 
   @media (max-width: 900px) {
-    header { grid-template-columns: 1fr; }
+    .pmf-home header { grid-template-columns: 1fr; }
     .header-quote { display: none; }
   }
 
   @media (max-width: 600px) {
-    header { padding: 40px 20px 32px; }
+    .pmf-home header { padding: 40px 20px 32px; }
     .controls { padding: 16px 20px; gap: 10px; }
     .grid-wrap { padding-left: 20px; padding-right: 20px; }
     .grid { grid-template-columns: 1fr; }
     .controls-right { flex: 1 1 100%; margin-left: 0; }
     .search-wrap { flex: 1; min-width: 0; }
-    h1 { font-size: 36px; }
+    .pmf-home h1 { font-size: 36px; }
   }
 
   /* FAVORITES SECTION */
@@ -666,7 +692,7 @@
   }
 
   /* FOOTER */
-  footer {
+  .pmf-home footer {
     margin-top: 80px;
     padding: 32px 48px;
     border-top: 1px solid var(--border);
@@ -691,7 +717,7 @@
   }
 
   @media (max-width: 600px) {
-    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .pmf-home footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
   }
 
   .header-left { display: flex; flex-direction: column; }
@@ -723,7 +749,7 @@
   .header-quote:hover .quote-cn { opacity: 1; }
 
   .quote-text {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Serif Display', 'Noto Serif SC', serif;
     font-size: 15px;
     font-style: italic;
     color: var(--text-secondary);
