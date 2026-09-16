@@ -28,6 +28,7 @@
   color: var(--text-secondary, #6b6660);
   text-decoration: none;
   transition: all 0.15s;
+  white-space: nowrap;
 }
 
 .catalog-tab:hover {
@@ -41,8 +42,54 @@
   color: #ffffff;
 }
 
+.catalog-dev-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.catalog-dev-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.catalog-subtab {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--border-dark, #d4cfc8);
+  border-radius: 100px;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 11px;
+  color: var(--text-secondary, #6b6660);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.catalog-subtab:hover {
+  background: var(--surface, #f8f7f4);
+  color: var(--text, #1a1916);
+  border-color: var(--text, #1a1916);
+}
+
+.catalog-subtab.is-active {
+  background: var(--text, #1a1916);
+  border-color: var(--text, #1a1916);
+  color: #ffffff;
+}
+
 @media (max-width: 600px) {
   .catalog-tabs-inner {
     padding: 8px 20px;
+    flex-wrap: wrap;
+  }
+
+  .catalog-dev-nav {
+    margin-left: 0;
+    width: 100%;
   }
 }
